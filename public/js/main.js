@@ -396,6 +396,12 @@ function initNavigation() {
    ===================================================== */
 
 function initAnimations() {
+    // Check if GSAP is available
+    if (typeof gsap === 'undefined') {
+        console.log('GSAP not loaded, skipping animations');
+        return;
+    }
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {

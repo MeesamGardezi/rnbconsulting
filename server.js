@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,12 @@ const isProduction = process.env.NODE_ENV === 'production';
 if (isProduction) {
     app.set('trust proxy', 1);
 }
+
+// CORS configuration - allow cross-origin requests for Firebase Storage images
+app.use(cors({
+    origin: true, // Allow all origins in development
+    credentials: true
+}));
 
 // Middleware
 app.use(express.json());

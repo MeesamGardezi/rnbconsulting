@@ -20,8 +20,8 @@ const ImagePreloader = (function () {
     // =====================================================
     const CONFIG = {
         // Debounce delay before starting preload (ms)
-        // McMaster uses ~100ms, we use 150ms to be more conservative
-        hoverDebounceMs: 150,
+        // Set to 0 for INSTANT preloading on hover
+        hoverDebounceMs: 0,
 
         // Maximum number of images to keep in memory cache
         maxMemoryCacheSize: 50,
@@ -185,10 +185,9 @@ const ImagePreloader = (function () {
         return new Promise((resolve) => {
             const img = new Image();
 
-            // Set CORS for Firebase Storage URLs
-            if (isFirebaseStorageUrl(normalizedUrl)) {
-                img.crossOrigin = CONFIG.crossOrigin;
-            }
+            // Note: We don't set crossorigin for Firebase Storage URLs because
+            // Firebase CORS isn't configured. The image will still preload fine
+            // and be cached by the browser, just not accessible via canvas.
 
             // Use low priority fetch if supported and configured
             if (CONFIG.useLowPriority && 'fetchPriority' in img) {
@@ -318,7 +317,7 @@ const ImagePreloader = (function () {
         // Track that we've set up this element
         observedElements.add(element);
 
-        // Mouse enter - start debounced preload
+        // Mouse enter - INSTANT preload (no delay when debounceMs is 0)
         element.addEventListener('mouseenter', () => {
             const url = typeof extractUrl === 'function'
                 ? extractUrl(element)
@@ -328,16 +327,24 @@ const ImagePreloader = (function () {
                 return;
             }
 
-            // Clear any existing timer
+            // INSTANT preloading - no debounce
+            if (debounceMs === 0) {
+                if (onPreloadStart) onPreloadStart(element, url);
+                preloadImage(url).then(img => {
+                    if (onPreloadComplete) onPreloadComplete(element, url, img);
+                });
+                return;
+            }
+
+            // Clear any existing timer (for debounced mode)
             const existingTimer = hoverTimers.get(element);
             if (existingTimer) {
                 clearTimeout(existingTimer);
             }
 
-            // Start new debounced preload
+            // Debounced preload
             const timer = setTimeout(() => {
                 if (onPreloadStart) onPreloadStart(element, url);
-
                 preloadImage(url).then(img => {
                     if (onPreloadComplete) onPreloadComplete(element, url, img);
                 });
@@ -346,7 +353,7 @@ const ImagePreloader = (function () {
             hoverTimers.set(element, timer);
         });
 
-        // Mouse leave - cancel pending preload
+        // Mouse leave - cancel pending preload (only matters for debounced mode)
         element.addEventListener('mouseleave', () => {
             const timer = hoverTimers.get(element);
             if (timer) {
@@ -518,6 +525,9 @@ const ImagePreloader = (function () {
         const prefetchedUrls = new Set();
 
         document.addEventListener('mouseenter', (e) => {
+            // Ensure e.target is an Element with closest method
+            if (!e.target || typeof e.target.closest !== 'function') return;
+
             const card = e.target.closest('.blog-card, .article-card, .featured-article');
             if (!card) return;
 
