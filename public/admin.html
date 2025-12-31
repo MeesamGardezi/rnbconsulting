@@ -131,6 +131,14 @@
                     </svg>
                     <span>Quote Requests</span>
                 </a>
+                <a href="#email" class="nav-item" data-section="email">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>Email</span>
+                </a>
             </nav>
 
             <div class="sidebar-footer">
@@ -397,6 +405,80 @@
                     <div class="loading-state">Loading requests...</div>
                 </div>
             </section>
+
+            <!-- Email Section -->
+            <section class="admin-section" id="sectionEmail" data-section="email">
+                <div class="section-header">
+                    <h2>Email</h2>
+                    <div class="email-header-actions">
+                        <button class="btn btn-secondary" id="refreshEmailBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <polyline points="23 4 23 10 17 10"></polyline>
+                                <polyline points="1 20 1 14 7 14"></polyline>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                            </svg>
+                            Refresh
+                        </button>
+                        <button class="btn btn-primary" id="composeEmailBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Compose
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Email Status Banner -->
+                <div class="email-status-banner" id="emailStatusBanner">
+                    <div class="status-checking">Checking email configuration...</div>
+                </div>
+
+                <!-- Email Content -->
+                <div class="email-layout" id="emailLayout">
+                    <div class="email-sidebar">
+                        <h4>Folders</h4>
+                        <ul class="folder-list" id="folderList">
+                            <li class="active" data-folder="INBOX">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" width="16" height="16">
+                                    <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                                    <path
+                                        d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z">
+                                    </path>
+                                </svg>
+                                <span>Inbox</span>
+                            </li>
+                            <li data-folder="Sent">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" width="16" height="16">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                                <span>Sent</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="email-list-container">
+                        <div class="email-list" id="emailList">
+                            <div class="loading-state">Loading emails...</div>
+                        </div>
+                    </div>
+                    <div class="email-preview" id="emailPreview">
+                        <div class="empty-preview">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.5" width="48" height="48">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <p>Select an email to read</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -524,12 +606,54 @@
         </div>
     </div>
 
+    <!-- Compose Email Modal -->
+    <div class="modal" id="composeEmailModal">
+        <div class="modal-overlay" id="composeEmailOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="composeTitle">Compose Email</h2>
+                <button class="modal-close" id="closeComposeModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form class="modal-form" id="composeEmailForm">
+                <div class="form-group">
+                    <label for="emailTo">To *</label>
+                    <input type="email" id="emailTo" required placeholder="recipient@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="emailSubject">Subject *</label>
+                    <input type="text" id="emailSubject" required placeholder="Email subject">
+                </div>
+                <div class="form-group">
+                    <label for="emailBody">Message *</label>
+                    <textarea id="emailBody" rows="10" required placeholder="Type your message here..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelCompose">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="sendEmailBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" width="16" height="16">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                        Send Email
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Toast Notifications -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Scripts -->
-    <script src="js/firebase-config.js"></script>
-    <script src="js/admin.js"></script>
+    <script src="js/firebase-config.js?v=2"></script>
+    <script src="js/admin.js?v=2"></script>
 </body>
 
 </html>

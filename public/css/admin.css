@@ -1367,3 +1367,311 @@
         padding: var(--spacing-sm);
     }
 }
+
+/* =====================================================
+   Email Section
+   ===================================================== */
+.email-header-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.email-status-banner {
+    background: var(--admin-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    border: 1px solid var(--admin-border);
+}
+
+.email-status-banner.configured {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.email-status-banner.not-configured {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.email-status-banner .status-configured {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    color: #10b981;
+}
+
+.email-status-banner .status-not-configured {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    color: #f59e0b;
+}
+
+.email-status-banner .status-not-configured p {
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.email-status-banner .status-checking {
+    color: var(--admin-text-muted);
+}
+
+.email-layout {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    gap: var(--spacing-md);
+    background: var(--admin-surface);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    min-height: 600px;
+    border: 1px solid var(--admin-border);
+}
+
+.email-sidebar {
+    background: var(--admin-bg);
+    padding: var(--spacing-md);
+    border-right: 1px solid var(--admin-border);
+}
+
+.email-sidebar h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--admin-text-muted);
+    margin-bottom: var(--spacing-md);
+    padding: 0 var(--spacing-sm);
+}
+
+.folder-list {
+    list-style: none;
+}
+
+.folder-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.folder-list li:hover {
+    background: var(--admin-surface);
+}
+
+.folder-list li.active {
+    background: var(--admin-accent);
+    color: white;
+}
+
+.folder-list li svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.email-list-container {
+    border-right: 1px solid var(--admin-border);
+    overflow-y: auto;
+}
+
+.email-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.email-item {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--admin-border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.email-item:hover {
+    background: var(--admin-bg);
+}
+
+.email-item.active {
+    background: rgba(79, 70, 229, 0.05);
+    border-left: 3px solid var(--admin-accent);
+}
+
+.email-item.unread {
+    background: rgba(59, 130, 246, 0.02);
+}
+
+.email-item.unread .email-item-from {
+    font-weight: var(--font-weight-bold);
+}
+
+.email-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-xs);
+}
+
+.email-item-from {
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-medium);
+}
+
+.email-item-date {
+    font-size: 0.75rem;
+    color: var(--admin-text-muted);
+    flex-shrink: 0;
+}
+
+.email-item-subject {
+    font-size: 0.875rem;
+    margin-bottom: var(--spacing-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email-item-preview {
+    font-size: 0.75rem;
+    color: var(--admin-text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.email-preview {
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+}
+
+.empty-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--admin-text-muted);
+    text-align: center;
+    padding: var(--spacing-2xl);
+}
+
+.empty-preview svg {
+    margin-bottom: var(--spacing-md);
+    opacity: 0.5;
+}
+
+.email-preview-header {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.email-preview-subject {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-md);
+}
+
+.email-preview-meta {
+    font-size: 0.875rem;
+    color: var(--admin-text-muted);
+}
+
+.email-preview-meta strong {
+    color: var(--admin-text);
+    font-weight: var(--font-weight-medium);
+}
+
+.email-preview-body {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+}
+
+.email-preview-body p {
+    margin-bottom: var(--spacing-md);
+}
+
+.email-preview-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--admin-border);
+}
+
+.email-attachments {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--admin-border);
+}
+
+.email-attachments h4 {
+    font-size: 0.875rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.attachment-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.attachment-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--admin-bg);
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+}
+
+.attachment-item svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Compose Email Modal Styles */
+#composeEmailModal .modal-form .form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+#composeEmailModal #emailBody {
+    min-height: 200px;
+    resize: vertical;
+}
+
+#sendEmailBtn svg {
+    margin-right: var(--spacing-xs);
+}
+
+/* Email responsive */
+@media (max-width: 1200px) {
+    .email-layout {
+        grid-template-columns: 150px 1fr 1fr;
+    }
+}
+
+@media (max-width: 1024px) {
+    .email-layout {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .email-sidebar {
+        display: none;
+    }
+
+    .email-list-container {
+        border-right: none;
+        max-height: 300px;
+    }
+
+    .email-preview {
+        border-top: 1px solid var(--admin-border);
+    }
+}

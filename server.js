@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const cors = require('cors');
+const emailService = require('./services/emailService');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -105,6 +106,131 @@ const requireAdmin = (req, res, next) => {
 };
 
 // =====================================================
+// Email API Routes (Protected)
+// =====================================================
+
+// Get email configuration status
+app.get('/api/email/status', requireAdmin, (req, res) => {
+    const status = emailService.getEmailStatus();
+    res.json(status);
+});
+
+// Verify SMTP connection
+app.post('/api/email/verify-smtp', requireAdmin, async (req, res) => {
+    try {
+        const result = await emailService.verifySMTP();
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Fetch emails from inbox
+app.get('/api/email/inbox', requireAdmin, async (req, res) => {
+    try {
+        const { limit = 20, folder = 'INBOX', unseen = false } = req.query;
+        const emails = await emailService.fetchEmails({
+            limit: parseInt(limit),
+            folder,
+            unseen: unseen === 'true'
+        });
+        res.json({ success: true, emails });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Get email folders
+app.get('/api/email/folders', requireAdmin, async (req, res) => {
+    try {
+        const folders = await emailService.getFolders();
+        res.json({ success: true, folders });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Send email
+app.post('/api/email/send', requireAdmin, async (req, res) => {
+    try {
+        const { to, subject, text, html, replyTo } = req.body;
+
+        if (!to || !subject || !text) {
+            return res.status(400).json({
+                success: false,
+                error: 'Missing required fields: to, subject, text'
+            });
+        }
+
+        const result = await emailService.sendEmail({ to, subject, text, html, replyTo });
+        res.json({ success: true, ...result });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Mark email as read
+app.post('/api/email/mark-read', requireAdmin, async (req, res) => {
+    try {
+        const { uid, folder = 'INBOX' } = req.body;
+
+        if (!uid) {
+            return res.status(400).json({
+                success: false,
+                error: 'Missing required field: uid'
+            });
+        }
+
+        const result = await emailService.markAsRead(uid, folder);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Reply to a contact or quote submission
+app.post('/api/email/reply', requireAdmin, async (req, res) => {
+    try {
+        const { to, subject, message, originalSubject } = req.body;
+
+        if (!to || !message) {
+            return res.status(400).json({
+                success: false,
+                error: 'Missing required fields: to, message'
+            });
+        }
+
+        const emailSubject = subject || `Re: ${originalSubject || 'Your inquiry to R&B Construction Consulting'}`;
+
+        const html = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); padding: 30px; text-align: center;">
+                    <h1 style="color: white; margin: 0; font-size: 24px;">R&B Construction Consulting</h1>
+                </div>
+                <div style="padding: 30px; background: #fff;">
+                    ${message.replace(/\n/g, '<br>')}
+                </div>
+                <div style="padding: 20px; background: #f8f9fa; text-align: center; font-size: 12px; color: #666;">
+                    <p style="margin: 0;">R&B Construction Consulting</p>
+                    <p style="margin: 5px 0;">📧 info@rnbconsulting.org | 📞 (845) 616-0149</p>
+                </div>
+            </div>
+        `;
+
+        const result = await emailService.sendEmail({
+            to,
+            subject: emailSubject,
+            text: message,
+            html
+        });
+
+        res.json({ success: true, ...result });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// =====================================================
 // Page Routes
 // =====================================================
 
@@ -136,8 +262,13 @@ app.use((req, res) => {
     });
 });
 
+// Initialize email service on startup
+emailService.initializeSMTP();
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🏗️  R&B Construction Consulting server running at http://localhost:${PORT}`);
     console.log(`📧  Admin login: ${ADMIN_EMAIL}`);
     console.log(`🌐  Environment: ${isProduction ? 'Production' : 'Development'}`);
+    console.log(`📬  Email status:`, emailService.getEmailStatus().smtp.configured ? 'Configured' : 'Not configured');
 });
+

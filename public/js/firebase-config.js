@@ -501,36 +501,35 @@ const AnalyticsService = {
                 blogReads: (acc.blogReads || 0) + (day.blogReads || 0)
             }), {});
 
-            // Get top pages
-            const pageViewsSnapshot = await this.collection
-                .where('type', '==', 'page_view')
+            // OPTIMIZED: Get all analytics events for the period in one query
+            // and filter locally to avoid needing composite indexes (type + date)
+            const analyticsSnapshot = await this.collection
                 .where('date', '>=', startDateStr)
                 .get();
 
             const pageCounts = {};
-            pageViewsSnapshot.docs.forEach(doc => {
-                const path = doc.data().path;
-                pageCounts[path] = (pageCounts[path] || 0) + 1;
+            const blogCounts = {};
+            const blogTitles = {};
+
+            analyticsSnapshot.docs.forEach(doc => {
+                const data = doc.data();
+
+                if (data.type === 'page_view') {
+                    const path = data.path;
+                    pageCounts[path] = (pageCounts[path] || 0) + 1;
+                } else if (data.type === 'blog_read') {
+                    const postId = data.postId;
+                    blogCounts[postId] = (blogCounts[postId] || 0) + 1;
+                    if (data.postTitle) {
+                        blogTitles[postId] = data.postTitle;
+                    }
+                }
             });
 
             const topPages = Object.entries(pageCounts)
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 10)
                 .map(([path, views]) => ({ path, views }));
-
-            // Get top blog posts by reads
-            const blogReadsSnapshot = await this.collection
-                .where('type', '==', 'blog_read')
-                .where('date', '>=', startDateStr)
-                .get();
-
-            const blogCounts = {};
-            const blogTitles = {};
-            blogReadsSnapshot.docs.forEach(doc => {
-                const data = doc.data();
-                blogCounts[data.postId] = (blogCounts[data.postId] || 0) + 1;
-                blogTitles[data.postId] = data.postTitle;
-            });
 
             const topPosts = Object.entries(blogCounts)
                 .sort((a, b) => b[1] - a[1])

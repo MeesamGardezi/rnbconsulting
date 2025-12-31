@@ -13,12 +13,17 @@ const AdminState = {
     contacts: [],
     quotes: [],
     analytics: null,
-    charts: {}
+    charts: {},
+    // Email state
+    emails: [],
+    currentEmail: null,
+    currentFolder: 'INBOX',
+    emailStatus: null
 };
 
 // =====================================================
 // DOM Elements
-// =====================================================
+// =====================================================z
 const Elements = {
     // Login
     loginScreen: document.getElementById('loginScreen'),
@@ -82,7 +87,24 @@ const Elements = {
     updateSubmissionStatus: document.getElementById('updateSubmissionStatus'),
 
     // Toast
-    toastContainer: document.getElementById('toastContainer')
+    toastContainer: document.getElementById('toastContainer'),
+
+    // Email
+    emailStatusBanner: document.getElementById('emailStatusBanner'),
+    emailLayout: document.getElementById('emailLayout'),
+    emailList: document.getElementById('emailList'),
+    emailPreview: document.getElementById('emailPreview'),
+    folderList: document.getElementById('folderList'),
+    refreshEmailBtn: document.getElementById('refreshEmailBtn'),
+    composeEmailBtn: document.getElementById('composeEmailBtn'),
+    composeEmailModal: document.getElementById('composeEmailModal'),
+    composeEmailForm: document.getElementById('composeEmailForm'),
+    closeComposeModal: document.getElementById('closeComposeModal'),
+    composeEmailOverlay: document.getElementById('composeEmailOverlay'),
+    cancelCompose: document.getElementById('cancelCompose'),
+    emailTo: document.getElementById('emailTo'),
+    emailSubject: document.getElementById('emailSubject'),
+    emailBody: document.getElementById('emailBody')
 };
 
 // =====================================================
@@ -263,7 +285,8 @@ function navigateToSection(section) {
         blog: 'Blog Posts',
         analytics: 'Analytics',
         contacts: 'Contact Forms',
-        quotes: 'Quote Requests'
+        quotes: 'Quote Requests',
+        email: 'Email'
     };
     Elements.pageHeading.textContent = headings[section] || 'Dashboard';
 
@@ -283,6 +306,9 @@ function navigateToSection(section) {
             break;
         case 'quotes':
             loadQuotes();
+            break;
+        case 'email':
+            loadEmailSection();
             break;
     }
 
@@ -1014,6 +1040,299 @@ function initFilterTabs() {
 }
 
 // =====================================================
+// Email Section
+// =====================================================
+async function loadEmailSection() {
+    // First check email configuration status
+    await checkEmailStatus();
+
+    // If configured, load emails
+    if (AdminState.emailStatus?.smtp?.configured || AdminState.emailStatus?.imap?.configured) {
+        await loadEmails();
+    }
+}
+
+async function checkEmailStatus() {
+    try {
+        const response = await fetch('/api/email/status');
+        const status = await response.json();
+        AdminState.emailStatus = status;
+
+        renderEmailStatusBanner(status);
+    } catch (error) {
+        console.error('Error checking email status:', error);
+        renderEmailStatusBanner({ smtp: { configured: false }, imap: { configured: false } });
+    }
+}
+
+function renderEmailStatusBanner(status) {
+    if (!Elements.emailStatusBanner) return;
+
+    const isSmtpConfigured = status.smtp?.configured;
+    const isImapConfigured = status.imap?.configured;
+
+    if (isSmtpConfigured && isImapConfigured) {
+        Elements.emailStatusBanner.className = 'email-status-banner configured';
+        Elements.emailStatusBanner.innerHTML = `
+            <div class="status-configured">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Email configured: ${status.smtp.user}</span>
+            </div>
+        `;
+    } else {
+        Elements.emailStatusBanner.className = 'email-status-banner not-configured';
+        Elements.emailStatusBanner.innerHTML = `
+            <div class="status-not-configured">
+                <p><strong>⚠️ Email not configured</strong></p>
+                <p>To enable email functionality, add your email password to the <code>.env</code> file:</p>
+                <p><code>SMTP_PASSWORD=your_email_password</code></p>
+                <p><code>IMAP_PASSWORD=your_email_password</code></p>
+            </div>
+        `;
+    }
+}
+
+async function loadEmails(folder = AdminState.currentFolder) {
+    if (!Elements.emailList) return;
+
+    Elements.emailList.innerHTML = '<div class="loading-state">Loading emails...</div>';
+
+    try {
+        const response = await fetch(`/api/email/inbox?folder=${encodeURIComponent(folder)}&limit=30`);
+        const data = await response.json();
+
+        if (data.success) {
+            AdminState.emails = data.emails || [];
+            AdminState.currentFolder = folder;
+            renderEmailList();
+        } else {
+            Elements.emailList.innerHTML = `<div class="empty-state">${data.error || 'Failed to load emails'}</div>`;
+        }
+    } catch (error) {
+        console.error('Error loading emails:', error);
+        Elements.emailList.innerHTML = '<div class="empty-state">Unable to load emails. Please check your configuration.</div>';
+    }
+}
+
+function renderEmailList() {
+    if (!Elements.emailList) return;
+
+    if (!AdminState.emails || AdminState.emails.length === 0) {
+        Elements.emailList.innerHTML = '<div class="empty-state">No emails found</div>';
+        return;
+    }
+
+    Elements.emailList.innerHTML = AdminState.emails.map((email, index) => {
+        const fromName = email.from?.name || email.from?.address || 'Unknown';
+        const fromEmail = email.from?.address || '';
+        const isUnread = email.flags && !email.flags.includes('\\Seen');
+        const date = email.date ? new Date(email.date) : null;
+        const dateStr = date ? formatEmailDate(date) : '';
+        const preview = (email.text || '').replace(/\n/g, ' ').substring(0, 100);
+
+        return `
+            <div class="email-item ${isUnread ? 'unread' : ''} ${AdminState.currentEmail === index ? 'active' : ''}" 
+                 onclick="selectEmail(${index})">
+                <div class="email-item-header">
+                    <span class="email-item-from">${truncate(fromName, 25)}</span>
+                    <span class="email-item-date">${dateStr}</span>
+                </div>
+                <div class="email-item-subject">${email.subject || '(No Subject)'}</div>
+                <div class="email-item-preview">${truncate(preview, 80)}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+function formatEmailDate(date) {
+    const now = new Date();
+    const diff = now - date;
+    const dayMs = 24 * 60 * 60 * 1000;
+
+    if (diff < dayMs) {
+        // Today - show time
+        return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    } else if (diff < 7 * dayMs) {
+        // This week - show day
+        return date.toLocaleDateString('en-US', { weekday: 'short' });
+    } else {
+        // Older - show date
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+}
+
+window.selectEmail = function (index) {
+    AdminState.currentEmail = index;
+    const email = AdminState.emails[index];
+
+    // Update list selection
+    document.querySelectorAll('.email-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+    });
+
+    // Show email preview
+    renderEmailPreview(email);
+};
+
+function renderEmailPreview(email) {
+    if (!Elements.emailPreview || !email) return;
+
+    const fromName = email.from?.name || email.from?.address || 'Unknown';
+    const fromEmail = email.from?.address || '';
+    const toAddresses = email.to?.map(t => t.address).join(', ') || '';
+    const date = email.date ? new Date(email.date) : null;
+    const dateStr = date ? date.toLocaleString() : '';
+
+    let attachmentsHtml = '';
+    if (email.attachments && email.attachments.length > 0) {
+        attachmentsHtml = `
+            <div class="email-attachments">
+                <h4>Attachments (${email.attachments.length})</h4>
+                <div class="attachment-list">
+                    ${email.attachments.map(att => `
+                        <div class="attachment-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            <span>${att.filename}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    Elements.emailPreview.innerHTML = `
+        <div class="email-preview-header">
+            <h3 class="email-preview-subject">${email.subject || '(No Subject)'}</h3>
+            <div class="email-preview-meta">
+                <p><strong>From:</strong> ${fromName} &lt;${fromEmail}&gt;</p>
+                <p><strong>To:</strong> ${toAddresses}</p>
+                <p><strong>Date:</strong> ${dateStr}</p>
+            </div>
+        </div>
+        <div class="email-preview-body">
+            ${email.html ? email.html : '<pre>' + (email.text || 'No content') + '</pre>'}
+        </div>
+        ${attachmentsHtml}
+        <div class="email-preview-actions">
+            <button class="btn btn-primary" onclick="replyToEmail('${fromEmail}', '${(email.subject || '').replace(/'/g, "\\'")}')">
+                Reply
+            </button>
+            <button class="btn btn-secondary" onclick="forwardEmail(${AdminState.currentEmail})">
+                Forward
+            </button>
+        </div>
+    `;
+}
+
+window.replyToEmail = function (toEmail, subject) {
+    openComposeModal();
+    if (Elements.emailTo) Elements.emailTo.value = toEmail;
+    if (Elements.emailSubject) Elements.emailSubject.value = subject.startsWith('Re:') ? subject : 'Re: ' + subject;
+    document.getElementById('composeTitle').textContent = 'Reply';
+};
+
+window.forwardEmail = function (index) {
+    const email = AdminState.emails[index];
+    if (!email) return;
+
+    openComposeModal();
+    if (Elements.emailSubject) {
+        Elements.emailSubject.value = email.subject?.startsWith('Fwd:') ? email.subject : 'Fwd: ' + (email.subject || '');
+    }
+    if (Elements.emailBody) {
+        const originalText = email.text || '';
+        Elements.emailBody.value = `\n\n---------- Forwarded message ----------\nFrom: ${email.from?.address || ''}\nDate: ${email.date ? new Date(email.date).toLocaleString() : ''}\nSubject: ${email.subject || ''}\n\n${originalText}`;
+    }
+    document.getElementById('composeTitle').textContent = 'Forward';
+};
+
+function openComposeModal() {
+    if (Elements.composeEmailModal) {
+        Elements.composeEmailModal.classList.add('active');
+    }
+    document.getElementById('composeTitle').textContent = 'Compose Email';
+}
+
+function closeComposeModal() {
+    if (Elements.composeEmailModal) {
+        Elements.composeEmailModal.classList.remove('active');
+    }
+    // Reset form
+    Elements.composeEmailForm?.reset();
+}
+
+async function sendEmail(e) {
+    e.preventDefault();
+
+    const to = Elements.emailTo?.value;
+    const subject = Elements.emailSubject?.value;
+    const text = Elements.emailBody?.value;
+
+    if (!to || !subject || !text) {
+        showToast('Please fill in all fields', 'error');
+        return;
+    }
+
+    const sendBtn = document.getElementById('sendEmailBtn');
+    const originalText = sendBtn.innerHTML;
+    sendBtn.innerHTML = 'Sending...';
+    sendBtn.disabled = true;
+
+    try {
+        const response = await fetch('/api/email/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ to, subject, text })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showToast('Email sent successfully!');
+            closeComposeModal();
+        } else {
+            showToast(data.error || 'Failed to send email', 'error');
+        }
+    } catch (error) {
+        console.error('Error sending email:', error);
+        showToast('Failed to send email', 'error');
+    } finally {
+        sendBtn.innerHTML = originalText;
+        sendBtn.disabled = false;
+    }
+}
+
+function initEmailEventListeners() {
+    // Compose modal
+    Elements.composeEmailBtn?.addEventListener('click', openComposeModal);
+    Elements.closeComposeModal?.addEventListener('click', closeComposeModal);
+    Elements.composeEmailOverlay?.addEventListener('click', closeComposeModal);
+    Elements.cancelCompose?.addEventListener('click', closeComposeModal);
+    Elements.composeEmailForm?.addEventListener('submit', sendEmail);
+
+    // Refresh emails
+    Elements.refreshEmailBtn?.addEventListener('click', () => loadEmails());
+
+    // Folder selection
+    Elements.folderList?.querySelectorAll('li').forEach(item => {
+        item.addEventListener('click', () => {
+            Elements.folderList.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+            item.classList.add('active');
+            const folder = item.dataset.folder;
+            loadEmails(folder);
+        });
+    });
+}
+
+// =====================================================
 // Event Listeners
 // =====================================================
 function initEventListeners() {
@@ -1048,9 +1367,13 @@ function initEventListeners() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closePostEditor();
+            closeComposeModal();
             Elements.submissionModal?.classList.remove('active');
         }
     });
+
+    // Initialize email event listeners
+    initEmailEventListeners();
 }
 
 // =====================================================
@@ -1069,3 +1392,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initFilterTabs();
     initImageUpload();
 });
+
