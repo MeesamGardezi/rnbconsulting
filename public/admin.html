@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Panel | R&B Construction Consulting</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body class="admin-body">
+    <!-- Login Screen -->
+    <div class="admin-login" id="loginScreen">
+        <div class="login-container">
+            <div class="login-header">
+                <a href="/" class="login-logo">
+                    <span class="logo-text">R&B</span>
+                    <span class="logo-subtext">Admin Panel</span>
+                </a>
+            </div>
+            <form class="login-form" id="loginForm">
+                <h1>Sign In</h1>
+                <p>Enter your credentials to access the admin panel</p>
+
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="admin@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                </div>
+
+                <div class="login-error" id="loginError"></div>
+
+                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+            </form>
+            <a href="/" class="back-to-site">← Back to Website</a>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-container" id="adminDashboard" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-header">
+                <a href="/" class="admin-logo">
+                    <span class="logo-text">R&B</span>
+                    <span class="logo-subtext">Admin</span>
+                </a>
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#blog" class="nav-item" data-section="blog">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>Blog Posts</span>
+                </a>
+                <a href="#analytics" class="nav-item" data-section="analytics">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    <span>Analytics</span>
+                </a>
+                <a href="#contacts" class="nav-item" data-section="contacts">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>Contact Forms</span>
+                </a>
+                <a href="#quotes" class="nav-item" data-section="quotes">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                    <span>Quote Requests</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info" id="userInfo">
+                    <div class="user-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="userName">Admin</span>
+                        <span class="user-email" id="userEmail">admin@example.com</span>
+                    </div>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h1 class="page-heading" id="pageHeading">Dashboard</h1>
+                <div class="header-actions">
+                    <a href="/" target="_blank" class="btn btn-secondary btn-sm">View Site</a>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section class="admin-section active" id="sectionDashboard" data-section="dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="statVisitors">0</span>
+                            <span class="stat-label">Unique Visitors</span>
+                            <span class="stat-period">Last 30 days</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="statPageViews">0</span>
+                            <span class="stat-label">Page Views</span>
+                            <span class="stat-period">Last 30 days</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="statBlogReads">0</span>
+                            <span class="stat-label">Blog Reads</span>
+                            <span class="stat-period">Last 30 days</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="statPosts">0</span>
+                            <span class="stat-label">Blog Posts</span>
+                            <span class="stat-period">Total published</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card chart-card">
+                        <h3>Page Views (Last 30 Days)</h3>
+                        <div class="chart-container">
+                            <canvas id="pageViewsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Top Pages</h3>
+                        <ul class="top-list" id="topPagesList">
+                            <li class="loading">Loading...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Recent Contact Forms</h3>
+                        <ul class="recent-list" id="recentContactsList">
+                            <li class="loading">Loading...</li>
+                        </ul>
+                        <a href="#contacts" class="view-all-link" data-section="contacts">View All →</a>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Recent Quote Requests</h3>
+                        <ul class="recent-list" id="recentQuotesList">
+                            <li class="loading">Loading...</li>
+                        </ul>
+                        <a href="#quotes" class="view-all-link" data-section="quotes">View All →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blog Posts Section -->
+            <section class="admin-section" id="sectionBlog" data-section="blog">
+                <div class="section-header">
+                    <h2>Blog Posts</h2>
+                    <button class="btn btn-primary" id="newPostBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        New Post
+                    </button>
+                </div>
+
+                <!-- Blog Posts Table -->
+                <div class="table-container">
+                    <table class="admin-table" id="blogPostsTable">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Views</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blogPostsBody">
+                            <tr>
+                                <td colspan="6" class="loading-cell">Loading posts...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section class="admin-section" id="sectionAnalytics" data-section="analytics">
+                <div class="section-header">
+                    <h2>Analytics</h2>
+                    <select class="analytics-period" id="analyticsPeriod">
+                        <option value="7">Last 7 days</option>
+                        <option value="30" selected>Last 30 days</option>
+                        <option value="90">Last 90 days</option>
+                    </select>
+                </div>
+
+                <div class="analytics-stats">
+                    <div class="analytics-stat">
+                        <span class="stat-value" id="analyticsTotalVisitors">0</span>
+                        <span class="stat-label">Total Visitors</span>
+                    </div>
+                    <div class="analytics-stat">
+                        <span class="stat-value" id="analyticsTotalViews">0</span>
+                        <span class="stat-label">Total Page Views</span>
+                    </div>
+                    <div class="analytics-stat">
+                        <span class="stat-value" id="analyticsTotalReads">0</span>
+                        <span class="stat-label">Total Blog Reads</span>
+                    </div>
+                    <div class="analytics-stat">
+                        <span class="stat-value" id="analyticsAvgViews">0</span>
+                        <span class="stat-label">Avg Views/Day</span>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Traffic Overview</h3>
+                        <div class="chart-container large">
+                            <canvas id="trafficChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-grid two-col">
+                    <div class="analytics-card">
+                        <h3>Top Pages</h3>
+                        <ul class="analytics-list" id="analyticsTopPages">
+                            <li class="loading">Loading...</li>
+                        </ul>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Top Blog Posts</h3>
+                        <ul class="analytics-list" id="analyticsTopPosts">
+                            <li class="loading">Loading...</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Forms Section -->
+            <section class="admin-section" id="sectionContacts" data-section="contacts">
+                <div class="section-header">
+                    <h2>Contact Form Submissions</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">All</button>
+                        <button class="filter-tab" data-filter="new">New</button>
+                        <button class="filter-tab" data-filter="read">Read</button>
+                        <button class="filter-tab" data-filter="replied">Replied</button>
+                    </div>
+                </div>
+
+                <div class="submissions-list" id="contactsList">
+                    <div class="loading-state">Loading submissions...</div>
+                </div>
+            </section>
+
+            <!-- Quote Requests Section -->
+            <section class="admin-section" id="sectionQuotes" data-section="quotes">
+                <div class="section-header">
+                    <h2>Quote Requests</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">All</button>
+                        <button class="filter-tab" data-filter="pending">Pending</button>
+                        <button class="filter-tab" data-filter="reviewed">Reviewed</button>
+                        <button class="filter-tab" data-filter="quoted">Quoted</button>
+                    </div>
+                </div>
+
+                <div class="submissions-list" id="quotesList">
+                    <div class="loading-state">Loading requests...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Blog Post Editor Modal -->
+    <div class="modal" id="postEditorModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="editorTitle">New Blog Post</h2>
+                <button class="modal-close" id="closeModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form class="modal-form" id="postEditorForm">
+                <input type="hidden" id="postId" value="">
+
+                <div class="editor-layout">
+                    <div class="editor-main">
+                        <div class="form-group">
+                            <label for="postTitle">Title *</label>
+                            <input type="text" id="postTitle" required placeholder="Enter post title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postExcerpt">Excerpt</label>
+                            <textarea id="postExcerpt" rows="2" placeholder="Brief summary of the post"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postContent">Content *</label>
+                            <textarea id="postContent" rows="15" required
+                                placeholder="Write your post content here... (Supports HTML)"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="editor-sidebar">
+                        <div class="form-group">
+                            <label for="postStatus">Status</label>
+                            <select id="postStatus">
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postCategory">Category *</label>
+                            <select id="postCategory" required>
+                                <option value="">Select category</option>
+                                <option value="Project Management">Project Management</option>
+                                <option value="Estimating">Estimating</option>
+                                <option value="Scheduling">Scheduling</option>
+                                <option value="Industry Trends">Industry Trends</option>
+                                <option value="Operations">Operations</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postReadTime">Read Time (minutes)</label>
+                            <input type="number" id="postReadTime" min="1" max="60" value="5">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="postFeatured">
+                                <span>Featured Post</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postImage">Featured Image</label>
+                            <div class="image-upload">
+                                <input type="file" id="postImage" accept="image/*">
+                                <div class="image-preview" id="imagePreview">
+                                    <span>Click to upload or drag and drop</span>
+                                </div>
+                            </div>
+                            <input type="hidden" id="postImageUrl" value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postAuthor">Author Name</label>
+                            <input type="text" id="postAuthor" placeholder="Author name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelPost">Cancel</button>
+                    <button type="button" class="btn btn-secondary" id="saveDraft">Save as Draft</button>
+                    <button type="submit" class="btn btn-primary" id="publishPost">Publish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Submission Detail Modal -->
+    <div class="modal" id="submissionModal">
+        <div class="modal-overlay" id="submissionOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="submissionTitle">Submission Details</h2>
+                <button class="modal-close" id="closeSubmissionModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="submission-details" id="submissionDetails">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <select id="submissionStatus" class="status-select">
+                    <option value="new">New</option>
+                    <option value="read">Read</option>
+                    <option value="replied">Replied</option>
+                </select>
+                <button class="btn btn-primary" id="updateSubmissionStatus">Update Status</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

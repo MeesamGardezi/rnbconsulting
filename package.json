@@ -1,0 +1,23 @@
+{
+    "name": "rb-construction-consulting",
+    "version": "1.0.0",
+    "description": "R&B Construction Consulting Landing Page",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node server.js"
+    },
+    "keywords": [
+        "construction",
+        "consulting",
+        "estimating",
+        "scheduling"
+    ],
+    "author": "R&B Construction Consulting",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^17.2.3",
+        "express": "^4.18.2",
+        "express-session": "^1.18.2"
+    }
+}
