@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="R&B Property Maintenance Services — General repairs, lawn care, seasonal cleanup, property inspections, turnover refresh, and ongoing maintenance plans for rental property owners.">
+    <meta name="keywords"
+        content="property maintenance services, vacation rental repairs, lawn mowing service, seasonal yard cleanup, property inspection, rental turnover service, maintenance plans">
+    <meta name="author" content="R&B Property Maintenance">
+
+    <title>Our Services | R&B Property Maintenance</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏡</text></svg>">
+
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <style>
+        .nav-logo-sub-construction {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="/construction" class="nav-logo"
+                style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-decoration:none;">
+                <span class="logo-text">R&B</span>
+                <span class="nav-logo-sub-construction">PROPERTY MAINTENANCE</span>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/construction/services" class="active">Services</a></li>
+                <li><a href="/construction/contact">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="/" class="nav-link-contact">← All Divisions</a>
+                <a href="/construction/contact" class="nav-cta">Get a Free Quote</a>
+            </div>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="/" class="mobile-link">← All Divisions</a>
+                <a href="/construction" class="mobile-link">Home</a>
+                <a href="/construction/services" class="mobile-link active">Services</a>
+                <a href="/construction/contact" class="mobile-link">Contact</a>
+                <a href="/construction/contact" class="mobile-cta">Get a Free Quote</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-background">
+            <div class="grain-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="page-header-content">
+                <nav class="breadcrumb">
+                    <a href="/">Home</a>
+                    <span class="separator">/</span>
+                    <a href="/construction">Property Maintenance</a>
+                    <span class="separator">/</span>
+                    <span class="current">Services</span>
+                </nav>
+                <h1 class="page-title">Our Services</h1>
+                <p class="page-subtitle">Everything a rental property needs to stay in great shape — handled for you.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="services-overview">
+        <div class="container">
+            <div class="services-intro">
+                <p class="intro-text">
+                    Our services are available as individual visits or bundled into ongoing maintenance plans. Whether you need a one-time fix or year-round support, we build around your property's actual needs.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Nav -->
+    <section style="background:#f9fafb;border-bottom:1px solid #e5e7eb;padding:16px 0;">
+        <div class="container">
+            <div style="display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;">
+                <span style="font-size:0.8rem;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:0.1em;">Jump to:</span>
+                <a href="#repairs" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">General Repairs</a>
+                <a href="#lawn" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Lawn Care</a>
+                <a href="#seasonal" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Seasonal Cleanup</a>
+                <a href="#inspections" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Property Walkthroughs</a>
+                <a href="#turnover" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Turnover Refresh</a>
+                <a href="#plans" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Maintenance Plans</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 01: General Repairs -->
+    <section class="service-detail" id="repairs">
+        <div class="container">
+            <div class="service-detail-grid">
+                <div class="service-detail-content">
+                    <span class="service-number">01</span>
+                    <h2 class="service-detail-title">General Repairs & Handyman</h2>
+                    <p class="service-detail-desc">
+                        Small issues left unaddressed become expensive problems — and guests notice everything. Our handyman service takes care of the minor repairs that keep your property functional, safe, and looking its best.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Leaky faucets, running toilets, and minor plumbing fixes
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Door and window hardware adjustments and repairs
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Light fixture replacements and bulb changes
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Drywall patching, caulking, and paint touch-ups
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Cabinet, drawer, and furniture hardware fixes
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Deck boards, railings, steps, and exterior woodwork
+                        </li>
+                    </ul>
+                    <a href="/construction/contact" class="btn btn-primary">Request This Service</a>
+                </div>
+                <div class="service-detail-image">
+                    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=500&fit=crop"
+                        alt="Handyman and repair services">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 02: Lawn Care -->
+    <section class="service-detail alt-bg" id="lawn">
+        <div class="container">
+            <div class="service-detail-grid reversed">
+                <div class="service-detail-content">
+                    <span class="service-number">02</span>
+                    <h2 class="service-detail-title">Lawn Care & Mowing</h2>
+                    <p class="service-detail-desc">
+                        A well-kept exterior sets the first impression for every guest. We keep your lawn mowed, edges clean, and grounds tidy on a consistent schedule — without you needing to think about it.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Weekly or bi-weekly mowing on a fixed schedule
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Edging along walkways, driveways, and beds
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            String trimming around fences, trees, and structures
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Clipping and blowing of walkways and hard surfaces
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Shrub and hedge trimming
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Post-visit photo confirmation sent to you
+                        </li>
+                    </ul>
+                    <a href="/construction/contact" class="btn btn-primary">Request This Service</a>
+                </div>
+                <div class="service-detail-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=500&fit=crop"
+                        alt="Lawn care and mowing">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 03: Seasonal Cleanup -->
+    <section class="service-detail" id="seasonal">
+        <div class="container">
+            <div class="service-detail-grid">
+                <div class="service-detail-content">
+                    <span class="service-number">03</span>
+                    <h2 class="service-detail-title">Seasonal Yard Cleanup</h2>
+                    <p class="service-detail-desc">
+                        Every season brings a new set of yard challenges. We handle the heavy work so your property stays safe, clean, and presentable throughout the year — not just when guests are arriving.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Spring cleanup: debris removal, bed clearing, and prep
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Fall cleanup: leaf removal and lawn prep for winter
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Storm debris pickup after wind or rain events
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Branch and brush clearing from lawn and pathways
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Gutter cleaning and downspout clearing
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Outdoor furniture and deck winterization
+                        </li>
+                    </ul>
+                    <a href="/construction/contact" class="btn btn-primary">Request This Service</a>
+                </div>
+                <div class="service-detail-image">
+                    <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=600&h=500&fit=crop"
+                        alt="Seasonal yard cleanup">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 04: Property Walkthroughs -->
+    <section class="service-detail alt-bg" id="inspections">
+        <div class="container">
+            <div class="service-detail-grid reversed">
+                <div class="service-detail-content">
+                    <span class="service-number">04</span>
+                    <h2 class="service-detail-title">Property Walkthroughs & Inspections</h2>
+                    <p class="service-detail-desc">
+                        When you're not on-site, it's easy for small issues to go unnoticed until they become big ones. Our regular walkthroughs give you a clear picture of your property's condition before problems escalate.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Interior and exterior visual inspection
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Written condition report with timestamped photos
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Plumbing, HVAC, and appliance status check
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Smoke detector, carbon monoxide, and safety checks
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Pre-arrival and post-checkout walkthroughs
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Flagging of issues with recommended next steps
+                        </li>
+                    </ul>
+                    <a href="/construction/contact" class="btn btn-primary">Request This Service</a>
+                </div>
+                <div class="service-detail-image">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=500&fit=crop"
+                        alt="Property inspection and walkthrough">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 05: Turnover Refresh -->
+    <section class="service-detail" id="turnover">
+        <div class="container">
+            <div class="service-detail-grid">
+                <div class="service-detail-content">
+                    <span class="service-number">05</span>
+                    <h2 class="service-detail-title">Turnover & Refresh Services</h2>
+                    <p class="service-detail-desc">
+                        The turnaround between guests is often the most time-sensitive window. We coordinate the minor touch-ups and prep work that keeps every stay starting fresh — on time, every time.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Post-checkout property walkthrough and condition check
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Minor touch-up repairs between stays
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Restocking of basic supplies (noted in advance)
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Exterior quick-clean: sweep, blow out, debris pickup
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Coordination with cleaning crews if needed
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Ready-to-host confirmation photo report
+                        </li>
+                    </ul>
+                    <a href="/construction/contact" class="btn btn-primary">Request This Service</a>
+                </div>
+                <div class="service-detail-image">
+                    <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=500&fit=crop"
+                        alt="Turnover and refresh services">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 06: Maintenance Plans -->
+    <section class="service-detail alt-bg" id="plans">
+        <div class="container">
+            <div class="service-detail-grid reversed">
+                <div class="service-detail-content">
+                    <span class="service-number">06</span>
+                    <h2 class="service-detail-title">Ongoing Maintenance Plans</h2>
+                    <p class="service-detail-desc">
+                        The most cost-effective way to maintain a rental property is to stay ahead of issues — not react to them. Our maintenance plans give your property consistent attention on a schedule that works for you.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Monthly or quarterly visit packages
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Bundled lawn care, repairs, and inspections
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Priority scheduling for urgent requests
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Seasonal service included at no extra charge
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Monthly summary reports with photos and notes
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                            Flexible plans — cancel or adjust anytime
+                        </li>
+                    </ul>
+                    <a href="/construction/contact" class="btn btn-primary">Request a Plan</a>
+                </div>
+                <div class="service-detail-image">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&h=500&fit=crop"
+                        alt="Ongoing maintenance plans">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="our-process">
+        <div class="container">
+            <h2 class="section-title">How We Work With You</h2>
+            <p class="section-subtitle">Simple, transparent, and built around your schedule.</p>
+
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="process-icon"><span>1</span></div>
+                    <h3>Tell Us About Your Property</h3>
+                    <p>Share the basics — property type, size, and what services you're looking for.</p>
+                </div>
+                <div class="process-connector"></div>
+                <div class="process-step">
+                    <div class="process-icon"><span>2</span></div>
+                    <h3>We Visit & Assess</h3>
+                    <p>We walk the property, document what we see, and put together a clear service plan and quote.</p>
+                </div>
+                <div class="process-connector"></div>
+                <div class="process-step">
+                    <div class="process-icon"><span>3</span></div>
+                    <h3>We Handle It</h3>
+                    <p>Services begin on schedule. You get photo updates and a summary after every visit.</p>
+                </div>
+                <div class="process-connector"></div>
+                <div class="process-step">
+                    <div class="process-icon"><span>4</span></div>
+                    <h3>You Stay Informed</h3>
+                    <p>We flag anything that needs attention and keep you in the loop without overwhelming you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-headline">Ready to put your property in good hands?</h2>
+                <p class="cta-subtext">Tell us about your property and we'll put together a plan that fits your needs and budget.</p>
+                <div class="cta-buttons">
+                    <a href="/construction/contact" class="btn btn-primary btn-large">Get a Free Quote</a>
+                    <a href="/construction/contact" class="btn btn-secondary btn-large">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/construction"
+                        style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-decoration:none;">
+                        <span class="logo-text">R&B</span>
+                        <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#a0aec0;">PROPERTY MAINTENANCE</span>
+                    </a>
+                    <p class="footer-tagline">Your property. Always ready.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-heading">Services</h4>
+                    <ul>
+                        <li><a href="#repairs">General Repairs</a></li>
+                        <li><a href="#lawn">Lawn Care</a></li>
+                        <li><a href="#seasonal">Seasonal Cleanup</a></li>
+                        <li><a href="#plans">Maintenance Plans</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul>
+                        <li><a href="/construction">Home</a></li>
+                        <li><a href="/construction/services">All Services</a></li>
+                        <li><a href="/construction/contact">Contact</a></li>
+                        <li><a href="/">R&B Consulting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4 class="footer-heading">Contact</h4>
+                    <ul>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="footer-icon">
+                                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <a href="mailto:info@rnbconsulting.org">info@rnbconsulting.org</a>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="footer-icon">
+                                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <a href="tel:+18456160149">(845) 616-0149</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 R&B Group. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Page header
+            gsap.from('.page-header-content', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
+
+            // Intro text
+            gsap.from('.services-intro', {
+                scrollTrigger: { trigger: '.services-overview', start: 'top 80%' },
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
+
+            // Service sections
+            gsap.utils.toArray('.service-detail').forEach(section => {
+                const content = section.querySelector('.service-detail-content');
+                const image = section.querySelector('.service-detail-image');
+                const isReversed = section.querySelector('.reversed');
+
+                gsap.from(content, {
+                    scrollTrigger: { trigger: section, start: 'top 70%' },
+                    opacity: 0,
+                    x: isReversed ? 50 : -50,
+                    duration: 0.8,
+                    ease: 'power3.out'
+                });
+
+                if (image) {
+                    gsap.from(image, {
+                        scrollTrigger: { trigger: section, start: 'top 70%' },
+                        opacity: 0,
+                        x: isReversed ? -50 : 50,
+                        duration: 0.8,
+                        delay: 0.2,
+                        ease: 'power3.out'
+                    });
+                }
+            });
+
+            // Process steps
+            gsap.from('.process-step', {
+                scrollTrigger: { trigger: '.our-process', start: 'top 70%' },
+                opacity: 0,
+                y: 40,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: 'power3.out'
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#') && targetId.length > 1) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navHeight = document.getElementById('navbar').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - navHeight - 20;
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

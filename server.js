@@ -240,6 +240,7 @@ app.post('/api/email/reply', requireAdmin, async (req, res) => {
 // =====================================================
 
 const consultingPages = ['about', 'services', 'blog', 'contact', 'careers', 'quote', 'faq', 'admin'];
+const constructionPages = ['services', 'contact'];
 
 // Root landing page — two-card split (Construction / Consulting)
 app.get('/', (req, res) => {
@@ -249,6 +250,12 @@ app.get('/', (req, res) => {
 // ── Construction section ──
 app.get('/construction', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'construction', 'index.html'));
+});
+
+constructionPages.forEach(page => {
+    app.get(`/construction/${page}`, (req, res) => {
+        res.sendFile(path.join(__dirname, 'public', 'construction', `${page}.html`));
+    });
 });
 
 // ── Consulting section ──
