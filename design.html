@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>R&B Construction Consulting — Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold-950: #4a2e00;
+    --gold-900: #6b4100;
+    --gold-800: #8a5500;
+    --gold-700: #a86a00;
+    --gold-600: #b8860b;
+    --gold-500: #d4a853;
+    --gold-400: #e4c47a;
+    --gold-300: #f0d9a8;
+    --gold-200: #f7ecd0;
+    --gold-100: #faf3e0;
+    --gold-50:  #fdf9f0;
+
+    --neutral-950: #060a0f;
+    --neutral-900: #0d1117;
+    --neutral-800: #1f2937;
+    --neutral-700: #374151;
+    --neutral-600: #4b5563;
+    --neutral-500: #6b7280;
+    --neutral-400: #9ca3af;
+    --neutral-300: #d1d5db;
+    --neutral-200: #e5e7eb;
+    --neutral-100: #f3f4f6;
+    --neutral-50:  #f9fafb;
+
+    --color-primary:      #b8860b;
+    --color-primary-dark: #8a5500;
+    --color-primary-light:#faf3e0;
+    --color-body:         #1f2937;
+    --color-muted:        #6b7280;
+    --color-subtle:       #9ca3af;
+    --color-border:       #e5e7eb;
+    --color-surface:      #ffffff;
+    --color-bg:           #f9fafb;
+
+    --color-success:    #16a34a;
+    --color-success-bg: #dcfce7;
+    --color-warning:    #d97706;
+    --color-warning-bg: #fef3c7;
+    --color-danger:     #dc2626;
+    --color-danger-bg:  #fee2e2;
+    --color-info:       #0284c7;
+    --color-info-bg:    #e0f2fe;
+
+    --font: 'Inter', sans-serif;
+
+    --r-xs: 4px;
+    --r-sm: 6px;
+    --r-md: 8px;
+    --r-lg: 12px;
+    --r-xl: 16px;
+
+    --shadow-sm:   0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md:   0 4px 12px rgba(0,0,0,0.06);
+    --shadow-lg:   0 8px 24px rgba(0,0,0,0.08);
+    --shadow-glow: 0 0 30px rgba(184,134,11,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); font-size: 14px; color: var(--color-body); background: var(--color-bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .page  { max-width: 1060px; margin: 0 auto; padding: 64px 40px 120px; }
+  .section { margin-bottom: 80px; }
+  .section-header { display: flex; align-items: center; gap: 14px; border-bottom: 2px solid var(--color-primary); padding-bottom: 12px; margin-bottom: 36px; }
+  .section-num   { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-500); flex-shrink: 0; }
+  .section-title { font-size: 18px; font-weight: 700; color: var(--color-body); letter-spacing: -0.3px; }
+
+  /* ── DOC HEADER ── */
+  .doc-header { background: white; border-radius: var(--r-lg); padding: 44px 48px; box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 72px; border: 1px solid var(--color-border); }
+  .doc-logo-row { display: flex; align-items: center; gap: 16px; }
+  .doc-icon { width: 60px; height: 60px; border-radius: var(--r-md); background: var(--gold-100); border: 1px solid var(--gold-300); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .doc-icon-text { font-size: 17px; font-weight: 800; color: var(--gold-600); letter-spacing: -0.5px; }
+  .doc-wordmark { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; color: var(--color-body); }
+  .doc-wordmark span { color: var(--color-primary); }
+  .doc-tagline { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-500); margin-top: 3px; }
+  .doc-meta { display: flex; flex-direction: column; gap: 10px; text-align: right; }
+  .doc-meta-key { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-subtle); }
+  .doc-meta-val { font-size: 13px; font-weight: 600; color: var(--color-muted); margin-top: 1px; }
+
+  /* ── COLOUR ── */
+  .ramp { display: flex; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+  .ramp-stop { flex: 1; padding: 14px 8px 9px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .ramp-stop-name { font-size: 9px; font-weight: 700; opacity: 0.6; }
+  .ramp-stop-hex  { font-size: 8px; font-family: monospace; opacity: 0.5; margin-top: 1px; }
+  .ramp-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-muted); margin-bottom: 10px; }
+  .semantic-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 24px; }
+  .semantic-card { border-radius: var(--r-md); padding: 16px; }
+  .semantic-swatch { width: 26px; height: 26px; border-radius: var(--r-sm); margin-bottom: 10px; }
+  .semantic-name { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .semantic-hex  { font-size: 10px; font-family: monospace; margin-top: 3px; opacity: 0.7; }
+  .semantic-use  { font-size: 11px; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.07); opacity: 0.65; line-height: 1.4; }
+
+  /* ── TYPOGRAPHY ── */
+  .type-table { background: white; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); }
+  .type-row { display: grid; grid-template-columns: 140px 120px 1fr; align-items: center; padding: 18px 24px; gap: 20px; border-bottom: 1px solid var(--color-border); }
+  .type-row:last-child { border-bottom: none; }
+  .type-name { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); }
+  .type-spec  { font-size: 10px; font-family: monospace; color: var(--color-subtle); line-height: 1.6; }
+  .font-showcase { background: white; border-radius: var(--r-lg); padding: 32px; box-shadow: var(--shadow-sm); margin-bottom: 20px; border: 1px solid var(--color-border); }
+  .font-showcase-name { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 18px; }
+  .fw-row { display: flex; align-items: baseline; gap: 18px; margin-bottom: 10px; }
+  .fw-label { font-size: 10px; font-family: monospace; color: var(--color-subtle); width: 80px; flex-shrink: 0; }
+
+  /* ── SPACING ── */
+  .spacing-table { background: white; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); }
+  .spacing-row { display: flex; align-items: center; gap: 20px; padding: 12px 24px; border-bottom: 1px solid var(--color-border); }
+  .spacing-row:last-child { border-bottom: none; }
+  .spacing-token { font-size: 12px; font-family: monospace; color: var(--color-body); width: 120px; flex-shrink: 0; }
+  .spacing-px    { font-size: 11px; color: var(--color-subtle); width: 80px; flex-shrink: 0; }
+  .spacing-use   { font-size: 11px; color: var(--color-muted); }
+  .spacing-bar   { height: 16px; background: var(--gold-200); border: 1px solid var(--gold-300); border-radius: 2px; flex-shrink: 0; }
+
+  /* ── COMPONENTS ── */
+  .comp-section { margin-bottom: 36px; }
+  .comp-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 12px; }
+  .comp-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+  .btn { font-family: var(--font); font-weight: 600; font-size: 13px; border: none; cursor: pointer; border-radius: var(--r-md); padding: 10px 20px; display: inline-flex; align-items: center; gap: 7px; transition: all 0.12s ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary   { background: var(--gold-600); color: white; box-shadow: 0 4px 0 var(--gold-800); }
+  .btn-primary:active { box-shadow: 0 1px 0 var(--gold-800); }
+  .btn-secondary { background: white; color: var(--color-body); border: 1.5px solid var(--color-border); box-shadow: var(--shadow-sm); }
+  .btn-secondary:hover { border-color: var(--gold-600); color: var(--gold-600); }
+  .btn-ghost  { background: transparent; color: var(--gold-600); border: 1.5px solid var(--gold-300); }
+  .btn-ghost:hover { background: var(--gold-50); }
+  .btn-dark   { background: var(--neutral-800); color: white; box-shadow: 0 4px 0 var(--neutral-900); }
+  .btn-dark:active { box-shadow: 0 1px 0 var(--neutral-900); }
+  .btn-danger { background: #dc2626; color: white; box-shadow: 0 4px 0 #991b1b; }
+  .btn-danger:active { box-shadow: 0 1px 0 #991b1b; }
+  .btn-nav    { background: transparent; color: var(--gold-600); border: 1.5px solid var(--gold-600); border-radius: var(--r-md); padding: 8px 16px; font-family: var(--font); font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-nav:hover { background: var(--gold-600); color: white; }
+  .btn-sm { padding: 7px 14px; font-size: 12px; }
+  .btn-lg { padding: 14px 28px; font-size: 15px; }
+  .mt-sm  { margin-top: 10px; }
+
+  .badge { font-family: var(--font); font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: var(--r-xs); display: inline-block; }
+  .badge-gold    { background: var(--gold-100); color: var(--gold-800); }
+  .badge-success { background: #dcfce7; color: #15803d; }
+  .badge-warning { background: #fef3c7; color: #b45309; }
+  .badge-danger  { background: #fee2e2; color: #b91c1c; }
+  .badge-info    { background: #e0f2fe; color: #0369a1; }
+  .badge-neutral { background: var(--neutral-100); color: var(--neutral-600); }
+
+  .card          { background: white; border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); }
+  .card-gold     { background: var(--gold-50); border-radius: var(--r-lg); padding: 20px; border: 1px solid var(--gold-200); }
+  .card-dark     { background: var(--neutral-800); border-radius: var(--r-lg); padding: 20px; }
+  .card-featured { background: white; border-radius: var(--r-lg); padding: 20px; border: 2px solid var(--gold-600); box-shadow: var(--shadow-glow); }
+  .card-title { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+  .card-body  { font-size: 13px; line-height: 1.6; color: var(--color-muted); }
+
+  .input { font-family: var(--font); font-size: 14px; padding: 10px 16px; border-radius: var(--r-md); border: 1.5px solid var(--color-border); background: white; color: var(--color-body); outline: none; width: 100%; transition: border-color 0.15s, box-shadow 0.15s; }
+  .input:focus { border-color: var(--gold-600); box-shadow: 0 0 0 3px rgba(184,134,11,0.1); }
+  .input::placeholder { color: var(--color-subtle); }
+  .input-label { font-size: 12px; font-weight: 600; color: var(--color-muted); margin-bottom: 6px; }
+
+  .stat-card  { background: white; border-radius: var(--r-lg); padding: 18px 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); flex: 1; min-width: 130px; }
+  .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--color-subtle); margin-bottom: 6px; }
+  .stat-value { font-size: 26px; font-weight: 700; letter-spacing: -1px; color: var(--color-body); line-height: 1; }
+  .stat-sub   { font-size: 12px; color: var(--color-subtle); margin-top: 4px; }
+
+  .status     { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-logo-row">
+      <div class="doc-icon"><div class="doc-icon-text">R&amp;B</div></div>
+      <div>
+        <div class="doc-wordmark">R&amp;B <span>Construction Consulting</span></div>
+        <div class="doc-tagline">Design System v1.0</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div><div class="doc-meta-key">Style</div><div class="doc-meta-val">Light · Minimal · Gold accent</div></div>
+      <div><div class="doc-meta-key">Typeface</div><div class="doc-meta-val">Inter</div></div>
+      <div><div class="doc-meta-key">Version</div><div class="doc-meta-val">March 2026</div></div>
+    </div>
+  </div>
+
+  <!-- 01 COLOUR -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">01</span><span class="section-title">Colour</span></div>
+
+    <div class="ramp-label">Gold — brand, accent, interactive</div>
+    <div class="ramp" style="height:68px;">
+      <div class="ramp-stop" style="background:#4a2e00;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.5);">950</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.4);">#4a2e00</span></div>
+      <div class="ramp-stop" style="background:#6b4100;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.5);">900</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.4);">#6b4100</span></div>
+      <div class="ramp-stop" style="background:#8a5500;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.5);">800</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.4);">#8a5500</span></div>
+      <div class="ramp-stop" style="background:#a86a00;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.5);">700</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.4);">#a86a00</span></div>
+      <div class="ramp-stop" style="background:#b8860b;outline:3px solid #d4a853;outline-offset:-3px;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.85);">600 ★</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.7);">#b8860b</span></div>
+      <div class="ramp-stop" style="background:#d4a853;"><span class="ramp-stop-name" style="color:rgba(100,60,0,0.5);">500</span><span class="ramp-stop-hex" style="color:rgba(100,60,0,0.4);">#d4a853</span></div>
+      <div class="ramp-stop" style="background:#e4c47a;"><span class="ramp-stop-name" style="color:rgba(100,60,0,0.45);">400</span><span class="ramp-stop-hex" style="color:rgba(100,60,0,0.35);">#e4c47a</span></div>
+      <div class="ramp-stop" style="background:#f0d9a8;"><span class="ramp-stop-name" style="color:rgba(100,60,0,0.4);">300</span><span class="ramp-stop-hex" style="color:rgba(100,60,0,0.3);">#f0d9a8</span></div>
+      <div class="ramp-stop" style="background:#f7ecd0;"><span class="ramp-stop-name" style="color:rgba(100,60,0,0.35);">200</span><span class="ramp-stop-hex" style="color:rgba(100,60,0,0.25);">#f7ecd0</span></div>
+      <div class="ramp-stop" style="background:#faf3e0;"><span class="ramp-stop-name" style="color:rgba(100,60,0,0.3);">100</span><span class="ramp-stop-hex" style="color:rgba(100,60,0,0.2);">#faf3e0</span></div>
+      <div class="ramp-stop" style="background:#fdf9f0;border-right:1px solid #f0d9a8;"><span class="ramp-stop-name" style="color:rgba(100,60,0,0.25);">50</span><span class="ramp-stop-hex" style="color:rgba(100,60,0,0.18);">#fdf9f0</span></div>
+    </div>
+
+    <div class="ramp-label" style="margin-top:22px;">Neutral — text, surfaces, borders</div>
+    <div class="ramp" style="height:68px;">
+      <div class="ramp-stop" style="background:#060a0f;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.5);">950</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.4);">#060a0f</span></div>
+      <div class="ramp-stop" style="background:#0d1117;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.5);">900</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.4);">#0d1117</span></div>
+      <div class="ramp-stop" style="background:#1f2937;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.5);">800</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.4);">#1f2937</span></div>
+      <div class="ramp-stop" style="background:#374151;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.5);">700</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.4);">#374151</span></div>
+      <div class="ramp-stop" style="background:#4b5563;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.5);">600</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.4);">#4b5563</span></div>
+      <div class="ramp-stop" style="background:#6b7280;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.55);">500</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.45);">#6b7280</span></div>
+      <div class="ramp-stop" style="background:#9ca3af;"><span class="ramp-stop-name" style="color:rgba(255,255,255,0.6);">400</span><span class="ramp-stop-hex" style="color:rgba(255,255,255,0.5);">#9ca3af</span></div>
+      <div class="ramp-stop" style="background:#d1d5db;"><span class="ramp-stop-name" style="color:rgba(0,0,0,0.3);">300</span><span class="ramp-stop-hex" style="color:rgba(0,0,0,0.25);">#d1d5db</span></div>
+      <div class="ramp-stop" style="background:#e5e7eb;"><span class="ramp-stop-name" style="color:rgba(0,0,0,0.25);">200</span><span class="ramp-stop-hex" style="color:rgba(0,0,0,0.2);">#e5e7eb</span></div>
+      <div class="ramp-stop" style="background:#f3f4f6;"><span class="ramp-stop-name" style="color:rgba(0,0,0,0.22);">100</span><span class="ramp-stop-hex" style="color:rgba(0,0,0,0.18);">#f3f4f6</span></div>
+      <div class="ramp-stop" style="background:#f9fafb;border-right:1px solid #e5e7eb;"><span class="ramp-stop-name" style="color:rgba(0,0,0,0.2);">50</span><span class="ramp-stop-hex" style="color:rgba(0,0,0,0.15);">#f9fafb</span></div>
+    </div>
+
+    <div class="semantic-grid">
+      <div class="semantic-card" style="background:#dcfce7;">
+        <div class="semantic-swatch" style="background:#16a34a;"></div>
+        <div class="semantic-name" style="color:#15803d;">Success</div>
+        <div class="semantic-hex" style="color:#166534;">#16a34a</div>
+        <div class="semantic-use" style="color:#166534;">Published · Replied · Quoted · Completed</div>
+      </div>
+      <div class="semantic-card" style="background:#fef3c7;">
+        <div class="semantic-swatch" style="background:#d97706;"></div>
+        <div class="semantic-name" style="color:#b45309;">Warning</div>
+        <div class="semantic-hex" style="color:#92400e;">#d97706</div>
+        <div class="semantic-use" style="color:#92400e;">Draft · Pending · At risk · Delayed</div>
+      </div>
+      <div class="semantic-card" style="background:#fee2e2;">
+        <div class="semantic-swatch" style="background:#dc2626;"></div>
+        <div class="semantic-name" style="color:#b91c1c;">Danger</div>
+        <div class="semantic-hex" style="color:#991b1b;">#dc2626</div>
+        <div class="semantic-use" style="color:#991b1b;">Error · Delete · Critical · Overdue</div>
+      </div>
+      <div class="semantic-card" style="background:#e0f2fe;">
+        <div class="semantic-swatch" style="background:#0284c7;"></div>
+        <div class="semantic-name" style="color:#0369a1;">Info</div>
+        <div class="semantic-hex" style="color:#023e6b;">#0284c7</div>
+        <div class="semantic-use" style="color:#023e6b;">New submission · In progress · Read</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">02</span><span class="section-title">Typography — Inter</span></div>
+
+    <div class="font-showcase">
+      <div class="font-showcase-name">Weight scale</div>
+      <div class="fw-row"><span class="fw-label">300 Light</span><span style="font-size:20px;font-weight:300;color:#1f2937;">R&B Construction Consulting</span></div>
+      <div class="fw-row"><span class="fw-label">400 Regular</span><span style="font-size:20px;font-weight:400;color:#1f2937;">R&B Construction Consulting</span></div>
+      <div class="fw-row"><span class="fw-label">500 Medium</span><span style="font-size:20px;font-weight:500;color:#1f2937;">R&B Construction Consulting</span></div>
+      <div class="fw-row"><span class="fw-label">600 SemiBold</span><span style="font-size:20px;font-weight:600;color:#1f2937;">R&B Construction Consulting</span></div>
+      <div class="fw-row"><span class="fw-label">700 Bold</span><span style="font-size:20px;font-weight:700;color:#1f2937;">R&B Construction Consulting</span></div>
+      <div class="fw-row" style="margin-bottom:20px;"><span class="fw-label">800 ExtraBold</span><span style="font-size:20px;font-weight:800;color:#1f2937;">R&B Construction Consulting</span></div>
+      <div style="border-top:1px solid var(--color-border);padding-top:14px;">
+        <div style="font-size:13px;color:#6b7280;letter-spacing:0.2px;line-height:1.8;">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z &nbsp;·&nbsp; a b c d e f g h i j k l m n o p q r s t u v w x y z<br/>0 1 2 3 4 5 6 7 8 9 &nbsp;·&nbsp; $ % # @ &amp; ! ? ( ) + − = / .</div>
+      </div>
+    </div>
+
+    <div class="type-table">
+      <div class="type-row">
+        <div><div class="type-name">Display</div></div>
+        <div class="type-spec">clamp(2.5–4rem)<br/>700 · −0.03em · lh 1.1</div>
+        <div style="font-size:46px;font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:#1f2937;">Structure.<br><span style="color:#b8860b;">Execution.</span></div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-name">Heading 1</div></div>
+        <div class="type-spec">clamp(2.25–3rem)<br/>700 · −0.02em</div>
+        <div style="font-size:36px;font-weight:700;letter-spacing:-0.02em;color:#1f2937;">Core Capabilities</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-name">Heading 2</div></div>
+        <div class="type-spec">clamp(2–2.5rem)<br/>700 · −0.015em</div>
+        <div style="font-size:28px;font-weight:700;letter-spacing:-0.015em;color:#1f2937;">About R&amp;B Construction</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-name">Heading 3</div></div>
+        <div class="type-spec">1.75rem · 700</div>
+        <div style="font-size:28px;font-weight:700;color:#1f2937;">Construction Estimating</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-name">Heading 4</div></div>
+        <div class="type-spec">1.25rem · 700</div>
+        <div style="font-size:20px;font-weight:700;color:#1f2937;">Scheduling &amp; Planning</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-name">Body large</div></div>
+        <div class="type-spec">1.125rem · 400<br/>lh 1.8 · #374151</div>
+        <div style="font-size:18px;line-height:1.8;color:#374151;">We review existing systems and implement practical operational improvements that strengthen project execution.</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-name">Body</div></div>
+        <div class="type-spec">0.9375rem · 400<br/>lh 1.7 · #6b7280</div>
+        <div style="font-size:15px;line-height:1.7;color:#6b7280;">Track job costs, manage subcontractors, and keep clients informed with real-time project updates and owner-ready reporting.</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-name">Body small</div></div>
+        <div class="type-spec">0.875rem · 400<br/>lh 1.6 · #9ca3af</div>
+        <div style="font-size:14px;line-height:1.6;color:#9ca3af;">© 2026 R&amp;B Construction Consulting · Last updated 2 hours ago</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-name">Label</div></div>
+        <div class="type-spec">0.6875rem · 700<br/>+0.1em · caps · gold</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#b8860b;">Our Story · Project Controls · Services</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-name">Mono / data</div></div>
+        <div class="type-spec">monospace · 13px<br/>#1f2937</div>
+        <div style="font-family:monospace;font-size:13px;color:#1f2937;">PRJ-2024-0041 · $1,284,500.00 · 78.4%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 SPACING -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">03</span><span class="section-title">Spacing</span></div>
+    <div class="spacing-table">
+      <div class="spacing-row"><div class="spacing-bar" style="width:8px;"></div><span class="spacing-token">--spacing-xs</span><span class="spacing-px">0.5rem / 8px</span><span class="spacing-use">Icon gaps, tight inline padding</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:16px;"></div><span class="spacing-token">--spacing-sm</span><span class="spacing-px">1rem / 16px</span><span class="spacing-use">Badge padding, list gaps, button inner padding</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:24px;"></div><span class="spacing-token">--spacing-md</span><span class="spacing-px">1.5rem / 24px</span><span class="spacing-use">Card padding, vertical stacks, form gaps</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:40px;"></div><span class="spacing-token">--spacing-lg</span><span class="spacing-px">2.5rem / 40px</span><span class="spacing-use">Nav link gaps, section inner spacing</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:64px;"></div><span class="spacing-token">--spacing-xl</span><span class="spacing-px">4rem / 64px</span><span class="spacing-use">Panel padding, page top/bottom padding</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:80px;"></div><span class="spacing-token">--spacing-2xl</span><span class="spacing-px">5rem / 80px</span><span class="spacing-use">Large card padding, team section gaps</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:112px;"></div><span class="spacing-token">--spacing-3xl</span><span class="spacing-px">7rem / 112px</span><span class="spacing-use">Section padding top/bottom (all major sections)</span></div>
+    </div>
+  </div>
+
+  <!-- 04 BORDER RADIUS -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">04</span><span class="section-title">Border radius</span></div>
+    <div style="background:white;border-radius:var(--r-lg);padding:36px;box-shadow:var(--shadow-sm);border:1px solid var(--color-border);display:flex;gap:32px;flex-wrap:wrap;align-items:flex-end;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:72px;height:72px;background:var(--gold-100);border:2px solid var(--gold-300);border-radius:4px;"></div>
+        <div style="font-size:10px;font-family:monospace;color:#6b7280;text-align:center;">--r-xs · 4px<br/>badges, tags</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:72px;height:72px;background:var(--gold-100);border:2px solid var(--gold-300);border-radius:6px;"></div>
+        <div style="font-size:10px;font-family:monospace;color:#6b7280;text-align:center;">--r-sm · 6px<br/>tooltips, chips</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:72px;height:72px;background:var(--gold-100);border:2px solid var(--gold-300);border-radius:8px;"></div>
+        <div style="font-size:10px;font-family:monospace;color:#6b7280;text-align:center;">--r-md · 8px<br/>buttons, inputs</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:72px;height:72px;background:var(--gold-100);border:2px solid var(--gold-300);border-radius:12px;"></div>
+        <div style="font-size:10px;font-family:monospace;color:#6b7280;text-align:center;">--r-lg · 12px<br/>cards, modals</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:72px;height:72px;background:var(--gold-100);border:2px solid var(--gold-300);border-radius:16px;"></div>
+        <div style="font-size:10px;font-family:monospace;color:#6b7280;text-align:center;">--r-xl · 16px<br/>large cards</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:110px;height:40px;background:var(--gold-100);border:2px solid var(--gold-300);border-radius:100px;"></div>
+        <div style="font-size:10px;font-family:monospace;color:#6b7280;text-align:center;">100px pill<br/>category filters</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:52px;height:52px;background:var(--gold-100);border:2px solid var(--gold-300);border-radius:50%;"></div>
+        <div style="font-size:10px;font-family:monospace;color:#6b7280;text-align:center;">50%<br/>avatars</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 ELEVATION -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">05</span><span class="section-title">Elevation &amp; shadow</span></div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:110px;height:88px;border-radius:var(--r-lg);background:white;border:1px solid var(--color-border);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#6b7280;text-align:center;padding:8px;">--shadow-sm</div>
+        <div style="font-size:10px;font-family:monospace;color:#9ca3af;text-align:center;">0 1px 3px<br/>rgba(0,0,0,.04)</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:110px;height:88px;border-radius:var(--r-lg);background:white;box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#6b7280;text-align:center;padding:8px;">--shadow-md</div>
+        <div style="font-size:10px;font-family:monospace;color:#9ca3af;text-align:center;">0 4px 12px<br/>rgba(0,0,0,.06)</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:110px;height:88px;border-radius:var(--r-lg);background:white;box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#6b7280;text-align:center;padding:8px;">--shadow-lg</div>
+        <div style="font-size:10px;font-family:monospace;color:#9ca3af;text-align:center;">0 8px 24px<br/>rgba(0,0,0,.08)</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:110px;height:88px;border-radius:var(--r-lg);background:white;border:1px solid var(--gold-200);box-shadow:var(--shadow-glow);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#b8860b;text-align:center;padding:8px;">--shadow-glow</div>
+        <div style="font-size:10px;font-family:monospace;color:#9ca3af;text-align:center;">0 0 30px<br/>rgba(184,134,11,.12)</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:110px;height:88px;border-radius:var(--r-lg);background:#b8860b;box-shadow:0 4px 0 #8a5500;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:white;text-align:center;padding:8px;">Btn gold</div>
+        <div style="font-size:10px;font-family:monospace;color:#9ca3af;text-align:center;">0 4px 0 #8a5500</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="width:110px;height:88px;border-radius:var(--r-lg);background:#1f2937;box-shadow:0 4px 0 #0d1117;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:white;text-align:center;padding:8px;">Btn dark</div>
+        <div style="font-size:10px;font-family:monospace;color:#9ca3af;text-align:center;">0 4px 0 #0d1117</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 COMPONENTS -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">06</span><span class="section-title">Components</span></div>
+
+    <div class="comp-section">
+      <div class="comp-label">Buttons — variants</div>
+      <div class="comp-row">
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-ghost">Ghost</button>
+        <button class="btn btn-dark">Dark</button>
+        <button class="btn-nav">Nav CTA</button>
+        <button class="btn btn-danger">Danger</button>
+      </div>
+      <div class="comp-row mt-sm">
+        <button class="btn btn-primary btn-sm">Small</button>
+        <button class="btn btn-primary">Default</button>
+        <button class="btn btn-primary btn-lg">Large</button>
+      </div>
+    </div>
+
+    <div class="comp-section">
+      <div class="comp-label">Badges</div>
+      <div class="comp-row">
+        <span class="badge badge-gold">Published</span>
+        <span class="badge badge-warning">Draft</span>
+        <span class="badge badge-info">New</span>
+        <span class="badge badge-success">Replied</span>
+        <span class="badge badge-danger">Overdue</span>
+        <span class="badge badge-neutral">Archived</span>
+      </div>
+    </div>
+
+    <div class="comp-section">
+      <div class="comp-label">Stat cards (admin dashboard)</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <div class="stat-card">
+          <div style="width:36px;height:36px;border-radius:var(--r-md);background:#dbeafe;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="stat-label">Unique Visitors</div>
+          <div class="stat-value">1,247</div>
+          <div class="stat-sub" style="color:#16a34a;font-weight:600;">↑ 12% last 30d</div>
+        </div>
+        <div class="stat-card">
+          <div style="width:36px;height:36px;border-radius:var(--r-md);background:#dcfce7;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="stat-label">Page Views</div>
+          <div class="stat-value">4,892</div>
+          <div class="stat-sub">Last 30 days</div>
+        </div>
+        <div class="stat-card">
+          <div style="width:36px;height:36px;border-radius:var(--r-md);background:#fef3c7;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="stat-label">Blog Reads</div>
+          <div class="stat-value">318</div>
+          <div class="stat-sub">Last 30 days</div>
+        </div>
+        <div class="stat-card">
+          <div style="width:36px;height:36px;border-radius:var(--r-md);background:#f3e8ff;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="stat-label">Blog Posts</div>
+          <div class="stat-value">12</div>
+          <div class="stat-sub">Total published</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-section">
+      <div class="comp-label">Cards</div>
+      <div class="grid-2">
+        <div class="card"><div class="card-title">Flat card</div><div class="card-body">Default white surface. Used for service cards, admin panels, and data containers.</div></div>
+        <div class="card-gold"><div class="card-title" style="color:#6b4100;">Gold card</div><div class="card-body" style="color:#8a5500;">Featured content, stat callouts, and highlighted value items.</div></div>
+        <div class="card-dark"><div class="card-title" style="color:#f9fafb;">Dark card</div><div class="card-body" style="color:#9ca3af;">CTA sections, hero overlays, high-contrast emphasis moments.</div></div>
+        <div class="card-featured"><div class="card-title" style="color:#b8860b;">Featured card</div><div class="card-body">Gold-bordered with glow shadow. Selected states, recommended items.</div></div>
+      </div>
+    </div>
+
+    <div class="comp-section">
+      <div class="comp-label">Form inputs</div>
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:380px;">
+        <div>
+          <div class="input-label">First Name *</div>
+          <input class="input" type="text" placeholder="Enter first name"/>
+        </div>
+        <div>
+          <div class="input-label">Subject *</div>
+          <select class="input" style="cursor:pointer;">
+            <option>Select a topic</option>
+            <option>General Inquiry</option>
+            <option>Request a Consultation</option>
+          </select>
+        </div>
+        <div>
+          <div class="input-label">Message *</div>
+          <textarea class="input" rows="3" placeholder="Briefly describe your project..." style="resize:vertical;"></textarea>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-md);background:#dcfce7;font-size:13px;color:#16a34a;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            Thank you! Your message has been sent.
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-md);background:#fee2e2;font-size:13px;color:#dc2626;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Something went wrong. Please try again.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-section">
+      <div class="comp-label">Status indicators</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <span class="status"><span class="status-dot" style="background:#16a34a;"></span>Published · Replied · Quoted</span>
+        <span class="status"><span class="status-dot" style="background:#d97706;"></span>Draft · Pending · Reviewed</span>
+        <span class="status"><span class="status-dot" style="background:#dc2626;"></span>Error · Critical · Overdue</span>
+        <span class="status"><span class="status-dot" style="background:#0284c7;"></span>New · In Progress · Info</span>
+        <span class="status"><span class="status-dot" style="background:#9ca3af;"></span>Archived · Closed · Inactive</span>
+      </div>
+    </div>
+
+    <div class="comp-section">
+      <div class="comp-label">Data table (admin — blog posts)</div>
+      <div style="background:white;border-radius:var(--r-lg);box-shadow:var(--shadow-sm);border:1px solid var(--color-border);overflow:hidden;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="background:var(--color-bg);border-bottom:1px solid var(--color-border);">
+              <th style="padding:12px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--color-subtle);">Title</th>
+              <th style="padding:12px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--color-subtle);">Category</th>
+              <th style="padding:12px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--color-subtle);">Status</th>
+              <th style="padding:12px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--color-subtle);">Views</th>
+              <th style="padding:12px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--color-subtle);">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #f3f4f6;">
+              <td style="padding:14px 16px;font-weight:600;color:#1f2937;">How to Build Accountability Systems</td>
+              <td style="padding:14px 16px;color:#6b7280;">Project Management</td>
+              <td style="padding:14px 16px;"><span class="badge badge-gold">Published</span></td>
+              <td style="padding:14px 16px;font-family:monospace;color:#1f2937;">1,284</td>
+              <td style="padding:14px 16px;color:#6b7280;">Jan 15, 2025</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f3f4f6;">
+              <td style="padding:14px 16px;font-weight:600;color:#1f2937;">The Hidden Costs Contractors Miss</td>
+              <td style="padding:14px 16px;color:#6b7280;">Estimating</td>
+              <td style="padding:14px 16px;"><span class="badge badge-gold">Published</span></td>
+              <td style="padding:14px 16px;font-family:monospace;color:#1f2937;">876</td>
+              <td style="padding:14px 16px;color:#6b7280;">Feb 3, 2025</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f3f4f6;">
+              <td style="padding:14px 16px;font-weight:600;color:#1f2937;">Why Your CPM Schedule Isn't Followed</td>
+              <td style="padding:14px 16px;color:#6b7280;">Scheduling</td>
+              <td style="padding:14px 16px;"><span class="badge badge-warning">Draft</span></td>
+              <td style="padding:14px 16px;font-family:monospace;color:#9ca3af;">—</td>
+              <td style="padding:14px 16px;color:#6b7280;">Mar 10, 2025</td>
+            </tr>
+            <tr>
+              <td style="padding:14px 16px;font-weight:600;color:#1f2937;">Operations Systems That Actually Work</td>
+              <td style="padding:14px 16px;color:#6b7280;">Operations</td>
+              <td style="padding:14px 16px;"><span class="badge badge-info">New</span></td>
+              <td style="padding:14px 16px;font-family:monospace;color:#9ca3af;">—</td>
+              <td style="padding:14px 16px;color:#6b7280;">Mar 22, 2025</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="comp-section">
+      <div class="comp-label">Toast notifications</div>
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:380px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;background:white;border-radius:var(--r-lg);box-shadow:var(--shadow-lg);border-left:4px solid #16a34a;">
+          <span style="font-size:13px;color:#1f2937;font-weight:500;">Post published successfully</span>
+          <button style="border:none;background:transparent;cursor:pointer;font-size:18px;color:#9ca3af;line-height:1;">&times;</button>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;background:white;border-radius:var(--r-lg);box-shadow:var(--shadow-lg);border-left:4px solid #dc2626;">
+          <span style="font-size:13px;color:#1f2937;font-weight:500;">Error loading blog posts</span>
+          <button style="border:none;background:transparent;cursor:pointer;font-size:18px;color:#9ca3af;line-height:1;">&times;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-section">
+      <div class="comp-label">Category filter pills (blog page)</div>
+      <div class="comp-row">
+        <button style="padding:10px 22px;background:#b8860b;border:1px solid #b8860b;border-radius:100px;font-family:var(--font);font-size:14px;font-weight:500;color:#000;cursor:pointer;">All Posts</button>
+        <button style="padding:10px 22px;background:transparent;border:1px solid var(--color-border);border-radius:100px;font-family:var(--font);font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;">Project Management</button>
+        <button style="padding:10px 22px;background:transparent;border:1px solid var(--color-border);border-radius:100px;font-family:var(--font);font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;">Estimating</button>
+        <button style="padding:10px 22px;background:transparent;border:1px solid var(--color-border);border-radius:100px;font-family:var(--font);font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;">Scheduling</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 07 DESIGN PRINCIPLES -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">07</span><span class="section-title">Design principles</span></div>
+    <div class="grid-3">
+      <div class="card-gold" style="padding:28px;">
+        <div style="font-size:32px;font-weight:800;color:#b8860b;line-height:1;margin-bottom:12px;">01</div>
+        <div style="font-size:15px;font-weight:700;color:#4a2e00;margin-bottom:8px;">Experience over theory</div>
+        <div style="font-size:13px;color:#6b4100;line-height:1.65;">Every decision serves someone managing a real project under pressure. If a visual element doesn't reduce cognitive load or aid a decision — remove it.</div>
+      </div>
+      <div class="card-gold" style="padding:28px;">
+        <div style="font-size:32px;font-weight:800;color:#b8860b;line-height:1;margin-bottom:12px;">02</div>
+        <div style="font-size:15px;font-weight:700;color:#4a2e00;margin-bottom:8px;">Gold is the only accent</div>
+        <div style="font-size:13px;color:#6b4100;line-height:1.65;">#b8860b and its tints carry all brand expression. Semantic colours (success, warning, danger, info) encode status — never use them decoratively.</div>
+      </div>
+      <div class="card-gold" style="padding:28px;">
+        <div style="font-size:32px;font-weight:800;color:#b8860b;line-height:1;margin-bottom:12px;">03</div>
+        <div style="font-size:15px;font-weight:700;color:#4a2e00;margin-bottom:8px;">Light and breathable</div>
+        <div style="font-size:13px;color:#6b4100;line-height:1.65;">White and #f9fafb dominate. Dark surfaces appear only in hero and CTA sections. Generous spacing — construction data is dense, the UI shouldn't be.</div>
+      </div>
+      <div class="card-gold" style="padding:28px;">
+        <div style="font-size:32px;font-weight:800;color:#b8860b;line-height:1;margin-bottom:12px;">04</div>
+        <div style="font-size:15px;font-weight:700;color:#4a2e00;margin-bottom:8px;">Motion with purpose</div>
+        <div style="font-size:13px;color:#6b4100;line-height:1.65;">GSAP ScrollTrigger drives entrance animations. One well-orchestrated page load beats scattered micro-interactions. Always respect prefers-reduced-motion.</div>
+      </div>
+      <div class="card-gold" style="padding:28px;">
+        <div style="font-size:32px;font-weight:800;color:#b8860b;line-height:1;margin-bottom:12px;">05</div>
+        <div style="font-size:15px;font-weight:700;color:#4a2e00;margin-bottom:8px;">Rounded but serious</div>
+        <div style="font-size:13px;color:#6b4100;line-height:1.65;">r-md (8px) for interactive elements, r-lg (12px) for cards, r-xl (16px) for large containers. Approachable without being playful or consumer-grade.</div>
+      </div>
+      <div class="card-gold" style="padding:28px;">
+        <div style="font-size:32px;font-weight:800;color:#b8860b;line-height:1;margin-bottom:12px;">06</div>
+        <div style="font-size:15px;font-weight:700;color:#4a2e00;margin-bottom:8px;">Inter, nothing else</div>
+        <div style="font-size:13px;color:#6b4100;line-height:1.65;">Inter at 700–800 for headings. 400 for body copy. Monospace only for financial figures, IDs, and percentages. No decorative or display typefaces.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
