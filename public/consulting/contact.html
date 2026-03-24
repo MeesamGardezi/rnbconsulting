@@ -29,7 +29,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
@@ -42,16 +42,16 @@
             </a>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="/about">About</a></li>
-                <li><a href="/services">Services</a></li>
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="/careers">Careers</a></li>
+                <li><a href="/consulting/about">About</a></li>
+                <li><a href="/consulting/services">Services</a></li>
+                <li><a href="/consulting/blog">Blog</a></li>
+                <li><a href="/consulting/faq">FAQ</a></li>
+                <li><a href="/consulting/careers">Careers</a></li>
             </ul>
 
             <div class="nav-actions">
-                <a href="/contact" class="nav-link-contact active">Contact</a>
-                <a href="/quote" class="nav-cta">Request a Quote</a>
+                <a href="/consulting/contact" class="nav-link-contact active">Contact</a>
+                <a href="/consulting/quote" class="nav-cta">Request a Quote</a>
             </div>
 
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -63,13 +63,13 @@
         <div class="mobile-menu" id="mobileMenu">
             <div class="mobile-menu-content">
                 <a href="/" class="mobile-link">Home</a>
-                <a href="/about" class="mobile-link">About</a>
-                <a href="/services" class="mobile-link">Services</a>
-                <a href="/blog" class="mobile-link">Blog</a>
-                <a href="/faq" class="mobile-link">FAQ</a>
-                <a href="/careers" class="mobile-link">Careers</a>
-                <a href="/contact" class="mobile-link active">Contact</a>
-                <a href="/quote" class="mobile-cta">Request a Quote</a>
+                <a href="/consulting/about" class="mobile-link">About</a>
+                <a href="/consulting/services" class="mobile-link">Services</a>
+                <a href="/consulting/blog" class="mobile-link">Blog</a>
+                <a href="/consulting/faq" class="mobile-link">FAQ</a>
+                <a href="/consulting/careers" class="mobile-link">Careers</a>
+                <a href="/consulting/contact" class="mobile-link active">Contact</a>
+                <a href="/consulting/quote" class="mobile-cta">Request a Quote</a>
             </div>
         </div>
     </nav>
@@ -225,21 +225,21 @@
                     <div class="quick-links-card">
                         <h3>Quick Links</h3>
                         <div class="quick-links">
-                            <a href="/quote" class="quick-link">
+                            <a href="/consulting/quote" class="quick-link">
                                 <span>Request a Quote</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2">
                                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                                 </svg>
                             </a>
-                            <a href="/services" class="quick-link">
+                            <a href="/consulting/services" class="quick-link">
                                 <span>View Our Services</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2">
                                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                                 </svg>
                             </a>
-                            <a href="/faq" class="quick-link">
+                            <a href="/consulting/faq" class="quick-link">
                                 <span>Frequently Asked Questions</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2">
@@ -288,19 +288,19 @@
                 <div class="footer-links">
                     <h4 class="footer-heading">Company</h4>
                     <ul>
-                        <li><a href="/about">About Us</a></li>
-                        <li><a href="/services">Services</a></li>
-                        <li><a href="/careers">Careers</a></li>
-                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/consulting/about">About Us</a></li>
+                        <li><a href="/consulting/services">Services</a></li>
+                        <li><a href="/consulting/careers">Careers</a></li>
+                        <li><a href="/consulting/blog">Blog</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-links">
                     <h4 class="footer-heading">Resources</h4>
                     <ul>
-                        <li><a href="/faq">FAQ</a></li>
-                        <li><a href="/quote">Request Quote</a></li>
-                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/consulting/faq">FAQ</a></li>
+                        <li><a href="/consulting/quote">Request Quote</a></li>
+                        <li><a href="/consulting/contact">Contact</a></li>
                     </ul>
                 </div>
 
@@ -338,8 +338,8 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/firebase-config.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/js/firebase-config.js"></script>
+    <script src="/js/main.js"></script>
     <script>
         // Contact page functionality
         document.addEventListener('DOMContentLoaded', () => {

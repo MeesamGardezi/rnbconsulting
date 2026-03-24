@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R&B Construction | Coming Soon</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --gold: #b8860b;
+            --gold-light: #d4a853;
+            --dark: #0d1117;
+            --dark-2: #1f2937;
+            --muted: #6b7280;
+            --border: rgba(255,255,255,0.08);
+            --font: 'Inter', system-ui, sans-serif;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--dark);
+            color: #f9fafb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .back-link:hover { color: #f9fafb; }
+        .back-link svg { flex-shrink: 0; }
+
+        .container {
+            max-width: 560px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            color: #f9fafb;
+            margin-bottom: 20px;
+        }
+
+        h1 span { color: var(--gold); }
+
+        p {
+            font-size: 1.0625rem;
+            line-height: 1.75;
+            color: var(--muted);
+            margin-bottom: 40px;
+        }
+
+        .divider {
+            width: 48px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+            margin: 0 auto 40px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gold);
+            color: white;
+            font-family: var(--font);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 0 #8a5500;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .back-btn:hover { transform: translateY(-1px); }
+        .back-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 #8a5500; }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+    </a>
+
+    <div class="container">
+        <div class="label">R&B Construction</div>
+        <h1>Coming <span>Soon</span></h1>
+        <div class="divider"></div>
+        <p>Our construction division is under development. Check back soon for general contracting, project delivery, and self-perform services.</p>
+        <a href="/" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            Return Home
+        </a>
+    </div>
+</body>
+</html>
