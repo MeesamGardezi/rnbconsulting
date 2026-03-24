@@ -239,23 +239,32 @@ app.post('/api/email/reply', requireAdmin, async (req, res) => {
 // Page Routes
 // =====================================================
 
-const pages = ['about', 'services', 'blog', 'contact', 'careers', 'quote', 'faq', 'admin'];
+const consultingPages = ['about', 'services', 'blog', 'contact', 'careers', 'quote', 'faq', 'admin'];
 
-// Serve index.html for the root route
+// Root landing page — two-card split (Construction / Consulting)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Serve each page
-pages.forEach(page => {
-    app.get(`/${page}`, (req, res) => {
-        res.sendFile(path.join(__dirname, 'public', `${page}.html`));
+// ── Construction section ──
+app.get('/construction', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'construction', 'index.html'));
+});
+
+// ── Consulting section ──
+app.get('/consulting', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'consulting', 'index.html'));
+});
+
+consultingPages.forEach(page => {
+    app.get(`/consulting/${page}`, (req, res) => {
+        res.sendFile(path.join(__dirname, 'public', 'consulting', `${page}.html`));
     });
 });
 
-// Blog post detail page - serve blog-post.html for any /blog/:slug route
-app.get('/blog/:slug', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'blog-post.html'));
+// Blog post detail page under consulting
+app.get('/consulting/blog/:slug', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'consulting', 'blog-post.html'));
 });
 
 // Handle 404 - serve a custom 404 page or redirect to home
