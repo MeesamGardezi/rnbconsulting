@@ -904,89 +904,119 @@ window.viewSubmission = function (type, id) {
 
     if (type === 'contact') {
         detailsHtml = `
-            <div class="detail-row">
-                <span class="label">Name:</span>
-                <span class="value">${data.firstName} ${data.lastName}</span>
-            </div>
-            <div class="detail-row">
-                <span class="label">Email:</span>
-                <span class="value"><a href="mailto:${data.email}">${data.email}</a></span>
-            </div>
-            ${data.phone ? `
-            <div class="detail-row">
-                <span class="label">Phone:</span>
-                <span class="value"><a href="tel:${data.phone}">${data.phone}</a></span>
-            </div>
-            ` : ''}
-            ${data.company ? `
-            <div class="detail-row">
-                <span class="label">Company:</span>
-                <span class="value">${data.company}</span>
-            </div>
-            ` : ''}
-            <div class="detail-row">
-                <span class="label">Subject:</span>
-                <span class="value">${data.subject || 'General Inquiry'}</span>
-            </div>
-            <div class="detail-row full">
-                <span class="label">Message:</span>
-                <p class="message-content">${data.message || 'No message provided'}</p>
-            </div>
-            <div class="detail-row">
-                <span class="label">Submitted:</span>
-                <span class="value">${formatDateTime(data.createdAt)}</span>
+            <div class="submission-grid">
+                <div class="submission-section">
+                    <h3 class="submission-section-title">Contact Information</h3>
+                    <div class="submission-info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">${data.firstName} ${data.lastName}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value"><a href="mailto:${data.email}">${data.email}</a></span>
+                        </div>
+                        ${data.phone ? `
+                        <div class="info-item">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value"><a href="tel:${data.phone}">${data.phone}</a></span>
+                        </div>` : ''}
+                        ${data.company ? `
+                        <div class="info-item">
+                            <span class="info-label">Company</span>
+                            <span class="info-value">${data.company}</span>
+                        </div>` : ''}
+                        <div class="info-item">
+                            <span class="info-label">Subject</span>
+                            <span class="info-value">${data.subject || 'General Inquiry'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Date</span>
+                            <span class="info-value">${formatDateTime(data.createdAt)}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="submission-section">
+                    <h3 class="submission-section-title">Message</h3>
+                    <div class="submission-message-box">${data.message || 'No message provided'}</div>
+                </div>
             </div>
         `;
     } else {
         detailsHtml = `
-            <div class="detail-row">
-                <span class="label">Contact:</span>
-                <span class="value">${data.firstName} ${data.lastName}</span>
+            <div class="submission-grid">
+                <div class="submission-section">
+                    <h3 class="submission-section-title">Contact Information</h3>
+                    <div class="submission-info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">${data.firstName} ${data.lastName}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Company</span>
+                            <span class="info-value">${data.company || 'Not specified'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Role</span>
+                            <span class="info-value">${data.role || 'Not specified'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value"><a href="mailto:${data.email}">${data.email}</a></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value"><a href="tel:${data.phone}">${data.phone}</a></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Date</span>
+                            <span class="info-value">${formatDateTime(data.createdAt)}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submission-section">
+                    <h3 class="submission-section-title">Project Details</h3>
+                    <div class="submission-info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Project Type</span>
+                            <span class="info-value">${data.projectType || 'Not specified'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Estimated Value</span>
+                            <span class="info-value">${data.projectValue || 'Not specified'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Timeline</span>
+                            <span class="info-value">${data.timeline || 'Not specified'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Referral</span>
+                            <span class="info-value">${data.referral || 'Not specified'}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="detail-row">
-                <span class="label">Company:</span>
-                <span class="value">${data.company || 'Not specified'}</span>
-            </div>
-            <div class="detail-row">
-                <span class="label">Email:</span>
-                <span class="value"><a href="mailto:${data.email}">${data.email}</a></span>
-            </div>
-            <div class="detail-row">
-                <span class="label">Phone:</span>
-                <span class="value"><a href="tel:${data.phone}">${data.phone}</a></span>
-            </div>
-            <div class="detail-row">
-                <span class="label">Project Type:</span>
-                <span class="value">${data.projectType || 'Not specified'}</span>
-            </div>
-            <div class="detail-row">
-                <span class="label">Project Value:</span>
-                <span class="value">${data.projectValue || 'Not specified'}</span>
-            </div>
-            <div class="detail-row">
-                <span class="label">Timeline:</span>
-                <span class="value">${data.timeline || 'Not specified'}</span>
-            </div>
-            <div class="detail-row full">
-                <span class="label">Services Needed:</span>
+
+            <div class="submission-section">
+                <h3 class="submission-section-title">Services Needed</h3>
                 <div class="services-list">
                     ${(data.services || []).map(s => `<span class="service-tag">${s}</span>`).join('') || 'None selected'}
                 </div>
             </div>
-            <div class="detail-row full">
-                <span class="label">Project Description:</span>
-                <p class="message-content">${data.projectDescription || 'No description provided'}</p>
+
+            <div class="submission-section">
+                <h3 class="submission-section-title">Project Description</h3>
+                <div class="submission-message-box">${data.projectDescription || 'No description provided'}</div>
             </div>
+
             ${data.challenges ? `
-            <div class="detail-row full">
-                <span class="label">Challenges:</span>
-                <p class="message-content">${data.challenges}</p>
+            <div class="submission-section">
+                <h3 class="submission-section-title">Challenges</h3>
+                <div class="submission-message-box">${data.challenges}</div>
             </div>
             ` : ''}
-            <div class="detail-row">
-                <span class="label">Submitted:</span>
-                <span class="value">${formatDateTime(data.createdAt)}</span>
-            </div>
         `;
     }
 

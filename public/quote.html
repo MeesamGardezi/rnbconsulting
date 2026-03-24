@@ -36,9 +36,9 @@
     <!-- Navigation -->
     <nav class="navbar scrolled" id="navbar">
         <div class="nav-container">
-            <a href="/" class="nav-logo">
+            <a href="/" class="nav-logo" style="display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start;text-decoration:none;">
                 <span class="logo-text">R&B</span>
-                <span class="logo-subtext">Construction Consulting</span>
+                <span class="logo-subtext" style="font-size: 0.65rem;">CONSTRUCTION CONSULTING</span>
             </a>
 
             <ul class="nav-links" id="navLinks">
@@ -232,6 +232,11 @@
                                     <option value="other">Other</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="captcha">Security Question: <span id="captcha-question"></span> *</label>
+                                <input type="number" id="captcha" name="captcha" required
+                                    placeholder="Please solve the math problem">
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-large btn-full">Submit Quote Request</button>
@@ -304,9 +309,9 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="/" class="footer-logo">
+                    <a href="/" class="footer-logo" style="display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start;text-decoration:none;">
                         <span class="logo-text">R&B</span>
-                        <span class="logo-subtext">Construction Consulting</span>
+                        <span class="logo-subtext" style="font-size: 0.65rem; color: #a0aec0;">CONSTRUCTION CONSULTING</span>
                     </a>
                     <p class="footer-tagline">Structure. Control. Execution.</p>
                 </div>
@@ -404,6 +409,19 @@
                 ease: 'power3.out'
             });
 
+            // Captcha Logic
+            let captchaAnswer = 0;
+            function initCaptcha() {
+                const num1 = Math.floor(Math.random() * 10) + 1;
+                const num2 = Math.floor(Math.random() * 10) + 1;
+                captchaAnswer = num1 + num2;
+                const questionEl = document.getElementById('captcha-question');
+                if (questionEl) {
+                    questionEl.textContent = `What is ${num1} + ${num2}?`;
+                }
+            }
+            initCaptcha();
+
             // Form submission
             const quoteForm = document.getElementById('quoteForm');
             quoteForm.addEventListener('submit', async (e) => {
@@ -414,6 +432,16 @@
                 if (hpField && hpField.value) {
                     console.log('Spam bot detected');
                     showSuccessMessage(); // Fake success
+                    return;
+                }
+
+                // Captcha check
+                const captchaInput = document.getElementById('captcha');
+                if (parseInt(captchaInput.value) !== captchaAnswer) {
+                    showCaptchaError();
+                    initCaptcha(); // Reset captcha for security
+                    captchaInput.value = '';
+                    window.scrollTo({ top: document.getElementById('quoteForm').offsetTop - 100, behavior: 'smooth' });
                     return;
                 }
 
@@ -479,6 +507,26 @@
                 `;
 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function showCaptchaError() {
+                // Remove existing error if any
+                const existingError = document.querySelector('.form-error-message');
+                if (existingError) existingError.remove();
+
+                const message = document.createElement('div');
+                message.className = 'form-error-message';
+                message.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                    <span>Incorrect security answer. Please try again.</span>
+                `;
+                quoteForm.insertBefore(message, quoteForm.firstChild);
+
+                setTimeout(() => message.remove(), 5000);
             }
         });
     </script>

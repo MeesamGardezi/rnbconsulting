@@ -38,7 +38,12 @@ app.use(session({
 }));
 
 // Serve static files from the public directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+    setHeaders: (res, path) => {
+        // Prevent strong caching, require browser to revalidate
+        res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+    }
+}));
 
 // Admin credentials from environment
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@rbconsulting.com';
