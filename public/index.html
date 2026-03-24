@@ -191,19 +191,20 @@
 
         /* ── CARDS ── */
         .cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 14px;
         }
 
         .card {
             background: white;
             border-radius: var(--r-lg);
-            padding: 24px;
+            padding: 24px 28px;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--color-border);
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
             text-decoration: none;
             color: var(--color-body);
             transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -217,11 +218,12 @@
         .card-featured {
             background: white;
             border-radius: var(--r-lg);
-            padding: 24px;
+            padding: 24px 28px;
             border: 2px solid var(--gold-600);
             box-shadow: var(--shadow-glow);
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
             text-decoration: none;
             color: var(--color-body);
             transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -231,35 +233,38 @@
             box-shadow: var(--shadow-glow), var(--shadow-lg);
         }
 
+        .card-text {
+            flex: 1;
+        }
+
         .card-kicker {
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--gold-500);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .card-name {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             letter-spacing: -0.3px;
             color: var(--color-body);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         .card-desc {
             font-size: 13px;
-            line-height: 1.6;
+            line-height: 1.5;
             color: var(--color-muted);
-            flex: 1;
-            margin-bottom: 20px;
         }
 
-        .card-foot {
+        .card-side {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 16px;
-            border-top: 1px solid var(--color-border);
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            margin-left: 32px;
+            flex-shrink: 0;
         }
 
         /* btn from design.html */
@@ -373,28 +378,32 @@
         <div class="cards">
 
             <a href="/construction" class="card">
-                <div class="card-kicker">R&B</div>
-                <div class="card-name">Construction</div>
-                <p class="card-desc">General contracting and self-perform services. We manage every phase of project delivery with accountability from groundbreak to closeout.</p>
-                <div class="card-foot">
+                <div class="card-text">
+                    <div class="card-kicker">R&B</div>
+                    <div class="card-name">Construction</div>
+                    <p class="card-desc">General contracting and self-perform services. Full project delivery with accountability from groundbreak to closeout.</p>
+                </div>
+                <div class="card-side">
                     <span class="badge badge-neutral">Coming Soon</span>
-                    <a href="/construction" class="btn btn-secondary">
+                    <span class="btn btn-secondary">
                         Explore
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                    </a>
+                    </span>
                 </div>
             </a>
 
             <a href="/consulting" class="card-featured">
-                <div class="card-kicker">R&B</div>
-                <div class="card-name">Consulting</div>
-                <p class="card-desc">Estimating, scheduling, project controls, and operations. We bring the systems your team needs to stay on time and on budget.</p>
-                <div class="card-foot">
+                <div class="card-text">
+                    <div class="card-kicker">R&B</div>
+                    <div class="card-name">Consulting</div>
+                    <p class="card-desc">Estimating, scheduling, project controls, and operations. The systems your team needs to stay on time and on budget.</p>
+                </div>
+                <div class="card-side">
                     <span class="badge badge-success">Live</span>
-                    <a href="/consulting" class="btn btn-primary">
+                    <span class="btn btn-primary">
                         Explore
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                    </a>
+                    </span>
                 </div>
             </a>
 
