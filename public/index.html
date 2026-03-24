@@ -9,452 +9,304 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --gold:        #b8860b;
-            --gold-light:  #d4a853;
-            --gold-dark:   #8a5500;
-            --gold-50:     #fdf9f0;
-            --gold-100:    #faf3e0;
-            --gold-200:    #f7ecd0;
-            --dark-950:    #060a0f;
-            --dark-900:    #0d1117;
-            --dark-800:    #1f2937;
-            --dark-700:    #374151;
-            --dark-500:    #6b7280;
-            --dark-400:    #9ca3af;
-            --dark-200:    #e5e7eb;
+            --gold:       #b8860b;
+            --gold-dark:  #8a5500;
+            --gold-100:   #faf3e0;
+            --gold-200:   #f7ecd0;
+            --gold-50:    #fdf9f0;
+            --dark-950:   #060a0f;
+            --dark-900:   #0d1117;
+            --dark-800:   #1f2937;
+            --dark-700:   #374151;
+            --dark-500:   #6b7280;
+            --dark-400:   #9ca3af;
+            --dark-200:   #e5e7eb;
+            --bg:         #f3f4f6;
             --font: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         html, body {
-            height: 100%;
             font-family: var(--font);
             -webkit-font-smoothing: antialiased;
+            background: var(--bg);
+            color: var(--dark-800);
         }
 
-        body {
+        /* ── PAGE LAYOUT ── */
+        .page {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            background: var(--dark-900);
-            overflow-x: hidden;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 24px;
         }
 
         /* ── HEADER ── */
         .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 40px;
-            background: linear-gradient(to bottom, rgba(13,17,23,0.85) 0%, transparent 100%);
-        }
-
-        .header-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            text-decoration: none;
+            text-align: center;
+            margin-bottom: 52px;
         }
 
         .logo-rb {
-            font-size: 1.625rem;
+            font-size: 2rem;
             font-weight: 800;
-            letter-spacing: -0.04em;
-            color: #f9fafb;
+            letter-spacing: -0.05em;
+            color: var(--dark-800);
             line-height: 1;
         }
         .logo-rb span { color: var(--gold); }
 
         .logo-sub {
-            font-size: 0.5625rem;
+            font-size: 0.625rem;
             font-weight: 600;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--dark-400);
+            margin-top: 5px;
         }
 
-        /* ── MAIN SPLIT ── */
-        .split {
+        .header-tagline {
+            font-size: 0.9375rem;
+            color: var(--dark-500);
+            margin-top: 16px;
+            font-weight: 400;
+        }
+
+        /* ── CARDS ROW ── */
+        .cards {
             display: flex;
-            flex: 1;
-            min-height: 100vh;
-        }
-
-        .panel {
-            flex: 1;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 60px 80px;
-            text-decoration: none;
-            overflow: hidden;
-            cursor: pointer;
-            transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .panel::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .split:has(.panel:hover) .panel:not(:hover) {
-            flex: 0.65;
-        }
-        .split:has(.panel:hover) .panel:hover {
-            flex: 1.35;
-        }
-
-        /* Construction panel — dark industrial */
-        .panel-construction {
-            background:
-                linear-gradient(135deg, rgba(13,17,23,0.95) 0%, rgba(31,41,55,0.9) 100%),
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 39px,
-                    rgba(255,255,255,0.025) 39px,
-                    rgba(255,255,255,0.025) 40px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 39px,
-                    rgba(255,255,255,0.025) 39px,
-                    rgba(255,255,255,0.025) 40px
-                );
-            background-color: var(--dark-950);
-            border-right: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .panel-construction::before {
-            background: radial-gradient(ellipse at 60% 50%, rgba(184,134,11,0.08) 0%, transparent 70%);
-        }
-
-        .panel-construction:hover::before { opacity: 1; }
-
-        /* Consulting panel — light/warm */
-        .panel-consulting {
-            background: var(--gold-50);
-        }
-
-        .panel-consulting::before {
-            background: radial-gradient(ellipse at 40% 50%, rgba(184,134,11,0.12) 0%, transparent 70%);
-        }
-        .panel-consulting:hover::before { opacity: 1; }
-
-        /* ── DIVIDER LINE ── */
-        .panel-divider {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            width: 1px;
-            height: 100vh;
-            background: linear-gradient(to bottom, transparent, rgba(184,134,11,0.4) 30%, rgba(184,134,11,0.6) 50%, rgba(184,134,11,0.4) 70%, transparent);
-            pointer-events: none;
-        }
-
-        /* ── PANEL CONTENT ── */
-        .panel-inner {
-            position: relative;
-            z-index: 2;
-            max-width: 420px;
+            gap: 20px;
             width: 100%;
-            text-align: center;
+            max-width: 760px;
+        }
+
+        .card {
+            flex: 1;
+            border-radius: 14px;
+            padding: 36px 32px;
+            text-decoration: none;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 0;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .panel-eyebrow {
-            font-size: 0.6875rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
+        .card:hover {
+            transform: translateY(-4px);
         }
 
-        .panel-construction .panel-eyebrow { color: var(--dark-400); }
-        .panel-consulting  .panel-eyebrow { color: var(--gold); }
+        /* Construction card — dark */
+        .card-construction {
+            background: var(--dark-900);
+            border: 1px solid rgba(255,255,255,0.07);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+        }
+        .card-construction:hover {
+            box-shadow: 0 12px 36px rgba(0,0,0,0.28);
+        }
 
-        .panel-icon {
-            width: 72px;
-            height: 72px;
-            border-radius: 16px;
+        /* Consulting card — light warm */
+        .card-consulting {
+            background: #ffffff;
+            border: 1px solid var(--dark-200);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .card-consulting:hover {
+            box-shadow: 0 12px 36px rgba(0,0,0,0.10);
+        }
+
+        /* ── CARD ICON ── */
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 28px;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-bottom: 20px;
+            flex-shrink: 0;
         }
 
-        .panel:hover .panel-icon { transform: scale(1.1) translateY(-4px); }
-
-        .panel-construction .panel-icon {
-            background: rgba(255,255,255,0.06);
+        .card-construction .card-icon {
+            background: rgba(255,255,255,0.07);
             border: 1px solid rgba(255,255,255,0.1);
         }
-        .panel-consulting .panel-icon {
+        .card-consulting .card-icon {
             background: var(--gold-100);
             border: 1px solid var(--gold-200);
         }
 
-        .panel-title {
-            font-size: clamp(2.5rem, 4vw, 3.75rem);
+        /* ── CARD TEXT ── */
+        .card-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .card-construction .card-label { color: var(--dark-400); }
+        .card-consulting  .card-label  { color: var(--gold); }
+
+        .card-title {
+            font-size: 1.625rem;
             font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 1.05;
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 10px;
         }
-        .panel:hover .panel-title { transform: translateY(-2px); }
+        .card-construction .card-title { color: #f9fafb; }
+        .card-consulting  .card-title  { color: var(--dark-800); }
 
-        .panel-construction .panel-title { color: #f9fafb; }
-        .panel-consulting  .panel-title { color: var(--dark-800); }
-
-        .panel-desc {
-            font-size: 0.9375rem;
-            line-height: 1.75;
-            margin-bottom: 36px;
+        .card-desc {
+            font-size: 0.875rem;
+            line-height: 1.65;
+            margin-bottom: 24px;
         }
-        .panel-construction .panel-desc { color: var(--dark-500); }
-        .panel-consulting  .panel-desc { color: var(--dark-700); }
+        .card-construction .card-desc { color: var(--dark-500); }
+        .card-consulting  .card-desc  { color: var(--dark-500); }
 
-        .panel-tags {
+        /* ── TAGS ── */
+        .card-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 44px;
+            gap: 6px;
+            margin-bottom: 28px;
         }
 
         .tag {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
-            padding: 4px 12px;
+            padding: 3px 10px;
             border-radius: 100px;
         }
-        .panel-construction .tag {
-            background: rgba(255,255,255,0.05);
+        .card-construction .tag {
+            background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.1);
             color: var(--dark-400);
         }
-        .panel-consulting .tag {
+        .card-consulting .tag {
             background: var(--gold-100);
             border: 1px solid var(--gold-200);
             color: var(--gold-dark);
         }
 
-        .panel-cta {
+        /* ── CTA LINK ── */
+        .card-cta {
+            margin-top: auto;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-family: var(--font);
-            font-size: 0.9375rem;
+            gap: 6px;
+            font-size: 0.875rem;
             font-weight: 700;
-            padding: 14px 28px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: transform 0.15s, box-shadow 0.15s;
         }
-        .panel-cta:hover { transform: translateY(-2px); }
-        .panel-cta:active { transform: translateY(0); }
+        .card-cta svg { transition: transform 0.15s ease; }
+        .card:hover .card-cta svg { transform: translateX(4px); }
 
-        .panel-cta svg {
-            transition: transform 0.2s ease;
-        }
-        .panel-cta:hover svg { transform: translateX(4px); }
+        .card-construction .card-cta { color: var(--gold); }
+        .card-consulting  .card-cta  { color: var(--dark-800); }
 
-        .panel-construction .panel-cta {
-            background: var(--gold);
-            color: white;
-            box-shadow: 0 4px 0 var(--gold-dark);
+        /* ── FOOTER ── */
+        .site-footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: var(--dark-400);
+            text-align: center;
         }
-        .panel-construction .panel-cta:hover { box-shadow: 0 6px 0 var(--gold-dark); }
-        .panel-construction .panel-cta:active { box-shadow: 0 2px 0 var(--gold-dark); }
-
-        .panel-consulting .panel-cta {
-            background: var(--dark-800);
-            color: white;
-            box-shadow: 0 4px 0 var(--dark-950);
-        }
-        .panel-consulting .panel-cta:hover { box-shadow: 0 6px 0 var(--dark-950); }
-        .panel-consulting .panel-cta:active { box-shadow: 0 2px 0 var(--dark-950); }
-
-        /* ── HOVER HINT ── */
-        .panel-hint {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            transform: translateX(-50%) translateY(8px);
-            white-space: nowrap;
-        }
-        .panel:hover .panel-hint {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-        .panel-construction .panel-hint { color: var(--dark-400); }
-        .panel-consulting  .panel-hint { color: var(--dark-500); }
 
         /* ── MOBILE ── */
-        @media (max-width: 768px) {
-            .split {
-                flex-direction: column;
-            }
-
-            .split:has(.panel:hover) .panel:not(:hover),
-            .split:has(.panel:hover) .panel:hover {
-                flex: 1;
-            }
-
-            .panel {
-                padding: 80px 32px 60px;
-                min-height: 50vh;
-            }
-
-            .panel-divider {
-                width: 100%;
-                height: 1px;
-                top: 50%;
-                left: 0;
-                transform: translateY(-50%);
-                background: linear-gradient(to right, transparent, rgba(184,134,11,0.5) 30%, rgba(184,134,11,0.7) 50%, rgba(184,134,11,0.5) 70%, transparent);
-            }
-
-            .site-header {
-                padding: 16px 24px;
-            }
-
-            .panel-title {
-                font-size: 2.25rem;
-            }
-
-            .panel-hint { display: none; }
-        }
-
-        @media (max-width: 480px) {
-            .panel { padding: 72px 24px 52px; }
-            .panel-title { font-size: 2rem; }
+        @media (max-width: 600px) {
+            .page { padding: 48px 20px; }
+            .cards { flex-direction: column; max-width: 400px; }
+            .site-header { margin-bottom: 36px; }
         }
 
         /* ── ENTRANCE ANIMATION ── */
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(16px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        .panel-inner {
-            animation: fadeUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
-        }
-        .panel-construction .panel-inner { animation-delay: 0.1s; }
-        .panel-consulting   .panel-inner { animation-delay: 0.25s; }
-
-        .site-header {
-            animation: fadeUp 0.5s ease both;
-        }
+        .site-header { animation: fadeUp 0.5s ease both; }
+        .card { animation: fadeUp 0.55s cubic-bezier(0.4,0,0.2,1) both; }
+        .card-construction { animation-delay: 0.1s; }
+        .card-consulting   { animation-delay: 0.18s; }
+        .site-footer { animation: fadeUp 0.5s ease 0.3s both; }
 
         @media (prefers-reduced-motion: reduce) {
-            .panel-inner, .site-header { animation: none; }
-            .panel,
-            .split:has(.panel:hover) .panel:not(:hover),
-            .split:has(.panel:hover) .panel:hover { transition: none; }
+            .site-header, .card, .site-footer { animation: none; }
+            .card { transition: none; }
         }
     </style>
 </head>
 <body>
+<div class="page">
 
     <header class="site-header">
-        <a href="/" class="header-logo">
-            <div class="logo-rb">R<span>&</span>B</div>
-            <div class="logo-sub">Group</div>
-        </a>
+        <div class="logo-rb">R<span>&</span>B</div>
+        <div class="logo-sub">Group</div>
+        <p class="header-tagline">Choose a division to get started</p>
     </header>
 
-    <!-- Vertical divider line -->
-    <div class="panel-divider" aria-hidden="true"></div>
-
-    <main class="split">
+    <div class="cards">
 
         <!-- CONSTRUCTION -->
-        <a href="/construction" class="panel panel-construction" aria-label="R&B Construction — explore construction services">
-            <div class="panel-inner">
-                <div class="panel-eyebrow">R&B</div>
-                <div class="panel-icon">
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="7" width="20" height="14" rx="1"/>
-                        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-                        <line x1="12" y1="12" x2="12" y2="16"/>
-                        <line x1="10" y1="14" x2="14" y2="14"/>
-                    </svg>
-                </div>
-                <h2 class="panel-title">Construction</h2>
-                <p class="panel-desc">General contracting, project delivery, and self-perform services. We build with precision and accountability.</p>
-                <div class="panel-tags">
-                    <span class="tag">General Contracting</span>
-                    <span class="tag">Project Delivery</span>
-                    <span class="tag">Self-Perform</span>
-                    <span class="tag">Site Management</span>
-                </div>
-                <span class="panel-cta">
-                    Explore Construction
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                </span>
+        <a href="/construction" class="card card-construction">
+            <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="1"/>
+                    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+                    <line x1="12" y1="12" x2="12" y2="16"/>
+                    <line x1="10" y1="14" x2="14" y2="14"/>
+                </svg>
             </div>
-            <span class="panel-hint">Click to enter</span>
+            <div class="card-label">R&B</div>
+            <div class="card-title">Construction</div>
+            <p class="card-desc">General contracting, project delivery, and self-perform services built on precision and accountability.</p>
+            <div class="card-tags">
+                <span class="tag">General Contracting</span>
+                <span class="tag">Project Delivery</span>
+                <span class="tag">Self-Perform</span>
+            </div>
+            <span class="card-cta">
+                Explore
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
         </a>
 
         <!-- CONSULTING -->
-        <a href="/consulting" class="panel panel-consulting" aria-label="R&B Consulting — explore consulting services">
-            <div class="panel-inner">
-                <div class="panel-eyebrow">R&B</div>
-                <div class="panel-icon">
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                    </svg>
-                </div>
-                <h2 class="panel-title">Consulting</h2>
-                <p class="panel-desc">Estimating, scheduling, project controls, and operations. We bring structure and execution to your projects.</p>
-                <div class="panel-tags">
-                    <span class="tag">Estimating</span>
-                    <span class="tag">Scheduling</span>
-                    <span class="tag">Project Controls</span>
-                    <span class="tag">Operations</span>
-                </div>
-                <span class="panel-cta">
-                    Explore Consulting
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                </span>
+        <a href="/consulting" class="card card-consulting">
+            <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
             </div>
-            <span class="panel-hint">Click to enter</span>
+            <div class="card-label">R&B</div>
+            <div class="card-title">Consulting</div>
+            <p class="card-desc">Estimating, scheduling, project controls, and operations. Structure and execution for every project stage.</p>
+            <div class="card-tags">
+                <span class="tag">Estimating</span>
+                <span class="tag">Scheduling</span>
+                <span class="tag">Project Controls</span>
+            </div>
+            <span class="card-cta">
+                Explore
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
         </a>
 
-    </main>
+    </div>
 
+    <footer class="site-footer">© 2026 R&B Group</footer>
+
+</div>
 </body>
 </html>
