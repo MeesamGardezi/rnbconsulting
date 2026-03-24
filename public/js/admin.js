@@ -12,6 +12,7 @@ const AdminState = {
     posts: [],
     contacts: [],
     quotes: [],
+    propertyInquiries: [],
     analytics: null,
     charts: {},
     // Email state
@@ -77,6 +78,10 @@ const Elements = {
     // Contact & Quotes
     contactsList: document.getElementById('contactsList'),
     quotesList: document.getElementById('quotesList'),
+
+    // Property Inquiries
+    propertyInquiriesList: document.getElementById('propertyInquiriesList'),
+    recentPropertyInquiriesList: document.getElementById('recentPropertyInquiriesList'),
 
     // Submission Modal
     submissionModal: document.getElementById('submissionModal'),
@@ -286,7 +291,8 @@ function navigateToSection(section) {
         analytics: 'Analytics',
         contacts: 'Contact Forms',
         quotes: 'Quote Requests',
-        email: 'Email'
+        email: 'Email',
+        'property-inquiries': 'Property Inquiries'
     };
     Elements.pageHeading.textContent = headings[section] || 'Dashboard';
 
@@ -306,6 +312,9 @@ function navigateToSection(section) {
             break;
         case 'quotes':
             loadQuotes();
+            break;
+        case 'property-inquiries':
+            loadPropertyInquiries();
             break;
         case 'email':
             loadEmailSection();
@@ -357,6 +366,10 @@ async function loadDashboardData() {
         // Load recent quotes
         const quotes = await RBFirebase.QuoteService.getRequests();
         renderRecentQuotes(quotes.slice(0, 5));
+
+        // Load recent property inquiries
+        const propertyInquiries = await RBFirebase.PropertyInquiryService.getInquiries();
+        renderRecentPropertyInquiries(propertyInquiries.slice(0, 5));
 
     } catch (error) {
         console.error('Error loading dashboard data:', error);
@@ -414,6 +427,25 @@ function renderRecentQuotes(quotes) {
                 <span class="item-subject">${quote.projectType || 'Not specified'}</span>
             </div>
             <span class="item-date">${formatDate(quote.createdAt)}</span>
+        </li>
+    `).join('');
+}
+
+function renderRecentPropertyInquiries(inquiries) {
+    if (!inquiries || inquiries.length === 0) {
+        Elements.recentPropertyInquiriesList.innerHTML = '<li class="empty">No inquiries yet</li>';
+        return;
+    }
+
+    AdminState.propertyInquiries = inquiries;
+
+    Elements.recentPropertyInquiriesList.innerHTML = inquiries.map(inq => `
+        <li class="status-${inq.status || 'new'} clickable-item" onclick="viewSubmission('property-inquiry', '${inq.id}')">
+            <div class="item-main">
+                <span class="item-name">${inq.firstName} ${inq.lastName}</span>
+                <span class="item-subject">${inq.serviceNeeded || 'General Inquiry'}</span>
+            </div>
+            <span class="item-date">${formatDate(inq.createdAt)}</span>
         </li>
     `).join('');
 }
@@ -874,6 +906,48 @@ function renderQuotes(filter = 'all') {
 }
 
 // =====================================================
+// Property Inquiries
+// =====================================================
+async function loadPropertyInquiries(filter = 'all') {
+    try {
+        AdminState.propertyInquiries = await RBFirebase.PropertyInquiryService.getInquiries();
+        renderPropertyInquiries(filter);
+    } catch (error) {
+        console.error('Error loading property inquiries:', error);
+        showToast('Error loading property inquiries', 'error');
+    }
+}
+
+function renderPropertyInquiries(filter = 'all') {
+    let inquiries = AdminState.propertyInquiries;
+
+    if (filter !== 'all') {
+        inquiries = inquiries.filter(i => i.status === filter);
+    }
+
+    if (!inquiries || inquiries.length === 0) {
+        Elements.propertyInquiriesList.innerHTML = '<div class="empty-state">No property inquiries found</div>';
+        return;
+    }
+
+    Elements.propertyInquiriesList.innerHTML = inquiries.map(inq => `
+        <div class="submission-card status-${inq.status || 'new'}" onclick="viewSubmission('property-inquiry', '${inq.id}')">
+            <div class="submission-header">
+                <span class="submission-name">${inq.firstName} ${inq.lastName}</span>
+                <span class="submission-status status-${inq.status || 'new'}">${inq.status || 'new'}</span>
+            </div>
+            <div class="submission-email">${inq.email}</div>
+            <div class="submission-details">
+                <span class="detail-item"><strong>Service:</strong> ${inq.serviceNeeded || 'Not specified'}</span>
+                <span class="detail-item"><strong>Property:</strong> ${inq.propertyType || 'Not specified'}</span>
+                ${inq.propertyCity ? `<span class="detail-item"><strong>Location:</strong> ${inq.propertyCity}${inq.propertyState ? ', ' + inq.propertyState : ''}</span>` : ''}
+            </div>
+            <div class="submission-date">${formatDateTime(inq.createdAt)}</div>
+        </div>
+    `).join('');
+}
+
+// =====================================================
 // View Submission
 // =====================================================
 let currentSubmission = { type: null, id: null };
@@ -887,6 +961,9 @@ window.viewSubmission = function (type, id) {
     if (type === 'contact') {
         data = AdminState.contacts.find(c => c.id === id);
         statusOptions = ['new', 'read', 'replied'];
+    } else if (type === 'property-inquiry') {
+        data = AdminState.propertyInquiries.find(i => i.id === id);
+        statusOptions = ['new', 'read', 'quoted', 'closed'];
     } else {
         data = AdminState.quotes.find(q => q.id === id);
         statusOptions = ['pending', 'reviewed', 'quoted', 'closed'];
@@ -1020,8 +1097,66 @@ window.viewSubmission = function (type, id) {
         `;
     }
 
+    if (type === 'property-inquiry') {
+        detailsHtml = `
+            <div class="submission-grid">
+                <div class="submission-section">
+                    <h3 class="submission-section-title">Contact Information</h3>
+                    <div class="submission-info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">${data.firstName} ${data.lastName}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value"><a href="mailto:${data.email}">${data.email}</a></span>
+                        </div>
+                        ${data.phone ? `
+                        <div class="info-item">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value"><a href="tel:${data.phone}">${data.phone}</a></span>
+                        </div>` : ''}
+                        <div class="info-item">
+                            <span class="info-label">Date</span>
+                            <span class="info-value">${formatDateTime(data.createdAt)}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submission-section">
+                    <h3 class="submission-section-title">Property Details</h3>
+                    <div class="submission-info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Property Type</span>
+                            <span class="info-value">${data.propertyType || 'Not specified'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Service Needed</span>
+                            <span class="info-value">${data.serviceNeeded || 'Not specified'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Location</span>
+                            <span class="info-value">${[data.propertyCity, data.propertyState].filter(Boolean).join(', ') || 'Not specified'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Frequency</span>
+                            <span class="info-value">${data.frequency || 'Not specified'}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            ${data.message ? `
+            <div class="submission-section">
+                <h3 class="submission-section-title">Message</h3>
+                <div class="submission-message-box">${data.message}</div>
+            </div>` : ''}
+        `;
+    }
+
     Elements.submissionDetails.innerHTML = detailsHtml;
-    document.getElementById('submissionTitle').textContent = type === 'contact' ? 'Contact Submission' : 'Quote Request';
+    const titleMap = { contact: 'Contact Submission', 'property-inquiry': 'Property Inquiry', quote: 'Quote Request' };
+    document.getElementById('submissionTitle').textContent = titleMap[type] || 'Submission Details';
     Elements.submissionModal.classList.add('active');
 };
 
@@ -1033,6 +1168,9 @@ async function updateSubmissionStatus() {
         if (type === 'contact') {
             await RBFirebase.ContactService.updateStatus(id, newStatus);
             loadContacts();
+        } else if (type === 'property-inquiry') {
+            await RBFirebase.PropertyInquiryService.updateStatus(id, newStatus);
+            loadPropertyInquiries();
         } else {
             await RBFirebase.QuoteService.updateStatus(id, newStatus);
             loadQuotes();
@@ -1063,6 +1201,8 @@ function initFilterTabs() {
                     renderContacts(filter);
                 } else if (section === 'quotes') {
                     renderQuotes(filter);
+                } else if (section === 'property-inquiries') {
+                    renderPropertyInquiries(filter);
                 }
             });
         });

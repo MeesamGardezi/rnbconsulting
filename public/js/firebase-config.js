@@ -697,6 +697,37 @@ const QuoteService = {
 };
 
 // =====================================================
+// Property Inquiry Service (construction_inquiries collection)
+// =====================================================
+const PropertyInquiryService = {
+    async getInquiries(status = null) {
+        if (!db) return [];
+        try {
+            let query = db.collection('construction_inquiries').orderBy('createdAt', 'desc');
+            if (status) {
+                query = query.where('status', '==', status);
+            }
+            const snapshot = await query.get();
+            return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        } catch (error) {
+            console.error('Error fetching property inquiries:', error);
+            return [];
+        }
+    },
+
+    async updateStatus(id, status) {
+        if (!db) return false;
+        try {
+            await db.collection('construction_inquiries').doc(id).update({ status });
+            return true;
+        } catch (error) {
+            console.error('Error updating property inquiry status:', error);
+            return false;
+        }
+    }
+};
+
+// =====================================================
 // Export all services
 // =====================================================
 window.RBFirebase = {
@@ -707,6 +738,7 @@ window.RBFirebase = {
     StorageService,
     ContactService,
     QuoteService,
+    PropertyInquiryService,
     getDb: () => db,
     getStorage: () => storage,
     getAuth: () => auth
