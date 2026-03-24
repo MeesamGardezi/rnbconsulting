@@ -127,6 +127,15 @@
         }
         .btn-nav:hover { background: var(--gold-600); color: white; }
 
+        /* ── MAIN CONTENT ── */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 72px;
+        }
+
         /* ── HERO ── */
         .hero {
             flex: 1;
@@ -166,139 +175,121 @@
             max-width: 480px;
         }
 
-        /* ── SECTION HEADER ── */
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            border-bottom: 2px solid var(--color-primary);
-            padding-bottom: 10px;
-            margin-bottom: 16px;
-        }
-        .section-num {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold-500);
-        }
-        .section-label {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--color-body);
-            letter-spacing: -0.3px;
-        }
-
-        /* ── CARDS ── */
-        .cards {
+        /* ── SIDE NAV ── */
+        .side-nav {
             display: flex;
             flex-direction: column;
             gap: 14px;
+            flex-shrink: 0;
+            width: 240px;
         }
 
-        .card {
-            background: white;
+        .side-nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-subtle);
+            margin-bottom: 2px;
+        }
+
+        .side-link {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 22px 24px;
             border-radius: var(--r-lg);
-            padding: 24px 28px;
+            font-family: var(--font);
+            text-decoration: none;
+            border: 1.5px solid var(--color-border);
+            background: white;
             box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            text-decoration: none;
-            color: var(--color-body);
-            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+            transition: all 0.18s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
-        .card:hover {
-            transform: translateY(-2px);
+        .side-link::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .side-link:hover {
+            border-color: var(--gold-400, #d4a853);
             box-shadow: var(--shadow-md);
-            border-color: var(--gold-300);
-        }
-
-        .card-featured {
-            background: white;
-            border-radius: var(--r-lg);
-            padding: 24px 28px;
-            border: 2px solid var(--gold-600);
-            box-shadow: var(--shadow-glow);
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            text-decoration: none;
-            color: var(--color-body);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-        .card-featured:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-glow), var(--shadow-lg);
         }
 
-        .card-text {
-            flex: 1;
-        }
-
-        .card-kicker {
-            font-size: 10px;
+        .side-link-label {
+            font-size: 11px;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            color: var(--gold-500);
-            margin-bottom: 4px;
-        }
-        .card-name {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            color: var(--color-body);
-            margin-bottom: 4px;
-        }
-        .card-desc {
-            font-size: 13px;
-            line-height: 1.5;
-            color: var(--color-muted);
+            color: var(--color-subtle);
         }
 
-        .card-side {
+        .side-link-name {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: var(--neutral-900);
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 10px;
-            margin-left: 32px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .side-link-name svg {
+            opacity: 0.25;
+            transition: opacity 0.18s ease, transform 0.18s ease;
             flex-shrink: 0;
         }
+        .side-link:hover .side-link-name svg {
+            opacity: 0.9;
+            transform: translateX(4px);
+        }
 
-        /* btn from design.html */
-        .btn {
-            font-family: var(--font);
-            font-weight: 600;
+        .side-link-sub {
             font-size: 12px;
-            border: none;
-            cursor: pointer;
-            border-radius: var(--r-md);
-            padding: 8px 16px;
+            color: var(--color-subtle);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .side-link-status {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            transition: all 0.12s ease;
-            text-decoration: none;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 2px;
         }
-        .btn:hover { transform: translateY(-1px); }
-        .btn:active { transform: translateY(1px); }
+        .side-link-status .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        .status-live .dot { background: #22c55e; }
+        .status-live { color: #15803d; }
+        .status-soon .dot { background: var(--neutral-400); }
+        .status-soon { color: var(--neutral-500); }
 
-        .btn-primary {
+        .side-link-primary {
+            border-color: var(--gold-600);
             background: var(--gold-600);
-            color: white;
-            box-shadow: 0 4px 0 var(--gold-800);
+            box-shadow: 0 6px 24px rgba(184,134,11,0.25);
         }
-        .btn-primary:active { box-shadow: 0 1px 0 var(--gold-800); }
-
-        .btn-secondary {
-            background: white;
-            color: var(--color-body);
-            border: 1.5px solid var(--color-border);
-            box-shadow: var(--shadow-sm);
+        .side-link-primary:hover {
+            background: var(--gold-800);
+            border-color: var(--gold-800);
+            box-shadow: 0 8px 32px rgba(138,85,0,0.3);
         }
-        .btn-secondary:hover { border-color: var(--gold-600); color: var(--gold-600); }
+        .side-link-primary .side-link-label { color: rgba(255,255,255,0.65); }
+        .side-link-primary .side-link-name  { color: #fff; }
+        .side-link-primary .side-link-sub   { color: rgba(255,255,255,0.7); }
+        .side-link-primary .side-link-status { color: rgba(255,255,255,0.85); }
+        .side-link-primary .status-live .dot { background: #86efac; }
 
         /* ── FOOTER ── */
         .footer {
@@ -321,9 +312,10 @@
         @media (max-width: 600px) {
             html, body { overflow: auto; }
             .page { height: auto; padding: 0 20px; }
-            .hero { padding: 28px 0 20px; }
+            .main-content { flex-direction: column; gap: 32px; align-items: flex-start; }
+            .hero { padding: 28px 0 0; }
             .hero-title { font-size: 2rem; }
-            .cards { grid-template-columns: 1fr; }
+            .side-nav { min-width: unset; width: 100%; }
             .footer { flex-direction: column; gap: 10px; text-align: center; }
         }
 
@@ -336,9 +328,9 @@
         .hero-badge     { animation: fadeUp 0.4s ease 0.06s both; }
         .hero-title     { animation: fadeUp 0.4s ease 0.12s both; }
         .hero-body      { animation: fadeUp 0.4s ease 0.17s both; }
-        .section-header { animation: fadeUp 0.4s ease 0.22s both; }
-        .cards > *:nth-child(1) { animation: fadeUp 0.4s ease 0.27s both; }
-        .cards > *:nth-child(2) { animation: fadeUp 0.4s ease 0.33s both; }
+        .side-nav          { animation: fadeUp 0.4s ease 0.22s both; }
+        .side-nav > *:nth-child(2) { animation: fadeUp 0.4s ease 0.27s both; }
+        .side-nav > *:nth-child(3) { animation: fadeUp 0.4s ease 0.33s both; }
         .footer         { animation: fadeUp 0.4s ease 0.38s both; }
 
         @media (prefers-reduced-motion: reduce) {
@@ -357,57 +349,48 @@
         <a href="/consulting/contact" class="btn-nav">Get in Touch</a>
     </nav>
 
-    <div class="hero">
-        <div class="hero-badge">
-            <span class="badge badge-gold">New York &amp; Northeast</span>
-        </div>
-        <h1 class="hero-title">
-            Built on structure.<br>Driven by <span>execution.</span>
-        </h1>
-        <p class="hero-body">
-            R&B Group delivers construction and consulting services to contractors, developers, and owners who demand precision at every stage of a project.
-        </p>
-    </div>
+    <div class="main-content">
 
-    <div>
-        <div class="section-header">
-            <span class="section-num">Our Divisions</span>
-            <span class="section-label">Choose a division to get started</span>
+        <div class="hero">
+            <div class="hero-badge">
+                <span class="badge badge-gold">New York &amp; Northeast</span>
+            </div>
+            <h1 class="hero-title">
+                Built on structure.<br>Driven by <span>execution.</span>
+            </h1>
+            <p class="hero-body">
+                R&B Group delivers construction and consulting services to contractors, developers, and owners who demand precision at every stage of a project.
+            </p>
         </div>
 
-        <div class="cards">
+        <div class="side-nav">
+            <span class="side-nav-label">Our Divisions</span>
 
-            <a href="/construction" class="card">
-                <div class="card-text">
-                    <div class="card-kicker">R&B</div>
-                    <div class="card-name">Construction</div>
-                    <p class="card-desc">General contracting and self-perform services. Full project delivery with accountability from groundbreak to closeout.</p>
-                </div>
-                <div class="card-side">
-                    <span class="badge badge-neutral">Coming Soon</span>
-                    <span class="btn btn-secondary">
-                        Explore
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                    </span>
-                </div>
+            <a href="/consulting" class="side-link side-link-primary">
+                <span class="side-link-label">R&amp;B</span>
+                <span class="side-link-name">
+                    Consulting
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+                <span class="side-link-sub">Estimating, scheduling &amp; project controls</span>
+                <span class="side-link-status status-live">
+                    <span class="dot"></span> Live
+                </span>
             </a>
 
-            <a href="/consulting" class="card-featured">
-                <div class="card-text">
-                    <div class="card-kicker">R&B</div>
-                    <div class="card-name">Consulting</div>
-                    <p class="card-desc">Estimating, scheduling, project controls, and operations. The systems your team needs to stay on time and on budget.</p>
-                </div>
-                <div class="card-side">
-                    <span class="badge badge-success">Live</span>
-                    <span class="btn btn-primary">
-                        Explore
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                    </span>
-                </div>
+            <a href="/construction" class="side-link">
+                <span class="side-link-label">R&amp;B</span>
+                <span class="side-link-name">
+                    Construction
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+                <span class="side-link-sub">General contracting &amp; self-perform delivery</span>
+                <span class="side-link-status status-soon">
+                    <span class="dot"></span> Coming Soon
+                </span>
             </a>
-
         </div>
+
     </div>
 
     <footer class="footer">
