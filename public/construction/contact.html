@@ -40,6 +40,47 @@
             text-transform: uppercase;
             color: #9ca3af;
         }
+
+        /* ── Dark page-header ── */
+        .page-header {
+            background: linear-gradient(160deg, #0b1610 0%, #0f1f14 60%, #0a1610 100%) !important;
+        }
+
+        .page-header .page-header-background { background: transparent; }
+        .page-header .breadcrumb a,
+        .page-header .separator { color: rgba(255,255,255,0.3) !important; }
+        .page-header .breadcrumb a:hover { color: rgba(255,255,255,0.65) !important; }
+        .page-header .current { color: rgba(255,255,255,0.55) !important; }
+        .page-header .page-title { color: #f8fafc !important; }
+        .page-header .page-subtitle { color: rgba(255,255,255,0.5) !important; }
+
+        /* ── Premium form inputs ── */
+        .contact-form .form-group input,
+        .contact-form .form-group select,
+        .contact-form .form-group textarea {
+            border: 1.5px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 0.925rem;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease;
+            background: #fff;
+        }
+
+        .contact-form .form-group input:focus,
+        .contact-form .form-group select:focus,
+        .contact-form .form-group textarea:focus {
+            border-color: #b8860b;
+            box-shadow: 0 0 0 3px rgba(184,134,11,0.08);
+            outline: none;
+        }
+
+        .contact-form label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+            display: block;
+        }
     </style>
 </head>
 

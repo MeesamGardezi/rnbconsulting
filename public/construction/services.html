@@ -36,6 +36,73 @@
             text-transform: uppercase;
             color: #9ca3af;
         }
+
+        /* ── Dark page-header for construction pages ── */
+        .page-header {
+            background: linear-gradient(160deg, #0b1610 0%, #0f1f14 60%, #0a1610 100%) !important;
+            position: relative;
+        }
+
+        .page-header .page-header-background {
+            background: transparent;
+        }
+
+        .page-header .breadcrumb a,
+        .page-header .separator {
+            color: rgba(255,255,255,0.3) !important;
+        }
+
+        .page-header .breadcrumb a:hover { color: rgba(255,255,255,0.65) !important; }
+        .page-header .current { color: rgba(255,255,255,0.55) !important; }
+        .page-header .page-title { color: #f8fafc !important; }
+        .page-header .page-subtitle { color: rgba(255,255,255,0.5) !important; }
+
+        /* Services quick nav — upgraded */
+        .services-quick-nav {
+            background: #0f1a12;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 14px 0;
+            position: sticky;
+            top: 64px;
+            z-index: 40;
+        }
+
+        .services-quick-nav-inner {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px 6px;
+        }
+
+        .services-quick-nav-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            padding-right: 12px;
+            border-right: 1px solid rgba(255,255,255,0.08);
+            margin-right: 6px;
+            white-space: nowrap;
+        }
+
+        .services-quick-nav-link {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            transition: all 0.18s ease;
+            white-space: nowrap;
+        }
+
+        .services-quick-nav-link:hover {
+            color: #d4a853;
+            border-color: rgba(184,134,11,0.25);
+            background: rgba(184,134,11,0.06);
+        }
     </style>
 </head>
 
@@ -108,19 +175,19 @@
     </section>
 
     <!-- Quick Nav -->
-    <section style="background:#f9fafb;border-bottom:1px solid #e5e7eb;padding:16px 0;">
+    <nav class="services-quick-nav" aria-label="Jump to service">
         <div class="container">
-            <div style="display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;">
-                <span style="font-size:0.8rem;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:0.1em;">Jump to:</span>
-                <a href="#repairs" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">General Repairs</a>
-                <a href="#lawn" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Lawn Care</a>
-                <a href="#seasonal" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Seasonal Cleanup</a>
-                <a href="#inspections" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Property Walkthroughs</a>
-                <a href="#turnover" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Turnover Refresh</a>
-                <a href="#plans" style="font-size:0.875rem;font-weight:500;color:#b8860b;text-decoration:none;">Maintenance Plans</a>
+            <div class="services-quick-nav-inner">
+                <span class="services-quick-nav-label">Jump to</span>
+                <a href="#repairs"     class="services-quick-nav-link">General Repairs</a>
+                <a href="#lawn"        class="services-quick-nav-link">Lawn Care</a>
+                <a href="#seasonal"    class="services-quick-nav-link">Seasonal Cleanup</a>
+                <a href="#inspections" class="services-quick-nav-link">Property Walkthroughs</a>
+                <a href="#turnover"    class="services-quick-nav-link">Turnover Refresh</a>
+                <a href="#plans"       class="services-quick-nav-link">Maintenance Plans</a>
             </div>
         </div>
-    </section>
+    </nav>
 
     <!-- Service 01: General Repairs -->
     <section class="service-detail" id="repairs">
