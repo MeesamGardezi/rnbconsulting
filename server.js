@@ -239,7 +239,7 @@ app.post('/api/email/reply', requireAdmin, async (req, res) => {
 // Page Routes
 // =====================================================
 
-const consultingPages = ['about', 'services', 'blog', 'contact', 'careers', 'quote', 'faq'];
+const consultingPages = ['about', 'services', 'contact', 'careers', 'quote', 'faq'];
 
 // Admin panel — served at /admin (top level)
 app.get('/admin', (req, res) => {
@@ -249,6 +249,18 @@ app.get('/admin', (req, res) => {
 app.get('/consulting/admin', (req, res) => {
     res.redirect(301, '/admin');
 });
+
+// Blog — served at /blog (top level), like /admin
+app.get('/blog', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'consulting', 'blog.html'));
+});
+app.get('/blog/:slug', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'consulting', 'blog-post.html'));
+});
+// Redirect old /consulting/blog paths
+app.get('/consulting/blog', (req, res) => { res.redirect(301, '/blog'); });
+app.get('/consulting/blog/:slug', (req, res) => { res.redirect(301, `/blog/${req.params.slug}`); });
+
 const constructionPages = ['services', 'contact'];
 
 // Root landing page — two-card split (Construction / Consulting)
