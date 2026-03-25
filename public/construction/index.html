@@ -61,59 +61,75 @@
 
 
         /* =============================================
-           Service cards — equal height
+           Service cards
            ============================================= */
         .pm-services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            align-items: stretch;
+            gap: 20px;
+            align-items: start;
         }
 
         .pm-service-card {
             background: #fff;
-            border: 1.5px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 32px 28px;
+            border-radius: 16px;
+            padding: 36px 30px;
             display: flex;
             flex-direction: column;
-            transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid #f3f4f6;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pm-service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, #b8860b, #d4a853);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
         }
 
         .pm-service-card:hover {
-            border-color: #b8860b;
-            box-shadow: 0 8px 28px rgba(184, 134, 11, 0.1);
-            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.09);
+            transform: translateY(-4px);
+        }
+
+        .pm-service-card:hover::after {
+            transform: scaleX(1);
         }
 
         .pm-service-icon {
-            width: 48px;
-            height: 48px;
+            width: 42px;
+            height: 42px;
             border-radius: 10px;
-            background: #faf3e0;
+            background: rgba(184, 134, 11, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             flex-shrink: 0;
-        }
-
-        .pm-service-icon svg {
             color: #b8860b;
         }
 
         .pm-service-card h3 {
             font-size: 1.05rem;
             font-weight: 700;
-            color: #1f2937;
+            color: #111827;
             margin-bottom: 10px;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
         }
 
         .pm-service-card p {
             font-size: 0.9rem;
             color: #6b7280;
-            line-height: 1.65;
+            line-height: 1.7;
             flex: 1;
         }
 
@@ -124,14 +140,12 @@
             font-size: 0.85rem;
             font-weight: 600;
             color: #b8860b;
-            margin-top: 18px;
+            margin-top: 20px;
             text-decoration: none;
-            transition: gap 0.15s ease;
+            transition: gap 0.2s ease;
         }
 
-        .pm-service-link:hover {
-            gap: 8px;
-        }
+        .pm-service-link:hover { gap: 9px; }
 
         /* =============================================
            Value props
@@ -571,7 +585,7 @@
             <div class="section-header" style="margin-bottom:48px;">
                 <span class="section-label">What We Do</span>
                 <h2 class="section-title">Everything your property needs</h2>
-                <p class="section-subtitle">Comprehensive maintenance services so your guests always arrive to a property that looks and functions its best.</p>
+                <p class="section-subtitle">Everything your rental needs — handled, documented, and done right.</p>
             </div>
 
             <div class="pm-services-grid">
@@ -932,14 +946,14 @@
                 ease: 'power3.out'
             });
 
-            // Service cards
-            gsap.from('.pm-service-card', {
-                scrollTrigger: { trigger: '.pm-services-grid', start: 'top 75%' },
+            // Service cards — animate rows so no height-stagger visual glitch
+            gsap.from('.pm-services-grid .pm-service-card', {
+                scrollTrigger: { trigger: '.pm-services-grid', start: 'top 78%' },
                 opacity: 0,
-                y: 40,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: 'power3.out'
+                y: 28,
+                duration: 0.55,
+                stagger: { each: 0.08, grid: [2, 3], from: 'start' },
+                ease: 'power2.out'
             });
 
             // Value items
