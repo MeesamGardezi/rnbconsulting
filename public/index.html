@@ -3,608 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="R&B Group — Two specialized divisions. Expert construction consulting and hands-on property maintenance, built for those who demand precision.">
-    <title>R&B Group | Construction Consulting &amp; Property Maintenance</title>
+    <meta name="description" content="R&B Group — Construction and Consulting services across New York and the Northeast.">
+    <title>R&B Group | Construction & Consulting</title>
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --gold-800: #8a5500;
+            --gold-600: #b8860b;
+            --gold-500: #d4a853;
+            --gold-300: #f0d9a8;
+            --gold-200: #f7ecd0;
+            --gold-100: #faf3e0;
+            --gold-50:  #fdf9f0;
+
+            --neutral-900: #0d1117;
+            --neutral-800: #1f2937;
+            --neutral-700: #374151;
+            --neutral-600: #4b5563;
+            --neutral-500: #6b7280;
+            --neutral-400: #9ca3af;
+            --neutral-200: #e5e7eb;
+            --neutral-100: #f3f4f6;
+            --neutral-50:  #f9fafb;
+
+            --color-primary:      #b8860b;
+            --color-primary-dark: #8a5500;
+            --color-body:         #1f2937;
+            --color-muted:        #6b7280;
+            --color-subtle:       #9ca3af;
+            --color-border:       #e5e7eb;
+            --color-surface:      #ffffff;
+            --color-bg:           #f9fafb;
+
+            --shadow-sm:   0 1px 3px rgba(0,0,0,0.04);
+            --shadow-md:   0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg:   0 8px 24px rgba(0,0,0,0.08);
+            --shadow-glow: 0 0 30px rgba(184,134,11,0.12);
+
+            --r-xs: 4px;
+            --r-sm: 6px;
+            --r-md: 8px;
+            --r-lg: 12px;
+
+            --font: 'Inter', system-ui, sans-serif;
+        }
+
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         html, body {
             height: 100%;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            background: #060a12;
-            color: #f8fafc;
             overflow: hidden;
         }
 
-        a { text-decoration: none; color: inherit; }
-
-        /* ======================================================
-           SHELL
-           ====================================================== */
-        .shell {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
+        body {
+            font-family: var(--font);
+            font-size: 14px;
+            color: var(--color-body);
+            background: var(--color-bg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ======================================================
-           TOP BAR
-           ====================================================== */
-        .topbar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
+        a { color: inherit; text-decoration: none; }
+
+        /* ── FULL-HEIGHT SHELL ── */
+        .page {
+            height: 100vh;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* ── NAV ── */
+        .nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 28px 48px;
-            background: linear-gradient(to bottom, rgba(6,10,18,0.9) 0%, transparent 100%);
+            padding: 28px 0 0;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 20px;
         }
 
-        .topbar-logo {
+        .nav-logo {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 1px;
         }
-
-        .topbar-logo-mark {
-            font-size: 18px;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            color: #f8fafc;
-            line-height: 1;
-        }
-
-        .topbar-logo-mark em {
-            font-style: normal;
-            color: #b8860b;
-        }
-
-        .topbar-logo-sub {
-            font-size: 7.5px;
-            font-weight: 700;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
-        }
-
-        .topbar-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: rgba(255,255,255,0.7);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 6px;
-            padding: 8px 16px;
-            transition: all 0.18s ease;
-            letter-spacing: 0.01em;
-        }
-
-        .topbar-cta:hover {
-            color: #f8fafc;
-            border-color: rgba(255,255,255,0.25);
-            background: rgba(255,255,255,0.05);
-        }
-
-        /* ======================================================
-           SPLIT PANELS
-           ====================================================== */
-        .split {
-            flex: 1;
-            display: flex;
-        }
-
-        .panel {
-            flex: 1;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 52px 52px 48px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .panel:hover {
-            flex: 1.06;
-        }
-
-        /* Divider */
-        .panel-divider {
-            width: 1px;
-            background: rgba(255,255,255,0.05);
-            flex-shrink: 0;
-            position: relative;
-            z-index: 5;
-        }
-
-        /* Panel backgrounds */
-        .panel-consulting {
-            background: linear-gradient(160deg, #08101e 0%, #0d1a2e 60%, #0a1520 100%);
-        }
-
-        .panel-property {
-            background: linear-gradient(160deg, #080f0a 0%, #0b1710 60%, #09120c 100%);
-        }
-
-        /* Ambient glows */
-        .panel-consulting::before {
-            content: '';
-            position: absolute;
-            top: -80px;
-            right: -80px;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(184,134,11,0.07) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        .panel-property::before {
-            content: '';
-            position: absolute;
-            bottom: -80px;
-            left: -80px;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        /* Hover brightening */
-        .panel::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(255,255,255,0);
-            transition: background 0.4s ease;
-            pointer-events: none;
-        }
-
-        .panel:hover::after {
-            background: rgba(255,255,255,0.018);
-        }
-
-        /* SVG background textures */
-        .panel-bg-svg {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.12;
-            transition: opacity 0.4s ease;
-        }
-
-        .panel:hover .panel-bg-svg {
-            opacity: 0.2;
-        }
-
-        /* Content */
-        .panel-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .panel-num {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.18);
-            margin-bottom: 36px;
-            display: block;
-        }
-
-        .panel-division-type {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            margin-bottom: 14px;
-            display: block;
-        }
-
-        .panel-consulting .panel-division-type { color: rgba(184,134,11,0.7); }
-        .panel-property .panel-division-type { color: rgba(52,211,153,0.7); }
-
-        .panel-name {
-            font-size: clamp(2.4rem, 3.5vw, 3.6rem);
+        .nav-logo-mark {
+            font-size: 17px;
             font-weight: 800;
             letter-spacing: -0.04em;
-            line-height: 1.06;
-            color: #f8fafc;
-            margin-bottom: 18px;
+            color: var(--color-body);
+            line-height: 1;
+        }
+        .nav-logo-mark span { color: var(--color-primary); }
+        .nav-logo-sub {
+            font-size: 8.5px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--color-subtle);
         }
 
-        .panel-desc {
-            font-size: 0.92rem;
-            color: rgba(255,255,255,0.38);
-            line-height: 1.72;
-            max-width: 300px;
-            margin-bottom: 28px;
-            font-weight: 400;
-            transition: color 0.3s ease;
+        .btn-nav {
+            background: transparent;
+            color: var(--gold-600);
+            border: 1.5px solid var(--gold-600);
+            border-radius: var(--r-md);
+            padding: 7px 14px;
+            font-family: var(--font);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.12s ease;
+        }
+        .btn-nav:hover { background: var(--gold-600); color: white; }
+
+        /* ── MAIN CONTENT ── */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 72px;
         }
 
-        .panel:hover .panel-desc {
-            color: rgba(255,255,255,0.52);
+        /* ── HERO ── */
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 32px 0 24px;
         }
 
-        .panel-services {
-            list-style: none;
+        .badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: var(--r-xs);
+            display: inline-block;
+        }
+        .badge-gold    { background: var(--gold-100); color: var(--gold-800); }
+        .badge-success { background: #dcfce7; color: #15803d; }
+        .badge-neutral { background: var(--neutral-100); color: var(--neutral-600); }
+
+        .hero-badge { margin-bottom: 18px; }
+
+        .hero-title {
+            font-size: clamp(2.25rem, 4vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            color: var(--neutral-900);
+            margin-bottom: 14px;
+        }
+        .hero-title span { color: var(--color-primary); }
+
+        .hero-body {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--neutral-700);
+            max-width: 480px;
+        }
+
+        /* ── SIDE NAV ── */
+        .side-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex-shrink: 0;
+            width: 240px;
+        }
+
+        .side-nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-subtle);
+            margin-bottom: 2px;
+        }
+
+        .side-link {
             display: flex;
             flex-direction: column;
             gap: 6px;
-            margin-bottom: 36px;
+            padding: 22px 24px;
+            border-radius: var(--r-lg);
+            font-family: var(--font);
+            text-decoration: none;
+            border: 1.5px solid var(--color-border);
+            background: white;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.18s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
-
-        .panel-services li {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: rgba(255,255,255,0.28);
-            transition: color 0.3s ease;
-        }
-
-        .panel:hover .panel-services li {
-            color: rgba(255,255,255,0.45);
-        }
-
-        .panel-services li::before {
+        .side-link::after {
             content: '';
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .panel-consulting .panel-services li::before { background: rgba(184,134,11,0.5); }
-        .panel-property .panel-services li::before { background: rgba(52,211,153,0.4); }
-
-        .panel-enter {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 12px 22px;
-            border-radius: 8px;
-            border: 1px solid;
-            letter-spacing: 0.01em;
-            transition: all 0.22s ease;
-        }
-
-        .panel-enter svg {
-            transition: transform 0.22s ease;
-        }
-
-        .panel:hover .panel-enter svg {
-            transform: translateX(4px);
-        }
-
-        .panel-consulting .panel-enter {
-            color: #d4a853;
-            border-color: rgba(184,134,11,0.28);
-            background: rgba(184,134,11,0.06);
-        }
-
-        .panel-consulting:hover .panel-enter {
-            background: rgba(184,134,11,0.12);
-            border-color: rgba(184,134,11,0.45);
-        }
-
-        .panel-property .panel-enter {
-            color: #34d399;
-            border-color: rgba(52,211,153,0.22);
-            background: rgba(52,211,153,0.05);
-        }
-
-        .panel-property:hover .panel-enter {
-            background: rgba(52,211,153,0.1);
-            border-color: rgba(52,211,153,0.4);
-        }
-
-        /* Live status */
-        .status-live {
             position: absolute;
-            top: 36px;
-            right: 36px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            color: rgba(255,255,255,0.2);
-            z-index: 2;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .side-link:hover {
+            border-color: var(--gold-400, #d4a853);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
         }
 
-        .status-dot {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: #22c55e;
-            animation: blink 2.5s ease-in-out infinite;
+        .side-link-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--color-subtle);
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.3; }
-        }
-
-        /* ======================================================
-           BOTTOM BAR
-           ====================================================== */
-        .bottombar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
+        .side-link-name {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: var(--neutral-900);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 48px;
-            background: linear-gradient(to top, rgba(6,10,18,0.85) 0%, transparent 100%);
+        }
+        .side-link-name svg {
+            opacity: 0.25;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            flex-shrink: 0;
+        }
+        .side-link:hover .side-link-name svg {
+            opacity: 0.9;
+            transform: translateX(4px);
         }
 
-        .bottombar-copy {
-            font-size: 0.72rem;
-            color: rgba(255,255,255,0.2);
+        .side-link-sub {
+            font-size: 12px;
+            color: var(--color-subtle);
             font-weight: 500;
+            line-height: 1.4;
         }
 
-        .bottombar-links {
+        .side-link-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .side-link-status .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        .status-live .dot { background: #22c55e; }
+        .status-live { color: #15803d; }
+        .status-soon .dot { background: var(--neutral-400); }
+        .status-soon { color: var(--neutral-500); }
+
+        .side-link-primary {
+            border-color: var(--gold-600);
+            background: var(--gold-600);
+            box-shadow: 0 6px 24px rgba(184,134,11,0.25);
+        }
+        .side-link-primary:hover {
+            background: var(--gold-800);
+            border-color: var(--gold-800);
+            box-shadow: 0 8px 32px rgba(138,85,0,0.3);
+        }
+        .side-link-primary .side-link-label { color: rgba(255,255,255,0.65); }
+        .side-link-primary .side-link-name  { color: #fff; }
+        .side-link-primary .side-link-sub   { color: rgba(255,255,255,0.7); }
+        .side-link-primary .side-link-status { color: rgba(255,255,255,0.85); }
+        .side-link-primary .status-live .dot { background: #86efac; }
+
+        /* ── FOOTER ── */
+        .footer {
+            padding: 18px 0 24px;
+            border-top: 1px solid var(--color-border);
             display: flex;
-            gap: 24px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-copy { font-size: 12px; color: var(--color-subtle); }
+        .footer-links { display: flex; gap: 20px; }
+        .footer-links a {
+            font-size: 12px;
+            color: var(--color-subtle);
+            transition: color 0.12s;
+        }
+        .footer-links a:hover { color: var(--color-muted); }
+
+        /* ── MOBILE ── */
+        @media (max-width: 600px) {
+            html, body { overflow: auto; }
+            .page { height: auto; padding: 0 20px; }
+            .main-content { flex-direction: column; gap: 32px; align-items: flex-start; }
+            .hero { padding: 28px 0 0; }
+            .hero-title { font-size: 2rem; }
+            .side-nav { min-width: unset; width: 100%; }
+            .footer { flex-direction: column; gap: 10px; text-align: center; }
         }
 
-        .bottombar-links a {
-            font-size: 0.72rem;
-            color: rgba(255,255,255,0.22);
-            font-weight: 500;
-            transition: color 0.15s;
-        }
-
-        .bottombar-links a:hover {
-            color: rgba(255,255,255,0.5);
-        }
-
-        /* ======================================================
-           ANIMATIONS
-           ====================================================== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-
-        .topbar        { animation: fadeIn 0.5s ease 0s    both; }
-        .panel-consulting { animation: fadeIn 0.5s ease 0.1s  both; }
-        .panel-property   { animation: fadeIn 0.5s ease 0.18s both; }
-        .bottombar     { animation: fadeIn 0.5s ease 0.28s both; }
-
-        /* ======================================================
-           MOBILE
-           ====================================================== */
-        @media (max-width: 720px) {
-            html, body { overflow: auto; }
-
-            .shell { height: auto; min-height: 100vh; }
-
-            .topbar, .bottombar {
-                position: static;
-                padding: 20px 24px;
-                background: rgba(6,10,18,0.98);
-            }
-
-            .split { flex-direction: column; }
-
-            .panel {
-                min-height: 50vh;
-                padding: 36px 24px;
-                flex: unset !important;
-            }
-
-            .panel-divider {
-                width: auto;
-                height: 1px;
-                background: rgba(255,255,255,0.05);
-            }
-
-            .panel-num { margin-bottom: 20px; }
-
-            .panel-name { font-size: 2.2rem; }
-
-            .status-live { top: 20px; right: 20px; }
-        }
+        .nav            { animation: fadeUp 0.4s ease 0s    both; }
+        .hero-badge     { animation: fadeUp 0.4s ease 0.06s both; }
+        .hero-title     { animation: fadeUp 0.4s ease 0.12s both; }
+        .hero-body      { animation: fadeUp 0.4s ease 0.17s both; }
+        .side-nav          { animation: fadeUp 0.4s ease 0.22s both; }
+        .side-nav > *:nth-child(2) { animation: fadeUp 0.4s ease 0.27s both; }
+        .side-nav > *:nth-child(3) { animation: fadeUp 0.4s ease 0.33s both; }
+        .footer         { animation: fadeUp 0.4s ease 0.38s both; }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
+            * { animation: none !important; transition: none !important; }
         }
     </style>
 </head>
 <body>
-<div class="shell">
+<div class="page">
 
-    <!-- Top Bar -->
-    <header class="topbar">
-        <div class="topbar-logo">
-            <div class="topbar-logo-mark">R<em>&</em>B</div>
-            <div class="topbar-logo-sub">Group</div>
+    <nav class="nav">
+        <div class="nav-logo">
+            <div class="nav-logo-mark">R<span>&</span>B</div>
+            <div class="nav-logo-sub">Group</div>
         </div>
-        <a href="mailto:info@rnbconsulting.org" class="topbar-cta">
-            Get in Touch
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-    </header>
+        <a href="/consulting/contact" class="btn-nav">Get in Touch</a>
+    </nav>
 
-    <!-- Split Panels -->
-    <main class="split">
+    <div class="main-content">
 
-        <!-- Consulting Panel -->
-        <a href="/consulting" class="panel panel-consulting" aria-label="Enter R&B Consulting">
+        <div class="hero">
+            <h1 class="hero-title">
+                Built on structure.<br>Driven by <span>execution.</span>
+            </h1>
+            <p class="hero-body">
+                R&amp;B Group operates two divisions — expert consulting for contractors and developers, and hands-on property maintenance for rental owners.
+            </p>
+        </div>
 
-            <!-- Blueprint SVG texture -->
-            <svg class="panel-bg-svg" viewBox="0 0 600 800" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
-                <g stroke="currentColor" fill="none" stroke-width="1">
-                    <!-- outer walls -->
-                    <rect x="80" y="80" width="440" height="640" stroke-width="2"/>
-                    <!-- interior walls -->
-                    <line x1="280" y1="80"  x2="280" y2="400"/>
-                    <line x1="280" y1="450" x2="280" y2="720"/>
-                    <line x1="280" y1="350" x2="520" y2="350"/>
-                    <line x1="280" y1="500" x2="520" y2="500"/>
-                    <!-- door arcs -->
-                    <path d="M280,400 L240,400 A40,40 0 0,0 280,440"/>
-                    <path d="M280,210 L320,210 A40,40 0 0,1 280,250"/>
-                    <!-- grid overlay -->
-                    <line x1="80"  y1="200" x2="520" y2="200" stroke-opacity="0.35"/>
-                    <line x1="80"  y1="320" x2="520" y2="320" stroke-opacity="0.35"/>
-                    <line x1="80"  y1="440" x2="520" y2="440" stroke-opacity="0.35"/>
-                    <line x1="80"  y1="560" x2="520" y2="560" stroke-opacity="0.35"/>
-                    <line x1="80"  y1="640" x2="520" y2="640" stroke-opacity="0.35"/>
-                    <line x1="200" y1="80"  x2="200" y2="720" stroke-opacity="0.35"/>
-                    <line x1="400" y1="80"  x2="400" y2="720" stroke-opacity="0.35"/>
-                    <!-- dimension marks -->
-                    <line x1="60"  y1="80"  x2="60"  y2="720" stroke-opacity="0.5"/>
-                    <line x1="55"  y1="80"  x2="65"  y2="80"  stroke-opacity="0.5"/>
-                    <line x1="55"  y1="720" x2="65"  y2="720" stroke-opacity="0.5"/>
-                    <line x1="80"  y1="60"  x2="520" y2="60"  stroke-opacity="0.5"/>
-                    <line x1="80"  y1="55"  x2="80"  y2="65"  stroke-opacity="0.5"/>
-                    <line x1="520" y1="55"  x2="520" y2="65"  stroke-opacity="0.5"/>
-                    <!-- furniture sketch -->
-                    <rect x="100" y="100" width="80" height="60" rx="4" stroke-opacity="0.5"/>
-                    <rect x="100" y="170" width="80" height="30" rx="4" stroke-opacity="0.5"/>
-                    <circle cx="430" cy="200" r="40" stroke-opacity="0.5"/>
-                    <rect x="310" y="570" width="90" height="60" rx="3" stroke-opacity="0.5"/>
-                    <rect x="420" y="370" width="80" height="100" rx="3" stroke-opacity="0.5"/>
-                </g>
-            </svg>
+        <div class="side-nav">
+            <span class="side-nav-label">Our Divisions</span>
 
-            <div class="status-live">
-                <span class="status-dot"></span>
-                Live
-            </div>
+            <a href="/consulting" class="side-link side-link-primary">
+                <span class="side-link-label">R&amp;B</span>
+                <span class="side-link-name">
+                    Consulting
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+                <span class="side-link-sub">Estimating, scheduling &amp; project controls</span>
+                <span class="side-link-status status-live">
+                    <span class="dot"></span> Live
+                </span>
+            </a>
 
-            <div class="panel-content">
-                <span class="panel-num">01</span>
-                <span class="panel-division-type">Construction Consulting</span>
-                <h2 class="panel-name">R&amp;B<br>Consulting</h2>
-                <p class="panel-desc">Expert estimating, scheduling, and project controls for contractors, developers, and owners who demand precision.</p>
-                <ul class="panel-services">
-                    <li>Estimating &amp; Quantity Takeoffs</li>
-                    <li>CPM Scheduling &amp; Planning</li>
-                    <li>Project Controls &amp; Operations</li>
-                    <li>Preconstruction Support</li>
-                </ul>
-                <div class="panel-enter">
-                    Enter
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-            </div>
-        </a>
+            <a href="/construction" class="side-link">
+                <span class="side-link-label">R&amp;B</span>
+                <span class="side-link-name">
+                    Construction
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+                <span class="side-link-sub">Property maintenance &amp; management for rental owners</span>
+                <span class="side-link-status status-live">
+                    <span class="dot"></span> Live
+                </span>
+            </a>
+        </div>
 
-        <div class="panel-divider" aria-hidden="true"></div>
+    </div>
 
-        <!-- Property Maintenance Panel -->
-        <a href="/construction" class="panel panel-property" aria-label="Enter R&B Property Maintenance">
-
-            <!-- Landscape SVG texture -->
-            <svg class="panel-bg-svg" viewBox="0 0 600 800" preserveAspectRatio="xMinYMax slice" aria-hidden="true">
-                <g stroke="currentColor" fill="none">
-                    <!-- house outline -->
-                    <path d="M180,480 L180,380 L300,290 L420,380 L420,480 Z" stroke-width="2"/>
-                    <path d="M240,480 L240,410 L360,410 L360,480" stroke-width="1.5"/>
-                    <rect x="270" y="415" width="60" height="65" stroke-width="1.5"/>
-                    <!-- chimney -->
-                    <rect x="340" y="300" width="24" height="50" stroke-width="1.5"/>
-                    <!-- trees left -->
-                    <line x1="110" y1="480" x2="110" y2="380" stroke-width="1.5"/>
-                    <ellipse cx="110" cy="360" rx="32" ry="40" stroke-width="1.5"/>
-                    <line x1="145" y1="480" x2="145" y2="400" stroke-width="1.5"/>
-                    <ellipse cx="145" cy="382" rx="24" ry="30" stroke-width="1.5"/>
-                    <!-- trees right -->
-                    <line x1="490" y1="480" x2="490" y2="380" stroke-width="1.5"/>
-                    <ellipse cx="490" cy="360" rx="32" ry="40" stroke-width="1.5"/>
-                    <line x1="455" y1="480" x2="455" y2="400" stroke-width="1.5"/>
-                    <ellipse cx="455" cy="382" rx="24" ry="30" stroke-width="1.5"/>
-                    <!-- ground line -->
-                    <line x1="60" y1="480" x2="540" y2="480" stroke-width="2"/>
-                    <!-- rolling hills background -->
-                    <path d="M0,600 Q150,520 300,560 Q450,600 600,530 L600,800 L0,800 Z" stroke-width="1" stroke-opacity="0.4"/>
-                    <path d="M0,680 Q100,640 250,660 Q400,680 600,640 L600,800 L0,800 Z" stroke-width="1" stroke-opacity="0.25"/>
-                    <!-- fence -->
-                    <line x1="60"  y1="480" x2="60"  y2="510" stroke-width="1.5"/>
-                    <line x1="90"  y1="480" x2="90"  y2="510" stroke-width="1.5"/>
-                    <line x1="510" y1="480" x2="510" y2="510" stroke-width="1.5"/>
-                    <line x1="540" y1="480" x2="540" y2="510" stroke-width="1.5"/>
-                    <line x1="60"  y1="492" x2="540" y2="492" stroke-width="1.5"/>
-                    <!-- sun / moon -->
-                    <circle cx="480" cy="180" r="40" stroke-width="1.5" stroke-opacity="0.5"/>
-                    <line x1="480" y1="120" x2="480" y2="100" stroke-width="1.5" stroke-opacity="0.4"/>
-                    <line x1="540" y1="180" x2="560" y2="180" stroke-width="1.5" stroke-opacity="0.4"/>
-                    <line x1="520" y1="140" x2="535" y2="125" stroke-width="1.5" stroke-opacity="0.4"/>
-                    <!-- clouds -->
-                    <path d="M80,200 Q100,180 130,190 Q140,160 170,170 Q190,155 200,175 Q220,165 215,185 Q230,190 220,205 Z" stroke-width="1.5" stroke-opacity="0.5"/>
-                    <!-- lawn lines -->
-                    <line x1="175" y1="530" x2="175" y2="560" stroke-width="1" stroke-opacity="0.4"/>
-                    <line x1="220" y1="530" x2="220" y2="560" stroke-width="1" stroke-opacity="0.4"/>
-                    <line x1="265" y1="530" x2="265" y2="560" stroke-width="1" stroke-opacity="0.4"/>
-                    <line x1="310" y1="530" x2="310" y2="560" stroke-width="1" stroke-opacity="0.4"/>
-                    <line x1="355" y1="530" x2="355" y2="560" stroke-width="1" stroke-opacity="0.4"/>
-                    <line x1="400" y1="530" x2="400" y2="560" stroke-width="1" stroke-opacity="0.4"/>
-                </g>
-            </svg>
-
-            <div class="status-live">
-                <span class="status-dot"></span>
-                Live
-            </div>
-
-            <div class="panel-content">
-                <span class="panel-num">02</span>
-                <span class="panel-division-type">Property Maintenance</span>
-                <h2 class="panel-name">R&amp;B<br>Property<br>Maintenance</h2>
-                <p class="panel-desc">Hands-on maintenance for short-term rental and vacation property owners who want peace of mind.</p>
-                <ul class="panel-services">
-                    <li>Lawn Care &amp; Mowing</li>
-                    <li>General Repairs &amp; Handyman</li>
-                    <li>Seasonal Cleanup</li>
-                    <li>Turnover &amp; Refresh</li>
-                </ul>
-                <div class="panel-enter">
-                    Enter
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-            </div>
-        </a>
-
-    </main>
-
-    <!-- Bottom Bar -->
-    <footer class="bottombar">
-        <span class="bottombar-copy">© 2026 R&amp;B Group</span>
-        <div class="bottombar-links">
+    <footer class="footer">
+        <div class="footer-copy">© 2026 R&B Group</div>
+        <div class="footer-links">
             <a href="mailto:info@rnbconsulting.org">info@rnbconsulting.org</a>
             <a href="tel:+18456160149">(845) 616-0149</a>
         </div>

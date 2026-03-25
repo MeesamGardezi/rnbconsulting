@@ -38,221 +38,6 @@
             color: #9ca3af;
         }
 
-        /* Dark nav — sits on dark hero */
-        .navbar-dark .logo-text { color: #f1f5f9; }
-        .navbar-dark .nav-logo-sub-construction { color: #64748b; }
-        .navbar-dark .nav-links a { color: #94a3b8; }
-        .navbar-dark .nav-links a:hover { color: #f1f5f9; }
-        .navbar-dark .nav-link-contact { color: #94a3b8; }
-        .navbar-dark .nav-link-contact:hover { color: #f1f5f9; }
-        .navbar-dark.scrolled {
-            background: rgba(15, 23, 42, 0.92);
-            box-shadow: 0 1px 0 rgba(255,255,255,0.06);
-        }
-
-        /* =============================================
-           HERO — Dark Immersive
-           ============================================= */
-        .pm-hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1a2744 60%, #0f2318 100%);
-            padding: 140px 0 100px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pm-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 20% 80%, rgba(16,185,129,0.06) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(184,134,11,0.08) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .pm-hero-grid {
-            display: grid;
-            grid-template-columns: 55% 1fr;
-            gap: 64px;
-            align-items: center;
-        }
-
-        .pm-hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.22);
-            color: #34d399;
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            padding: 6px 14px;
-            border-radius: 100px;
-            margin-bottom: 28px;
-        }
-
-        .pm-hero-badge-dot {
-            width: 7px;
-            height: 7px;
-            background: #10b981;
-            border-radius: 50%;
-            animation: pmPulse 2.2s ease-in-out infinite;
-        }
-
-        @keyframes pmPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.7); }
-        }
-
-        .pm-hero-headline {
-            font-size: clamp(2.6rem, 5vw, 4rem);
-            font-weight: 800;
-            color: #f8fafc;
-            letter-spacing: -0.045em;
-            line-height: 1.08;
-            margin-bottom: 22px;
-        }
-
-        .pm-hero-headline em {
-            font-style: normal;
-            color: #b8860b;
-        }
-
-        .pm-hero-sub {
-            font-size: 1.05rem;
-            color: #94a3b8;
-            line-height: 1.72;
-            margin-bottom: 38px;
-            max-width: 500px;
-        }
-
-        .pm-hero-btns {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 44px;
-        }
-
-        .pm-hero-trust {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            padding-top: 28px;
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
-        }
-
-        .pm-trust-chip {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 0.8rem;
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        .pm-trust-chip svg {
-            color: #10b981;
-            flex-shrink: 0;
-        }
-
-        /* Right — Feature panel */
-        .pm-hero-panel {
-            background: rgba(255, 255, 255, 0.035);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 20px;
-            padding: 30px;
-        }
-
-        .pm-panel-eyebrow {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #475569;
-            margin-bottom: 20px;
-        }
-
-        .pm-panel-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .pm-panel-item {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            padding: 18px 16px;
-            transition: border-color 0.2s;
-        }
-
-        .pm-panel-item:hover {
-            border-color: rgba(184, 134, 11, 0.3);
-        }
-
-        .pm-panel-item-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: rgba(184, 134, 11, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            color: #b8860b;
-        }
-
-        .pm-panel-item-val {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: #f1f5f9;
-            letter-spacing: -0.03em;
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .pm-panel-item-lbl {
-            font-size: 0.75rem;
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        .pm-panel-cta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(184, 134, 11, 0.1);
-            border: 1px solid rgba(184, 134, 11, 0.2);
-            border-radius: 12px;
-            padding: 16px 20px;
-            text-decoration: none;
-            transition: background 0.2s, border-color 0.2s;
-        }
-
-        .pm-panel-cta:hover {
-            background: rgba(184, 134, 11, 0.16);
-            border-color: rgba(184, 134, 11, 0.35);
-        }
-
-        .pm-panel-cta-text {
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: #d4a853;
-        }
-
-        .pm-panel-cta-sub {
-            font-size: 0.75rem;
-            color: #78716c;
-            margin-top: 2px;
-        }
-
-        .pm-panel-cta-arrow {
-            color: #b8860b;
-            flex-shrink: 0;
-        }
 
         /* =============================================
            Service cards — equal height
@@ -459,22 +244,7 @@
         /* =============================================
            Responsive
            ============================================= */
-        @media (max-width: 900px) {
-            .pm-hero-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .pm-hero-panel {
-                display: none;
-            }
-        }
-
         @media (max-width: 768px) {
-            .pm-hero {
-                padding: 110px 0 72px;
-            }
-
             .pm-services-grid {
                 grid-template-columns: 1fr;
             }
@@ -514,11 +284,6 @@
                 flex-direction: column;
                 width: 100%;
             }
-
-            .pm-hero-trust {
-                flex-wrap: wrap;
-                gap: 14px;
-            }
         }
 
         @media (max-width: 600px) {
@@ -535,7 +300,7 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-dark scrolled" id="navbar">
+    <nav class="navbar scrolled" id="navbar">
         <div class="nav-container">
             <a href="/construction" class="nav-logo"
                 style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-decoration:none;">
@@ -571,84 +336,158 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="pm-hero">
-        <div class="container">
-            <div class="pm-hero-grid">
-                <!-- Left: Content -->
-                <div class="hero-content">
-                    <div class="pm-hero-badge">
-                        <span class="pm-hero-badge-dot"></span>
-                        Now Accepting New Clients
-                    </div>
-                    <h1 class="pm-hero-headline">
-                        Your property.<br>
-                        <em>Always ready.</em>
-                    </h1>
-                    <p class="pm-hero-sub">
-                        R&amp;B Property Maintenance keeps short-term rental and vacation properties in top condition — from routine lawn care and minor repairs to seasonal cleanups and turnover refreshes. You focus on hosting. We handle the rest.
-                    </p>
-                    <div class="pm-hero-btns">
-                        <a href="/construction/contact" class="btn btn-primary btn-large">Get a Free Quote</a>
-                        <a href="/construction/services" class="btn btn-secondary btn-large" style="color:#94a3b8;border-color:rgba(255,255,255,0.15);background:transparent;">View Services</a>
-                    </div>
-                    <div class="pm-hero-trust">
-                        <span class="pm-trust-chip">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                            Photo-documented
-                        </span>
-                        <span class="pm-trust-chip">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                            24h response
-                        </span>
-                        <span class="pm-trust-chip">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                            No hidden fees
-                        </span>
-                    </div>
-                </div>
+    <main>
+    <section class="hero" id="hero" aria-label="Hero">
+        <div class="hero-background">
+            <div class="hero-blueprint-grid"></div>
+            <div class="hero-blueprint-lines">
+                <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+                    <!-- BASE LAYER: Static, faint site plan -->
+                    <g class="blueprint-base" stroke="currentColor" fill="none" stroke-opacity="0.15">
+                        <!-- Lot boundary / perimeter fence -->
+                        <path stroke-width="3" stroke-dasharray="12 6" d="M 100,60 L 1100,60 L 1100,740 L 100,740 Z" />
 
-                <!-- Right: Feature Panel -->
-                <div class="pm-hero-panel">
-                    <div class="pm-panel-eyebrow">Why property owners choose us</div>
-                    <div class="pm-panel-grid">
-                        <div class="pm-panel-item">
-                            <div class="pm-panel-item-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                            </div>
-                            <div class="pm-panel-item-val">100%</div>
-                            <div class="pm-panel-item-lbl">Photo-documented visits</div>
-                        </div>
-                        <div class="pm-panel-item">
-                            <div class="pm-panel-item-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            </div>
-                            <div class="pm-panel-item-val">24h</div>
-                            <div class="pm-panel-item-lbl">Urgent request response</div>
-                        </div>
-                        <div class="pm-panel-item">
-                            <div class="pm-panel-item-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                            </div>
-                            <div class="pm-panel-item-val">1</div>
-                            <div class="pm-panel-item-lbl">Dedicated point of contact</div>
-                        </div>
-                        <div class="pm-panel-item">
-                            <div class="pm-panel-item-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            </div>
-                            <div class="pm-panel-item-val">$0</div>
-                            <div class="pm-panel-item-lbl">Hidden fees — ever</div>
-                        </div>
-                    </div>
-                    <a href="/construction/contact" class="pm-panel-cta">
-                        <div>
-                            <div class="pm-panel-cta-text">Request a free quote</div>
-                            <div class="pm-panel-cta-sub">No commitment required</div>
-                        </div>
-                        <svg class="pm-panel-cta-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
+                        <!-- Main house footprint -->
+                        <path stroke-width="4" stroke-linecap="square"
+                            d="M 360,200 L 860,200 L 860,560 L 360,560 Z" />
+
+                        <!-- Attached garage -->
+                        <path stroke-width="3"
+                            d="M 360,440 L 520,440 L 520,600 L 360,600" />
+                        <!-- Garage door indicator -->
+                        <path stroke-width="1.5" stroke-dasharray="6 3"
+                            d="M 370,600 L 510,600" />
+
+                        <!-- Front porch / deck -->
+                        <path stroke-width="2"
+                            d="M 520,560 L 800,560 L 800,640 L 520,640 Z" />
+
+                        <!-- Rear patio / deck -->
+                        <path stroke-width="2"
+                            d="M 480,130 L 760,130 L 760,200 L 480,200 Z" />
+
+                        <!-- Driveway lines -->
+                        <path stroke-width="2"
+                            d="M 380,600 L 380,740 M 500,600 L 500,740" />
+                        <!-- Driveway apron detail -->
+                        <path stroke-width="1" stroke-opacity="0.4"
+                            d="M 375,710 Q 440,730 505,710" />
+
+                        <!-- Front walkway to porch -->
+                        <path stroke-width="1.5" stroke-dasharray="5 4"
+                            d="M 640,640 L 640,740" />
+
+                        <!-- Interior dividing walls -->
+                        <path stroke-width="2" stroke-opacity="0.8"
+                            d="M 600,200 L 600,440
+                               M 360,360 L 860,360" />
+
+                        <!-- Trees — front yard (circles with crosshairs) -->
+                        <circle cx="185" cy="640" r="32" stroke-width="1.5" />
+                        <line x1="185" y1="616" x2="185" y2="664" stroke-width="1" />
+                        <line x1="161" y1="640" x2="209" y2="640" stroke-width="1" />
+
+                        <circle cx="220" cy="490" r="24" stroke-width="1.5" />
+
+                        <circle cx="960" cy="620" r="28" stroke-width="1.5" />
+                        <line x1="960" y1="598" x2="960" y2="642" stroke-width="1" />
+                        <line x1="938" y1="620" x2="982" y2="620" stroke-width="1" />
+
+                        <circle cx="1020" cy="470" r="20" stroke-width="1.5" />
+
+                        <!-- Trees — rear yard -->
+                        <circle cx="185" cy="130" r="30" stroke-width="1.5" />
+                        <line x1="185" y1="108" x2="185" y2="152" stroke-width="1" />
+                        <line x1="163" y1="130" x2="207" y2="130" stroke-width="1" />
+
+                        <circle cx="620" cy="88" r="26" stroke-width="1.5" />
+                        <circle cx="880" cy="108" r="28" stroke-width="1.5" />
+                        <circle cx="1050" cy="160" r="22" stroke-width="1.5" />
+
+                        <!-- Side path / gate -->
+                        <path stroke-width="1.5" stroke-dasharray="4 4"
+                            d="M 100,400 L 360,400" />
+                        <path stroke-width="1.5" stroke-dasharray="4 4"
+                            d="M 860,400 L 1100,400" />
+
+                        <!-- Labels -->
+                        <g fill="currentColor" stroke="none" opacity="0.6"
+                            style="font-family: monospace; font-size: 13px; letter-spacing: 2px; font-weight: bold;">
+                            <text x="610" y="300" text-anchor="middle">MAIN RESIDENCE</text>
+                            <text x="440" y="530" text-anchor="middle">GARAGE</text>
+                            <text x="658" y="608" text-anchor="middle">FRONT PORCH</text>
+                            <text x="618" y="170" text-anchor="middle">REAR PATIO</text>
+                            <text x="215" y="695" text-anchor="middle" style="font-size:11px;">FRONT YARD</text>
+                            <text x="980" y="695" text-anchor="middle" style="font-size:11px;">FRONT YARD</text>
+                            <text x="615" y="105" text-anchor="middle" style="font-size:11px;">REAR YARD</text>
+                            <text x="440" y="680" text-anchor="middle" style="font-size:10px;">DRIVEWAY</text>
+                        </g>
+
+                        <!-- Measurement tick marks -->
+                        <path stroke-width="0.75" stroke-opacity="0.35"
+                            d="M 360,185 L 860,185 M 360,185 L 360,195 M 860,185 L 860,195" />
+                        <path stroke-width="0.75" stroke-opacity="0.35"
+                            d="M 85,200 L 85,560 M 85,200 L 95,200 M 85,560 L 95,560" />
+                    </g>
+
+                    <!-- ACTIVE LAYER: Animated stroke packets -->
+                    <g class="blueprint-active" stroke="currentColor" fill="none">
+                        <!-- Lot fence -->
+                        <path class="anim-path layer-1" stroke-width="3" stroke-dasharray="12 6"
+                            d="M 100,60 L 1100,60 L 1100,740 L 100,740 Z" />
+
+                        <!-- Main house outline -->
+                        <path class="anim-path layer-1" stroke-width="4" stroke-linecap="square"
+                            d="M 360,200 L 860,200 L 860,560 L 360,560 Z" />
+
+                        <!-- Garage + porch + patio -->
+                        <path class="anim-path layer-2" stroke-width="3"
+                            d="M 360,440 L 520,440 L 520,600 L 360,600" />
+                        <path class="anim-path layer-2" stroke-width="2"
+                            d="M 520,560 L 800,560 L 800,640 L 520,640 Z" />
+                        <path class="anim-path layer-3" stroke-width="2"
+                            d="M 480,130 L 760,130 L 760,200 L 480,200 Z" />
+
+                        <!-- Interior walls -->
+                        <path class="anim-path layer-2" stroke-width="2"
+                            d="M 600,200 L 600,440 M 360,360 L 860,360" />
+
+                        <!-- Trees -->
+                        <g class="anim-path layer-3" stroke-width="1.5">
+                            <circle cx="185" cy="640" r="32" />
+                            <circle cx="960" cy="620" r="28" />
+                            <circle cx="185" cy="130" r="30" />
+                            <circle cx="620" cy="88" r="26" />
+                            <circle cx="880" cy="108" r="28" />
+                        </g>
+
+                        <!-- Driveway + paths -->
+                        <g class="anim-path layer-3" stroke-width="1.5">
+                            <path d="M 380,600 L 380,740 M 500,600 L 500,740" />
+                            <path d="M 640,640 L 640,740" stroke-dasharray="5 4" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div class="grain-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-headline">
+                Property Maintenance That Keeps<br>
+                <span class="text-accent">Your Rental Always Guest-Ready</span>
+            </h1>
+            <p class="hero-subtext">R&amp;B Property Maintenance handles the upkeep so you don't have to — lawn care, seasonal cleanups, minor repairs, and turnover prep for short-term rental and vacation property owners.</p>
+            <div class="hero-ctas">
+                <a href="/construction/contact" class="btn btn-primary">Get a Free Quote</a>
+                <div class="hero-secondary-links">
+                    <a href="/construction/contact" class="text-link">Discuss Your Property</a>
+                    <span class="link-separator">·</span>
+                    <a href="/construction/services" class="text-link">View Services</a>
                 </div>
             </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-arrow"></div>
         </div>
     </section>
 
@@ -857,6 +696,8 @@
             </div>
         </div>
     </div>
+
+    </main>
 
     <!-- Footer -->
     <footer class="footer" id="footer">
