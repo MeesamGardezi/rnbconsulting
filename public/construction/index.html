@@ -38,6 +38,11 @@
             color: #9ca3af;
         }
 
+        /* Fix letter-spacing inherited from global hero styles */
+        .hero-subtext {
+            letter-spacing: 0.01em;
+        }
+
 
         /* =============================================
            Service cards — equal height
@@ -342,129 +347,159 @@
             <div class="hero-blueprint-grid"></div>
             <div class="hero-blueprint-lines">
                 <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-                    <!-- BASE LAYER: Static, faint site plan -->
+
+                    <!-- BASE LAYER: Static faint landscape plan -->
                     <g class="blueprint-base" stroke="currentColor" fill="none" stroke-opacity="0.15">
-                        <!-- Lot boundary / perimeter fence -->
-                        <path stroke-width="3" stroke-dasharray="12 6" d="M 100,60 L 1100,60 L 1100,740 L 100,740 Z" />
 
-                        <!-- Main house footprint -->
-                        <path stroke-width="4" stroke-linecap="square"
-                            d="M 360,200 L 860,200 L 860,560 L 360,560 Z" />
-
-                        <!-- Attached garage -->
-                        <path stroke-width="3"
-                            d="M 360,440 L 520,440 L 520,600 L 360,600" />
-                        <!-- Garage door indicator -->
-                        <path stroke-width="1.5" stroke-dasharray="6 3"
-                            d="M 370,600 L 510,600" />
-
-                        <!-- Front porch / deck -->
-                        <path stroke-width="2"
-                            d="M 520,560 L 800,560 L 800,640 L 520,640 Z" />
-
-                        <!-- Rear patio / deck -->
-                        <path stroke-width="2"
-                            d="M 480,130 L 760,130 L 760,200 L 480,200 Z" />
-
-                        <!-- Driveway lines -->
-                        <path stroke-width="2"
-                            d="M 380,600 L 380,740 M 500,600 L 500,740" />
-                        <!-- Driveway apron detail -->
-                        <path stroke-width="1" stroke-opacity="0.4"
-                            d="M 375,710 Q 440,730 505,710" />
-
-                        <!-- Front walkway to porch -->
-                        <path stroke-width="1.5" stroke-dasharray="5 4"
-                            d="M 640,640 L 640,740" />
-
-                        <!-- Interior dividing walls -->
-                        <path stroke-width="2" stroke-opacity="0.8"
-                            d="M 600,200 L 600,440
-                               M 360,360 L 860,360" />
-
-                        <!-- Trees — front yard (circles with crosshairs) -->
-                        <circle cx="185" cy="640" r="32" stroke-width="1.5" />
-                        <line x1="185" y1="616" x2="185" y2="664" stroke-width="1" />
-                        <line x1="161" y1="640" x2="209" y2="640" stroke-width="1" />
-
-                        <circle cx="220" cy="490" r="24" stroke-width="1.5" />
-
-                        <circle cx="960" cy="620" r="28" stroke-width="1.5" />
-                        <line x1="960" y1="598" x2="960" y2="642" stroke-width="1" />
-                        <line x1="938" y1="620" x2="982" y2="620" stroke-width="1" />
-
-                        <circle cx="1020" cy="470" r="20" stroke-width="1.5" />
-
-                        <!-- Trees — rear yard -->
-                        <circle cx="185" cy="130" r="30" stroke-width="1.5" />
-                        <line x1="185" y1="108" x2="185" y2="152" stroke-width="1" />
-                        <line x1="163" y1="130" x2="207" y2="130" stroke-width="1" />
-
-                        <circle cx="620" cy="88" r="26" stroke-width="1.5" />
-                        <circle cx="880" cy="108" r="28" stroke-width="1.5" />
-                        <circle cx="1050" cy="160" r="22" stroke-width="1.5" />
-
-                        <!-- Side path / gate -->
-                        <path stroke-width="1.5" stroke-dasharray="4 4"
-                            d="M 100,400 L 360,400" />
-                        <path stroke-width="1.5" stroke-dasharray="4 4"
-                            d="M 860,400 L 1100,400" />
-
-                        <!-- Labels -->
-                        <g fill="currentColor" stroke="none" opacity="0.6"
-                            style="font-family: monospace; font-size: 13px; letter-spacing: 2px; font-weight: bold;">
-                            <text x="610" y="300" text-anchor="middle">MAIN RESIDENCE</text>
-                            <text x="440" y="530" text-anchor="middle">GARAGE</text>
-                            <text x="658" y="608" text-anchor="middle">FRONT PORCH</text>
-                            <text x="618" y="170" text-anchor="middle">REAR PATIO</text>
-                            <text x="215" y="695" text-anchor="middle" style="font-size:11px;">FRONT YARD</text>
-                            <text x="980" y="695" text-anchor="middle" style="font-size:11px;">FRONT YARD</text>
-                            <text x="615" y="105" text-anchor="middle" style="font-size:11px;">REAR YARD</text>
-                            <text x="440" y="680" text-anchor="middle" style="font-size:10px;">DRIVEWAY</text>
+                        <!-- Diagonal mowing stripes — suggest a maintained lawn -->
+                        <g stroke-width="1" stroke-opacity="0.7">
+                            <path d="M -100,140 L 1300,140" stroke-dasharray="20 8" />
+                            <path d="M -100,210 L 1300,210" stroke-dasharray="20 8" />
+                            <path d="M -100,280 L 1300,280" stroke-dasharray="20 8" />
+                            <path d="M -100,350 L 1300,350" stroke-dasharray="20 8" />
+                            <path d="M -100,420 L 1300,420" stroke-dasharray="20 8" />
+                            <path d="M -100,490 L 1300,490" stroke-dasharray="20 8" />
+                            <path d="M -100,560 L 1300,560" stroke-dasharray="20 8" />
+                            <path d="M -100,630 L 1300,630" stroke-dasharray="20 8" />
+                            <path d="M -100,700 L 1300,700" stroke-dasharray="20 8" />
                         </g>
 
-                        <!-- Measurement tick marks -->
-                        <path stroke-width="0.75" stroke-opacity="0.35"
-                            d="M 360,185 L 860,185 M 360,185 L 360,195 M 860,185 L 860,195" />
-                        <path stroke-width="0.75" stroke-opacity="0.35"
-                            d="M 85,200 L 85,560 M 85,200 L 95,200 M 85,560 L 95,560" />
+                        <!-- LAWN MOWER — top-down technical view (right side) -->
+                        <!-- Cutting deck (main housing) -->
+                        <rect x="730" y="220" width="290" height="270" rx="18" stroke-width="4" stroke-linecap="square" />
+                        <!-- Engine housing -->
+                        <rect x="785" y="236" width="180" height="95" rx="7" stroke-width="2.5" />
+                        <!-- Engine cooling fins (detail lines) -->
+                        <path stroke-width="1" stroke-opacity="0.5" d="
+                            M 800,250 L 800,318   M 820,250 L 820,318
+                            M 840,250 L 840,318   M 860,250 L 860,318
+                            M 880,250 L 880,318   M 900,250 L 900,318
+                            M 920,250 L 920,318   M 940,250 L 940,318
+                        " />
+                        <!-- Blade circle (dashed — hidden component) -->
+                        <circle cx="875" cy="390" r="115" stroke-width="1.5" stroke-dasharray="10 5" stroke-opacity="0.6" />
+                        <!-- Blade arms cross -->
+                        <path stroke-width="1.5" stroke-dasharray="14 5" stroke-opacity="0.5"
+                            d="M 760,390 L 990,390 M 875,275 L 875,505" />
+                        <!-- Rear wheels -->
+                        <circle cx="756" cy="464" r="30" stroke-width="2.5" />
+                        <circle cx="756" cy="464" r="13" stroke-width="1.5" stroke-opacity="0.6" />
+                        <circle cx="994" cy="464" r="30" stroke-width="2.5" />
+                        <circle cx="994" cy="464" r="13" stroke-width="1.5" stroke-opacity="0.6" />
+                        <!-- Front wheels -->
+                        <circle cx="756" cy="240" r="21" stroke-width="2" />
+                        <circle cx="994" cy="240" r="21" stroke-width="2" />
+                        <!-- Handle bars -->
+                        <path stroke-width="3" stroke-linecap="round"
+                            d="M 770,490 L 735,610 M 980,490 L 1015,610" />
+                        <path stroke-width="2.5" stroke-linecap="round"
+                            d="M 735,610 L 1015,610" />
+                        <!-- Handle grips -->
+                        <rect x="724" y="601" width="32" height="18" rx="9" stroke-width="1.5" />
+                        <rect x="994" y="601" width="32" height="18" rx="9" stroke-width="1.5" />
+                        <!-- Discharge chute (right side) -->
+                        <path stroke-width="2"
+                            d="M 1020,350 L 1080,325 L 1095,375 L 1035,400 Z" />
+                        <!-- Dimension marks -->
+                        <path stroke-width="0.75" stroke-opacity="0.4"
+                            d="M 730,206 L 1020,206 M 730,206 L 730,216 M 1020,206 L 1020,216" />
+                        <path stroke-width="0.75" stroke-opacity="0.4"
+                            d="M 714,220 L 714,490 M 714,220 L 724,220 M 714,490 L 724,490" />
+
+                        <!-- Labels -->
+                        <g fill="currentColor" stroke="none" opacity="0.55"
+                            style="font-family: monospace; font-size: 11px; letter-spacing: 2px; font-weight: bold;">
+                            <text x="875" y="395" text-anchor="middle">BLADE DECK</text>
+                            <text x="875" y="650" text-anchor="middle" style="font-size:10px;">PUSH MOWER — PLAN VIEW</text>
+                        </g>
+
+                        <!-- HEDGE SHEARS — left side technical drawing -->
+                        <path stroke-width="2.5" stroke-linecap="round"
+                            d="M 120,160 L 340,560" />
+                        <path stroke-width="2.5" stroke-linecap="round"
+                            d="M 340,160 L 120,560" />
+                        <!-- Blade edges (slight offset line for width) -->
+                        <path stroke-width="1.5" stroke-opacity="0.5"
+                            d="M 108,165 L 328,565 M 352,165 L 132,565" />
+                        <!-- Handle rings -->
+                        <ellipse cx="110" cy="148" rx="26" ry="16" stroke-width="2" />
+                        <ellipse cx="350" cy="148" rx="26" ry="16" stroke-width="2" />
+                        <ellipse cx="110" cy="572" rx="26" ry="16" stroke-width="2" />
+                        <ellipse cx="350" cy="572" rx="26" ry="16" stroke-width="2" />
+                        <!-- Pivot -->
+                        <circle cx="230" cy="360" r="11" stroke-width="2" />
+                        <line x1="223" y1="360" x2="237" y2="360" stroke-width="1.5" />
+                        <line x1="230" y1="353" x2="230" y2="367" stroke-width="1.5" />
+                        <!-- Shears label -->
+                        <g fill="currentColor" stroke="none" opacity="0.55"
+                            style="font-family: monospace; font-size: 10px; letter-spacing: 2px; font-weight: bold;">
+                            <text x="230" y="640" text-anchor="middle">HEDGE SHEARS</text>
+                        </g>
+
+                        <!-- TREES / SHRUBS — landscape plan circles -->
+                        <circle cx="108" cy="720" r="36" stroke-width="1.5" />
+                        <line x1="108" y1="692" x2="108" y2="748" stroke-width="1" />
+                        <line x1="80" y1="720" x2="136" y2="720" stroke-width="1" />
+
+                        <circle cx="560" cy="90" r="30" stroke-width="1.5" />
+                        <line x1="560" y1="68" x2="560" y2="112" stroke-width="1" />
+                        <line x1="538" y1="90" x2="582" y2="90" stroke-width="1" />
+
+                        <circle cx="1120" cy="110" r="24" stroke-width="1.5" />
+
+                        <circle cx="1120" cy="710" r="32" stroke-width="1.5" />
+                        <line x1="1120" y1="686" x2="1120" y2="734" stroke-width="1" />
+                        <line x1="1096" y1="710" x2="1144" y2="710" stroke-width="1" />
                     </g>
 
                     <!-- ACTIVE LAYER: Animated stroke packets -->
                     <g class="blueprint-active" stroke="currentColor" fill="none">
-                        <!-- Lot fence -->
-                        <path class="anim-path layer-1" stroke-width="3" stroke-dasharray="12 6"
-                            d="M 100,60 L 1100,60 L 1100,740 L 100,740 Z" />
+                        <!-- Mowing stripes -->
+                        <path class="anim-path layer-1" stroke-width="1"
+                            d="M -100,140 L 1300,140 M -100,280 L 1300,280 M -100,420 L 1300,420
+                               M -100,560 L 1300,560 M -100,700 L 1300,700" />
+                        <path class="anim-path layer-2" stroke-width="1"
+                            d="M -100,210 L 1300,210 M -100,350 L 1300,350 M -100,490 L 1300,490
+                               M -100,630 L 1300,630" />
 
-                        <!-- Main house outline -->
-                        <path class="anim-path layer-1" stroke-width="4" stroke-linecap="square"
-                            d="M 360,200 L 860,200 L 860,560 L 360,560 Z" />
-
-                        <!-- Garage + porch + patio -->
-                        <path class="anim-path layer-2" stroke-width="3"
-                            d="M 360,440 L 520,440 L 520,600 L 360,600" />
-                        <path class="anim-path layer-2" stroke-width="2"
-                            d="M 520,560 L 800,560 L 800,640 L 520,640 Z" />
+                        <!-- Mower deck -->
+                        <rect class="anim-path layer-1" x="730" y="220" width="290" height="270" rx="18" stroke-width="4" />
+                        <!-- Engine housing -->
+                        <rect class="anim-path layer-2" x="785" y="236" width="180" height="95" rx="7" stroke-width="2.5" />
+                        <!-- Blade circle -->
+                        <circle class="anim-path layer-2" cx="875" cy="390" r="115" stroke-width="1.5" stroke-dasharray="10 5" />
+                        <!-- Handle -->
+                        <path class="anim-path layer-2" stroke-width="3" stroke-linecap="round"
+                            d="M 770,490 L 735,610 M 980,490 L 1015,610 M 735,610 L 1015,610" />
+                        <!-- Wheels -->
+                        <g class="anim-path layer-3" stroke-width="2.5">
+                            <circle cx="756" cy="464" r="30" />
+                            <circle cx="994" cy="464" r="30" />
+                            <circle cx="756" cy="240" r="21" />
+                            <circle cx="994" cy="240" r="21" />
+                        </g>
+                        <!-- Discharge chute -->
                         <path class="anim-path layer-3" stroke-width="2"
-                            d="M 480,130 L 760,130 L 760,200 L 480,200 Z" />
+                            d="M 1020,350 L 1080,325 L 1095,375 L 1035,400 Z" />
 
-                        <!-- Interior walls -->
-                        <path class="anim-path layer-2" stroke-width="2"
-                            d="M 600,200 L 600,440 M 360,360 L 860,360" />
+                        <!-- Hedge shears blades -->
+                        <path class="anim-path layer-2" stroke-width="2.5" stroke-linecap="round"
+                            d="M 120,160 L 340,560 M 340,160 L 120,560" />
+                        <!-- Shear handles + pivot -->
+                        <g class="anim-path layer-3" stroke-width="2">
+                            <ellipse cx="110" cy="148" rx="26" ry="16" />
+                            <ellipse cx="350" cy="148" rx="26" ry="16" />
+                            <ellipse cx="110" cy="572" rx="26" ry="16" />
+                            <ellipse cx="350" cy="572" rx="26" ry="16" />
+                            <circle cx="230" cy="360" r="11" />
+                        </g>
 
                         <!-- Trees -->
                         <g class="anim-path layer-3" stroke-width="1.5">
-                            <circle cx="185" cy="640" r="32" />
-                            <circle cx="960" cy="620" r="28" />
-                            <circle cx="185" cy="130" r="30" />
-                            <circle cx="620" cy="88" r="26" />
-                            <circle cx="880" cy="108" r="28" />
-                        </g>
-
-                        <!-- Driveway + paths -->
-                        <g class="anim-path layer-3" stroke-width="1.5">
-                            <path d="M 380,600 L 380,740 M 500,600 L 500,740" />
-                            <path d="M 640,640 L 640,740" stroke-dasharray="5 4" />
+                            <circle cx="108" cy="720" r="36" />
+                            <circle cx="560" cy="90" r="30" />
+                            <circle cx="1120" cy="710" r="32" />
+                            <circle cx="1120" cy="110" r="24" />
                         </g>
                     </g>
                 </svg>
@@ -473,10 +508,10 @@
         </div>
         <div class="hero-content">
             <h1 class="hero-headline">
-                Property Maintenance That Keeps<br>
-                <span class="text-accent">Your Rental Always Guest-Ready</span>
+                Your Property.<br>
+                <span class="text-accent">Always Guest-Ready.</span>
             </h1>
-            <p class="hero-subtext">R&amp;B Property Maintenance handles the upkeep so you don't have to — lawn care, seasonal cleanups, minor repairs, and turnover prep for short-term rental and vacation property owners.</p>
+            <p class="hero-subtext">Expert property maintenance for short-term rental owners. Lawn care, repairs, seasonal cleanups, and turnover prep — so you can focus on hosting.</p>
             <div class="hero-ctas">
                 <a href="/construction/contact" class="btn btn-primary">Get a Free Quote</a>
                 <div class="hero-secondary-links">
