@@ -687,7 +687,7 @@
                 </div>
             </div>
 
-            <div style="text-align:center;margin-top:48px;">
+            <div style="text-align:center;margin-top:72px;">
                 <a href="/construction/services" class="btn btn-primary">See All Services →</a>
             </div>
         </div>
@@ -946,13 +946,12 @@
                 ease: 'power3.out'
             });
 
-            // Service cards — animate rows so no height-stagger visual glitch
+            // Service cards — all at once to avoid stagger-y misalignment
             gsap.from('.pm-services-grid .pm-service-card', {
                 scrollTrigger: { trigger: '.pm-services-grid', start: 'top 78%' },
                 opacity: 0,
-                y: 28,
-                duration: 0.55,
-                stagger: { each: 0.08, grid: [2, 3], from: 'start' },
+                y: 20,
+                duration: 0.6,
                 ease: 'power2.out'
             });
 
