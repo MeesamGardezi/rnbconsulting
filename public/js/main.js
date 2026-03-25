@@ -36,75 +36,65 @@ function initMouseEffects() {
     // Add cursor styles
     const cursorStyles = document.createElement('style');
     cursorStyles.textContent = `
+        *, *::before, *::after { cursor: none !important; }
+
         .custom-cursor {
             position: fixed;
             top: 0;
             left: 0;
             pointer-events: none;
             z-index: 9999;
-            mix-blend-mode: difference;
         }
-        
+
         .cursor-dot {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: #b8860b;
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: transform 0.1s ease;
+            transition: transform 0.08s ease, opacity 0.08s ease;
         }
-        
+
         .cursor-ring {
             position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(184, 134, 11, 0.5);
+            width: 22px;
+            height: 22px;
+            border: 1.5px solid #b8860b;
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: all 0.15s ease-out;
+            transition: width 0.15s ease, height 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+            opacity: 0.7;
         }
-        
+
         .custom-cursor.hovering .cursor-dot {
-            transform: translate(-50%, -50%) scale(2);
-            background: #fff;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
         }
-        
+
         .custom-cursor.hovering .cursor-ring {
-            width: 60px;
-            height: 60px;
-            border-color: rgba(255, 255, 255, 0.8);
+            width: 36px;
+            height: 36px;
+            border-color: #b8860b;
+            opacity: 1;
         }
-        
+
         .custom-cursor.clicking .cursor-ring {
-            width: 30px;
-            height: 30px;
+            width: 16px;
+            height: 16px;
+            opacity: 1;
         }
 
         @media (max-width: 768px) {
-            .custom-cursor {
-                display: none;
-            }
+            *, *::before, *::after { cursor: auto !important; }
+            .custom-cursor { display: none; }
         }
     `;
     document.head.appendChild(cursorStyles);
 
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-
     document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
-
-    // Smooth cursor follow
-    function updateCursor() {
-        cursorX += (mouseX - cursorX) * 0.15;
-        cursorY += (mouseY - cursorY) * 0.15;
-        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-        requestAnimationFrame(updateCursor);
-    }
-    updateCursor();
 
     // Hover effects on interactive elements
     const interactiveElements = document.querySelectorAll('a, button, .service-card, .industry-card, .value-card');
