@@ -261,21 +261,25 @@ app.get('/blog/:slug', (req, res) => {
 app.get('/consulting/blog', (req, res) => { res.redirect(301, '/blog'); });
 app.get('/consulting/blog/:slug', (req, res) => { res.redirect(301, `/blog/${req.params.slug}`); });
 
-const constructionPages = ['services', 'contact'];
+const propertyMaintenancePages = ['services', 'contact', 'repairs', 'lawn-care', 'seasonal-cleanup', 'property-walkthroughs', 'turnover', 'maintenance-plans'];
 
-// Root landing page — two-card split (Construction / Consulting)
+// Root landing page — two-card split (Property Maintenance / Consulting)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// ── Construction section ──
-app.get('/construction', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'construction', 'index.html'));
+// ── Property Maintenance section ──
+app.get('/property-maintenance', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'property-maintenance', 'index.html'));
 });
 
-constructionPages.forEach(page => {
-    app.get(`/construction/${page}`, (req, res) => {
-        res.sendFile(path.join(__dirname, 'public', 'construction', `${page}.html`));
+// Redirect old /construction URLs to /property-maintenance
+app.get('/construction', (req, res) => { res.redirect(301, '/property-maintenance'); });
+app.get('/construction/:page', (req, res) => { res.redirect(301, `/property-maintenance/${req.params.page}`); });
+
+propertyMaintenancePages.forEach(page => {
+    app.get(`/property-maintenance/${page}`, (req, res) => {
+        res.sendFile(path.join(__dirname, 'public', 'property-maintenance', `${page}.html`));
     });
 });
 

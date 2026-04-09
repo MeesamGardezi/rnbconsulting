@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="R&B provides property maintenance in Walden, NY and across Orange County and the Hudson Valley for rental homes and short-term rentals. Repairs, lawn care, walkthroughs, turnovers, and ongoing maintenance plans.">
+    <meta name="keywords"
+        content="property maintenance Walden NY, Orange County property maintenance, Hudson Valley rental property maintenance, short-term rental maintenance, Airbnb turnover service, vacation rental handyman, lawn care rental property, rental property repairs Orange County NY">
+    <meta name="author" content="R&B Property Maintenance">
+
+    <title>Property Maintenance in Walden, NY | Rental &amp; Short-Term Rental Maintenance | R&amp;B</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏡</text></svg>">
+
+    <!-- Preload hero background for instant rendering -->
+    <link rel="preload" as="image" type="image/webp" href="/images/property-maintenance/home.webp" fetchpriority="high">
+
+    <!-- Preload service card images -->
+    <link rel="preload" as="image" type="image/jpeg" href="/images/property-maintenance/service-repairs.jpg">
+    <link rel="preload" as="image" type="image/jpeg" href="/images/property-maintenance/service-lawn-care.jpg">
+    <link rel="preload" as="image" type="image/jpeg" href="/images/property-maintenance/service-seasonal-cleanup.jpg">
+    <link rel="preload" as="image" type="image/jpeg" href="/images/property-maintenance/service-walkthroughs.jpg">
+    <link rel="preload" as="image" type="image/jpeg" href="/images/property-maintenance/service-turnover.jpg">
+    <link rel="preload" as="image" type="image/jpeg" href="/images/property-maintenance/service-maintenance-plans.jpg">
+
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <style>
+        /* ── Construction-section overrides ── */
+        .nav-logo-sub-construction {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #9ca3af;
+        }
+
+        /* Fix letter-spacing inherited from global hero styles */
+        .hero-subtext {
+            letter-spacing: 0.01em;
+        }
+
+        /* Interactive mag grid */
+        #heroMagGrid {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            display: grid;
+        }
+
+        .mag-cell {
+            border: 1px solid rgba(184, 134, 11, 0.18);
+            transition: transform 0.12s ease-out;
+            transform-origin: center;
+        }
+
+        /* ── Hero background image ── */
+        .hero-background {
+            background: url('/images/property-maintenance/home.webp') center center / cover no-repeat !important;
+        }
+
+        /* White translucent overlay */
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.78);
+            z-index: 1;
+        }
+
+        /* Hide the SVG blueprint for this page */
+        .hero-blueprint-lines { display: none !important; }
+        #heroMagGrid { display: none !important; }
+        .grain-overlay { display: none !important; }
+
+        /* Hero text — dark for readability on white overlay */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-headline {
+            color: #111827 !important;
+        }
+
+        .hero-headline .text-accent {
+            color: #A8801A !important;
+            /* Kill the JS-injected shimmer animation */
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+            -webkit-text-fill-color: #A8801A !important;
+            animation: none !important;
+        }
+
+        .hero-subtext {
+            color: #1f2937 !important;
+        }
+
+        /* ── Service card image slots ── */
+        .pm-service-card-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e5e7eb 100%);
+            flex-shrink: 0;
+        }
+
+        .pm-service-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        /* =============================================
+           Service cards
+           ============================================= */
+        .pm-services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        .pm-service-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid #f3f4f6;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .pm-service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, #b8860b, #d4a853);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .pm-service-card:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.09);
+            transform: translateY(-4px);
+        }
+
+        .pm-service-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .pm-service-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(184, 134, 11, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+            color: #b8860b;
+        }
+
+        .pm-service-card-body {
+            padding: 24px 26px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .pm-service-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .pm-service-learn-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #111827;
+            margin-top: 18px;
+            transition: gap 0.2s ease;
+        }
+
+        .pm-service-card:hover .pm-service-learn-more { gap: 9px; }
+
+        /* =============================================
+           Value props
+           ============================================= */
+        .pm-values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 48px 80px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .pm-value-item {
+            text-align: center;
+        }
+
+        .pm-value-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #b8860b;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .pm-value-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 6px;
+        }
+
+        .pm-value-desc {
+            font-size: 0.82rem;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* =============================================
+           How it works — vertical timeline
+           ============================================= */
+        .pm-steps-grid {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        /* Vertical center line */
+        .pm-steps-grid::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #b8860b, #d4a853);
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        .pm-step {
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            align-items: center;
+            gap: 40px;
+            padding: 36px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pm-step-num {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #b8860b;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 16px rgba(184, 134, 11, 0.35);
+            position: relative;
+            z-index: 2;
+        }
+
+        .pm-step-content {
+            /* text side */
+        }
+
+        .pm-step-spacer {
+            /* empty opposite side */
+        }
+
+        /* Odd steps: content left, spacer right */
+        .pm-step:nth-child(odd) .pm-step-content { order: 1; text-align: right; }
+        .pm-step:nth-child(odd) .pm-step-num     { order: 2; }
+        .pm-step:nth-child(odd) .pm-step-spacer  { order: 3; }
+
+        /* Even steps: spacer left, content right */
+        .pm-step:nth-child(even) .pm-step-spacer  { order: 1; }
+        .pm-step:nth-child(even) .pm-step-num      { order: 2; }
+        .pm-step:nth-child(even) .pm-step-content  { order: 3; text-align: left; }
+
+        .pm-step-content h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .pm-step-content p {
+            font-size: 1rem;
+            color: #6b7280;
+            line-height: 1.65;
+        }
+
+        /* =============================================
+           CTA Strip
+           ============================================= */
+        .pm-trust-strip {
+            background: #1f2937;
+            padding: 56px 0;
+        }
+
+        .pm-trust-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .pm-trust-text h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #f9fafb;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+
+        .pm-trust-text p {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        .pm-trust-actions {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        /* =============================================
+           Responsive
+           ============================================= */
+        @media (max-width: 768px) {
+            .pm-services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pm-values-grid {
+                gap: 32px 40px;
+            }
+
+            .pm-steps-grid {
+                max-width: 100%;
+            }
+
+            .pm-step {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                gap: 12px;
+                padding: 28px 0;
+            }
+
+            .pm-steps-grid::before { display: none; }
+
+            .pm-step:nth-child(odd) .pm-step-content,
+            .pm-step:nth-child(even) .pm-step-content { order: 2; text-align: left; }
+            .pm-step:nth-child(odd) .pm-step-num,
+            .pm-step:nth-child(even) .pm-step-num     { order: 1; }
+            .pm-step:nth-child(odd) .pm-step-spacer,
+            .pm-step:nth-child(even) .pm-step-spacer  { display: none; }
+
+            .pm-trust-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .pm-trust-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .pm-services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pm-values-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        /* ── Loading gate ── */
+        #loading-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            transform: translateX(0);
+            transition: transform 0.72s cubic-bezier(0.76, 0, 0.24, 1);
+            will-change: transform;
+        }
+
+        #loading-gate.gate-open {
+            transform: translateX(-100%);
+        }
+
+        .gate-emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 18px;
+            opacity: 0.18;
+            pointer-events: none;
+            position: absolute;
+            inset: -20px;
+        }
+
+        .gate-emoji-grid span {
+            font-size: 2.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: gatePulse 2.4s ease-in-out infinite;
+        }
+
+        .gate-emoji-grid span:nth-child(odd)  { animation-delay: 0s; }
+        .gate-emoji-grid span:nth-child(even) { animation-delay: 1.2s; }
+
+        @keyframes gatePulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50%       { transform: scale(1.12); opacity: 1; }
+        }
+
+        .gate-brand {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .gate-brand-logo {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #111827;
+            letter-spacing: -0.04em;
+            font-family: Inter, sans-serif;
+            line-height: 1;
+        }
+
+        .gate-brand-sub {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #A8801A;
+            margin-top: 8px;
+        }
+
+        .gate-bar {
+            width: 40px;
+            height: 2px;
+            background: #A8801A;
+            margin: 16px auto 0;
+            transform-origin: left;
+            animation: gateBar 1.1s ease forwards;
+        }
+
+        @keyframes gateBar {
+            from { transform: scaleX(0); }
+            to   { transform: scaleX(1); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Gate -->
+    <div id="loading-gate" aria-hidden="true">
+        <div class="gate-emoji-grid" id="gateGrid"></div>
+        <div class="gate-brand">
+            <div class="gate-brand-logo">R&amp;B</div>
+            <div class="gate-brand-sub">Property Maintenance</div>
+            <div class="gate-bar"></div>
+        </div>
+    </div>
+
+    <script>
+        // Build emoji wall
+        const emojis = ['🏡','🔑','🏠','🌿','🔧','🏚️','🪴','🛠️','🏘️','🧹','🏗️','🌱'];
+        const grid = document.getElementById('gateGrid');
+        for (let i = 0; i < 96; i++) {
+            const s = document.createElement('span');
+            s.textContent = emojis[i % emojis.length];
+            grid.appendChild(s);
+        }
+
+        // Slide gate out after short delay
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-gate').classList.add('gate-open');
+            }, 900);
+        });
+    </script>
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="/property-maintenance" class="nav-logo"
+                style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-decoration:none;">
+                <span class="logo-text">R&B</span>
+                <span class="nav-logo-sub-construction">PROPERTY MAINTENANCE</span>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/property-maintenance" class="active">Home</a></li>
+                <li><a href="/property-maintenance/services">Services</a></li>
+                <li><a href="/property-maintenance/contact">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="/property-maintenance/contact" class="nav-cta">Get a Free Quote</a>
+            </div>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="/property-maintenance" class="mobile-link active">Home</a>
+                <a href="/property-maintenance/services" class="mobile-link">Services</a>
+                <a href="/property-maintenance/contact" class="mobile-link">Contact</a>
+                <a href="/property-maintenance/contact" class="mobile-cta">Get a Free Quote</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main>
+    <section class="hero" id="hero" aria-label="Hero">
+        <div class="hero-background">
+            <div id="heroMagGrid"></div>
+            <div class="hero-blueprint-lines" style="display:none"><svg>
+
+                    <!-- BASE LAYER: Static faint landscape plan -->
+                    <g class="blueprint-base" stroke="currentColor" fill="none" stroke-opacity="0.15">
+
+                        <!-- Diagonal mowing stripes — suggest a maintained lawn -->
+                        <g stroke-width="1" stroke-opacity="0.7">
+                            <path d="M -100,140 L 1300,140" stroke-dasharray="20 8" />
+                            <path d="M -100,210 L 1300,210" stroke-dasharray="20 8" />
+                            <path d="M -100,280 L 1300,280" stroke-dasharray="20 8" />
+                            <path d="M -100,350 L 1300,350" stroke-dasharray="20 8" />
+                            <path d="M -100,420 L 1300,420" stroke-dasharray="20 8" />
+                            <path d="M -100,490 L 1300,490" stroke-dasharray="20 8" />
+                            <path d="M -100,560 L 1300,560" stroke-dasharray="20 8" />
+                            <path d="M -100,630 L 1300,630" stroke-dasharray="20 8" />
+                            <path d="M -100,700 L 1300,700" stroke-dasharray="20 8" />
+                        </g>
+
+                        <!-- LAWN MOWER — top-down technical view (right side) -->
+                        <!-- Cutting deck (main housing) -->
+                        <rect x="730" y="220" width="290" height="270" rx="18" stroke-width="4" stroke-linecap="square" />
+                        <!-- Engine housing -->
+                        <rect x="785" y="236" width="180" height="95" rx="7" stroke-width="2.5" />
+                        <!-- Engine cooling fins (detail lines) -->
+                        <path stroke-width="1" stroke-opacity="0.5" d="
+                            M 800,250 L 800,318   M 820,250 L 820,318
+                            M 840,250 L 840,318   M 860,250 L 860,318
+                            M 880,250 L 880,318   M 900,250 L 900,318
+                            M 920,250 L 920,318   M 940,250 L 940,318
+                        " />
+                        <!-- Blade circle (dashed — hidden component) -->
+                        <circle cx="875" cy="390" r="115" stroke-width="1.5" stroke-dasharray="10 5" stroke-opacity="0.6" />
+                        <!-- Blade arms cross -->
+                        <path stroke-width="1.5" stroke-dasharray="14 5" stroke-opacity="0.5"
+                            d="M 760,390 L 990,390 M 875,275 L 875,505" />
+                        <!-- Rear wheels -->
+                        <circle cx="756" cy="464" r="30" stroke-width="2.5" />
+                        <circle cx="756" cy="464" r="13" stroke-width="1.5" stroke-opacity="0.6" />
+                        <circle cx="994" cy="464" r="30" stroke-width="2.5" />
+                        <circle cx="994" cy="464" r="13" stroke-width="1.5" stroke-opacity="0.6" />
+                        <!-- Front wheels -->
+                        <circle cx="756" cy="240" r="21" stroke-width="2" />
+                        <circle cx="994" cy="240" r="21" stroke-width="2" />
+                        <!-- Handle bars -->
+                        <path stroke-width="3" stroke-linecap="round"
+                            d="M 770,490 L 735,610 M 980,490 L 1015,610" />
+                        <path stroke-width="2.5" stroke-linecap="round"
+                            d="M 735,610 L 1015,610" />
+                        <!-- Handle grips -->
+                        <rect x="724" y="601" width="32" height="18" rx="9" stroke-width="1.5" />
+                        <rect x="994" y="601" width="32" height="18" rx="9" stroke-width="1.5" />
+                        <!-- Discharge chute (right side) -->
+                        <path stroke-width="2"
+                            d="M 1020,350 L 1080,325 L 1095,375 L 1035,400 Z" />
+                        <!-- Dimension marks -->
+                        <path stroke-width="0.75" stroke-opacity="0.4"
+                            d="M 730,206 L 1020,206 M 730,206 L 730,216 M 1020,206 L 1020,216" />
+                        <path stroke-width="0.75" stroke-opacity="0.4"
+                            d="M 714,220 L 714,490 M 714,220 L 724,220 M 714,490 L 724,490" />
+
+                        <!-- Labels -->
+                        <g fill="currentColor" stroke="none" opacity="0.55"
+                            style="font-family: monospace; font-size: 11px; letter-spacing: 2px; font-weight: bold;">
+                            <text x="875" y="395" text-anchor="middle">BLADE DECK</text>
+                            <text x="875" y="650" text-anchor="middle" style="font-size:10px;">PUSH MOWER — PLAN VIEW</text>
+                        </g>
+
+                        <!-- HEDGE SHEARS — left side technical drawing -->
+                        <path stroke-width="2.5" stroke-linecap="round"
+                            d="M 120,160 L 340,560" />
+                        <path stroke-width="2.5" stroke-linecap="round"
+                            d="M 340,160 L 120,560" />
+                        <!-- Blade edges (slight offset line for width) -->
+                        <path stroke-width="1.5" stroke-opacity="0.5"
+                            d="M 108,165 L 328,565 M 352,165 L 132,565" />
+                        <!-- Handle rings -->
+                        <ellipse cx="110" cy="148" rx="26" ry="16" stroke-width="2" />
+                        <ellipse cx="350" cy="148" rx="26" ry="16" stroke-width="2" />
+                        <ellipse cx="110" cy="572" rx="26" ry="16" stroke-width="2" />
+                        <ellipse cx="350" cy="572" rx="26" ry="16" stroke-width="2" />
+                        <!-- Pivot -->
+                        <circle cx="230" cy="360" r="11" stroke-width="2" />
+                        <line x1="223" y1="360" x2="237" y2="360" stroke-width="1.5" />
+                        <line x1="230" y1="353" x2="230" y2="367" stroke-width="1.5" />
+                        <!-- Shears label -->
+                        <g fill="currentColor" stroke="none" opacity="0.55"
+                            style="font-family: monospace; font-size: 10px; letter-spacing: 2px; font-weight: bold;">
+                            <text x="230" y="640" text-anchor="middle">HEDGE SHEARS</text>
+                        </g>
+
+                        <!-- TREES / SHRUBS — landscape plan circles -->
+                        <circle cx="108" cy="720" r="36" stroke-width="1.5" />
+                        <line x1="108" y1="692" x2="108" y2="748" stroke-width="1" />
+                        <line x1="80" y1="720" x2="136" y2="720" stroke-width="1" />
+
+                        <circle cx="560" cy="90" r="30" stroke-width="1.5" />
+                        <line x1="560" y1="68" x2="560" y2="112" stroke-width="1" />
+                        <line x1="538" y1="90" x2="582" y2="90" stroke-width="1" />
+
+                        <circle cx="1120" cy="110" r="24" stroke-width="1.5" />
+
+                        <circle cx="1120" cy="710" r="32" stroke-width="1.5" />
+                        <line x1="1120" y1="686" x2="1120" y2="734" stroke-width="1" />
+                        <line x1="1096" y1="710" x2="1144" y2="710" stroke-width="1" />
+                    </g>
+
+                    <!-- ACTIVE LAYER: Animated stroke packets -->
+                    <g class="blueprint-active" stroke="currentColor" fill="none">
+                        <!-- Mowing stripes -->
+                        <path class="anim-path layer-1" stroke-width="1"
+                            d="M -100,140 L 1300,140 M -100,280 L 1300,280 M -100,420 L 1300,420
+                               M -100,560 L 1300,560 M -100,700 L 1300,700" />
+                        <path class="anim-path layer-2" stroke-width="1"
+                            d="M -100,210 L 1300,210 M -100,350 L 1300,350 M -100,490 L 1300,490
+                               M -100,630 L 1300,630" />
+
+                        <!-- Mower deck -->
+                        <rect class="anim-path layer-1" x="730" y="220" width="290" height="270" rx="18" stroke-width="4" />
+                        <!-- Engine housing -->
+                        <rect class="anim-path layer-2" x="785" y="236" width="180" height="95" rx="7" stroke-width="2.5" />
+                        <!-- Blade circle -->
+                        <circle class="anim-path layer-2" cx="875" cy="390" r="115" stroke-width="1.5" stroke-dasharray="10 5" />
+                        <!-- Handle -->
+                        <path class="anim-path layer-2" stroke-width="3" stroke-linecap="round"
+                            d="M 770,490 L 735,610 M 980,490 L 1015,610 M 735,610 L 1015,610" />
+                        <!-- Wheels -->
+                        <g class="anim-path layer-3" stroke-width="2.5">
+                            <circle cx="756" cy="464" r="30" />
+                            <circle cx="994" cy="464" r="30" />
+                            <circle cx="756" cy="240" r="21" />
+                            <circle cx="994" cy="240" r="21" />
+                        </g>
+                        <!-- Discharge chute -->
+                        <path class="anim-path layer-3" stroke-width="2"
+                            d="M 1020,350 L 1080,325 L 1095,375 L 1035,400 Z" />
+
+                        <!-- Hedge shears blades -->
+                        <path class="anim-path layer-2" stroke-width="2.5" stroke-linecap="round"
+                            d="M 120,160 L 340,560 M 340,160 L 120,560" />
+                        <!-- Shear handles + pivot -->
+                        <g class="anim-path layer-3" stroke-width="2">
+                            <ellipse cx="110" cy="148" rx="26" ry="16" />
+                            <ellipse cx="350" cy="148" rx="26" ry="16" />
+                            <ellipse cx="110" cy="572" rx="26" ry="16" />
+                            <ellipse cx="350" cy="572" rx="26" ry="16" />
+                            <circle cx="230" cy="360" r="11" />
+                        </g>
+
+                        <!-- Trees -->
+                        <g class="anim-path layer-3" stroke-width="1.5">
+                            <circle cx="108" cy="720" r="36" />
+                            <circle cx="560" cy="90" r="30" />
+                            <circle cx="1120" cy="710" r="32" />
+                            <circle cx="1120" cy="110" r="24" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div class="grain-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-headline">
+                Property Maintenance for Rental Homes in<br>
+                <span class="text-accent">Orange County, the Catskills &amp; Hudson Valley.</span>
+            </h1>
+            <p class="hero-subtext">R&amp;B handles repairs, lawn care, seasonal cleanups, property walkthroughs, and Airbnb turnover prep for rental owners across Orange County, the Catskills, and the Hudson Valley — Walden, Middletown, Newburgh, New Paltz, and beyond.</p>
+            <div class="hero-ctas">
+                <a href="/property-maintenance/contact" class="btn btn-primary">Get a Free Quote</a>
+                <div class="hero-secondary-links">
+                    <a href="/property-maintenance/contact" class="text-link">Discuss Your Property</a>
+                    <span class="link-separator">·</span>
+                    <a href="/property-maintenance/services" class="text-link">View Services</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="section" style="background:#f9fafb;padding:80px 0;">
+        <div class="container">
+            <div class="section-header" style="margin-bottom:48px;">
+                <span class="section-label">What We Do</span>
+                <h2 class="section-title">Everything your property needs</h2>
+                <p class="section-subtitle">Everything your rental needs — handled, documented, and done right.</p>
+            </div>
+
+            <div class="pm-services-grid">
+                <!-- Card 1 -->
+                <a href="/property-maintenance/services#repairs" class="pm-service-card">
+                    <div class="pm-service-card-image">
+                        <img src="/images/property-maintenance/service-repairs.jpg" alt="General Repairs">
+                    </div>
+                    <div class="pm-service-card-body">
+                        <h3>General Repairs & Handyman</h3>
+                        <span class="pm-service-learn-more">
+                            Learn more
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="/property-maintenance/services#lawn" class="pm-service-card">
+                    <div class="pm-service-card-image">
+                        <img src="/images/property-maintenance/service-lawn-care.jpg" alt="Lawn Care & Mowing">
+                    </div>
+                    <div class="pm-service-card-body">
+                        <h3>Lawn Care & Mowing</h3>
+                        <span class="pm-service-learn-more">
+                            Learn more
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="/property-maintenance/services#seasonal" class="pm-service-card">
+                    <div class="pm-service-card-image">
+                        <img src="/images/property-maintenance/service-seasonal-cleanup.jpg" alt="Seasonal Yard Cleanup">
+                    </div>
+                    <div class="pm-service-card-body">
+                        <h3>Seasonal Yard Cleanup</h3>
+                        <span class="pm-service-learn-more">
+                            Learn more
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 4 -->
+                <a href="/property-maintenance/services#inspections" class="pm-service-card">
+                    <div class="pm-service-card-image">
+                        <img src="/images/property-maintenance/service-walkthroughs.jpg" alt="Property Walkthroughs">
+                    </div>
+                    <div class="pm-service-card-body">
+                        <h3>Property Walkthroughs</h3>
+                        <span class="pm-service-learn-more">
+                            Learn more
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 5 -->
+                <a href="/property-maintenance/services#turnover" class="pm-service-card">
+                    <div class="pm-service-card-image">
+                        <img src="/images/property-maintenance/service-turnover.jpg" alt="Turnover & Refresh">
+                    </div>
+                    <div class="pm-service-card-body">
+                        <h3>Turnover & Refresh</h3>
+                        <span class="pm-service-learn-more">
+                            Learn more
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 6 -->
+                <a href="/property-maintenance/services#plans" class="pm-service-card">
+                    <div class="pm-service-card-image">
+                        <img src="/images/property-maintenance/service-maintenance-plans.jpg" alt="Ongoing Maintenance Plans">
+                    </div>
+                    <div class="pm-service-card-body">
+                        <h3>Ongoing Maintenance Plans</h3>
+                        <span class="pm-service-learn-more">
+                            Learn more
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <div style="text-align:center;margin-top:72px;">
+                <a href="/property-maintenance/services" class="btn btn-primary">See All Services →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us / Value Props -->
+    <section class="section" style="padding:64px 0 80px;background:#fff;">
+        <div class="container">
+            <div class="section-header" style="margin-bottom:56px;">
+                <span class="section-label">Why R&B</span>
+                <h2 class="section-title">Peace of mind, from a distance.</h2>
+                <p class="section-subtitle">One team. One contact. Full visibility into your property — no matter where you are.</p>
+            </div>
+
+            <div class="pm-values-grid">
+                <div class="pm-value-item">
+                    <div class="pm-value-number">100%</div>
+                    <div class="pm-value-label">Photo-Documented</div>
+                    <div class="pm-value-desc">Every visit includes before-and-after photos sent directly to you.</div>
+                </div>
+                <div class="pm-value-item">
+                    <div class="pm-value-number">24h</div>
+                    <div class="pm-value-label">Response Time</div>
+                    <div class="pm-value-desc">Urgent repair requests acknowledged and scheduled within 24 hours.</div>
+                </div>
+                <div class="pm-value-item">
+                    <div class="pm-value-number">0</div>
+                    <div class="pm-value-label">Surprises</div>
+                    <div class="pm-value-desc">Clear pricing, written scope, and no hidden fees — ever.</div>
+                </div>
+                <div class="pm-value-item">
+                    <div class="pm-value-number">1</div>
+                    <div class="pm-value-label">Point of Contact</div>
+                    <div class="pm-value-desc">One dedicated contact who knows your property inside and out.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" style="background:#f9fafb;padding:80px 0;">
+        <div class="container">
+            <div class="section-header" style="margin-bottom:64px;">
+                <span class="section-label">The Process</span>
+                <h2 class="section-title">Simple from start to finish</h2>
+                <p class="section-subtitle">Getting your property on a maintenance plan takes just a few steps.</p>
+            </div>
+
+            <div class="pm-steps-grid">
+                <div class="pm-step">
+                    <div class="pm-step-content">
+                        <h4>Request a Quote</h4>
+                        <p>Tell us about your property and what you need. Takes under 2 minutes.</p>
+                    </div>
+                    <div class="pm-step-num">1</div>
+                    <div class="pm-step-spacer"></div>
+                </div>
+                <div class="pm-step">
+                    <div class="pm-step-spacer"></div>
+                    <div class="pm-step-num">2</div>
+                    <div class="pm-step-content">
+                        <h4>Property Assessment</h4>
+                        <p>We visit, document the condition, and build a plan around your property.</p>
+                    </div>
+                </div>
+                <div class="pm-step">
+                    <div class="pm-step-content">
+                        <h4>We Get to Work</h4>
+                        <p>Scheduled visits begin. Photos and updates after every service.</p>
+                    </div>
+                    <div class="pm-step-num">3</div>
+                    <div class="pm-step-spacer"></div>
+                </div>
+                <div class="pm-step">
+                    <div class="pm-step-spacer"></div>
+                    <div class="pm-step-num">4</div>
+                    <div class="pm-step-content">
+                        <h4>Ongoing Support</h4>
+                        <p>Reach out anytime. We're your on-the-ground partner — always.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" style="background:#fff;padding:80px 0;">
+        <div class="container">
+            <div class="section-header" style="margin-bottom:56px;">
+                <span class="section-label">What Owners Say</span>
+                <h2 class="section-title">Trusted by Hudson Valley hosts</h2>
+                <p class="section-subtitle">Real feedback from short-term rental owners across the Hudson Valley.</p>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="pm-testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div style="background:#f9fafb;border-radius:16px;padding:32px 28px;border:1px solid #f0f0f0;display:flex;flex-direction:column;gap:20px;">
+                    <div style="display:flex;gap:4px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p style="font-size:0.95rem;color:#374151;line-height:1.75;font-style:italic;">"We own a cabin in Woodstock and were living two hours away — I was constantly stressed about the property between bookings. R&B took over the lawn care and turnover prep and it's been night and day. Guests keep leaving 5-star reviews mentioning how pristine the yard looks."</p>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:auto;">
+                        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#b8860b,#d4a853);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.9rem;flex-shrink:0;">KM</div>
+                        <div>
+                            <div style="font-weight:700;font-size:0.9rem;color:#111827;">Karen M.</div>
+                            <div style="font-size:0.8rem;color:#9ca3af;">Woodstock, NY · Airbnb Superhost</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div style="background:#f9fafb;border-radius:16px;padding:32px 28px;border:1px solid #f0f0f0;display:flex;flex-direction:column;gap:20px;">
+                    <div style="display:flex;gap:4px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p style="font-size:0.95rem;color:#374151;line-height:1.75;font-style:italic;">"I had a leaky faucet reported by guests on a Friday afternoon. R&B had someone out by Saturday morning and sent me photos before and after. That kind of reliability is exactly what you need when you're managing a rental remotely. Highly recommend."</p>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:auto;">
+                        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#b8860b,#d4a853);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.9rem;flex-shrink:0;">DR</div>
+                        <div>
+                            <div style="font-weight:700;font-size:0.9rem;color:#111827;">David R.</div>
+                            <div style="font-size:0.8rem;color:#9ca3af;">Kingston, NY · VRBO Host</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div style="background:#f9fafb;border-radius:16px;padding:32px 28px;border:1px solid #f0f0f0;display:flex;flex-direction:column;gap:20px;">
+                    <div style="display:flex;gap:4px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p style="font-size:0.95rem;color:#374151;line-height:1.75;font-style:italic;">"The seasonal cleanup they did on my Catskill property before spring bookings opened was thorough and professional — cleared all the winter debris, trimmed the shrubs, and the deck looked brand new. My bookings picked up immediately. Worth every penny."</p>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:auto;">
+                        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#b8860b,#d4a853);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.9rem;flex-shrink:0;">SH</div>
+                        <div>
+                            <div style="font-weight:700;font-size:0.9rem;color:#111827;">Sara H.</div>
+                            <div style="font-size:0.8rem;color:#9ca3af;">Catskill, NY · Short-Term Rental Owner</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div style="background:#f9fafb;border-radius:16px;padding:32px 28px;border:1px solid #f0f0f0;display:flex;flex-direction:column;gap:20px;">
+                    <div style="display:flex;gap:4px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p style="font-size:0.95rem;color:#374151;line-height:1.75;font-style:italic;">"We've been on R&B's monthly maintenance plan for over a year. The property walkthroughs with photo reports are a game-changer — I can see exactly what's happening at my place in New Paltz without being there. No surprises, no stress."</p>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:auto;">
+                        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#b8860b,#d4a853);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.9rem;flex-shrink:0;">JT</div>
+                        <div>
+                            <div style="font-weight:700;font-size:0.9rem;color:#111827;">James T.</div>
+                            <div style="font-size:0.8rem;color:#9ca3af;">New Paltz, NY · VRBO & Airbnb Host</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div style="background:#f9fafb;border-radius:16px;padding:32px 28px;border:1px solid #f0f0f0;display:flex;flex-direction:column;gap:20px;">
+                    <div style="display:flex;gap:4px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b8860b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p style="font-size:0.95rem;color:#374151;line-height:1.75;font-style:italic;">"Found R&B after a frustrating experience with flaky contractors. From the first quote call they were professional and clear about pricing. They handle everything for my Walden rental now — repairs, lawn, the works. I finally feel like I have a real partner on the ground."</p>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:auto;">
+                        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#b8860b,#d4a853);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.9rem;flex-shrink:0;">ML</div>
+                        <div>
+                            <div style="font-weight:700;font-size:0.9rem;color:#111827;">Michelle L.</div>
+                            <div style="font-size:0.8rem;color:#9ca3af;">Walden, NY · Short-Term Rental Owner</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            @media (max-width: 900px) {
+                .pm-testimonials-grid { grid-template-columns: 1fr 1fr !important; }
+            }
+            @media (max-width: 560px) {
+                .pm-testimonials-grid { grid-template-columns: 1fr !important; }
+            }
+        </style>
+    </section>
+
+    <!-- Who We Help -->
+    <section class="section" style="background:#f9fafb;padding:72px 0;">
+        <div class="container">
+            <div class="section-header" style="margin-bottom:48px;">
+                <span class="section-label">Who We Help</span>
+                <h2 class="section-title">Built for property owners who aren't always there</h2>
+                <p class="section-subtitle">Whether you manage one rental or a small portfolio, we're your on-the-ground team across Orange County and the Hudson Valley.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="pm-testimonials-grid">
+                <div style="background:#fff;border-radius:14px;padding:28px 24px;border:1px solid #e5e7eb;display:flex;gap:16px;align-items:flex-start;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:rgba(184,134,11,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#b8860b;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <div>
+                        <h3 style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:6px;">Airbnb &amp; Short-Term Rental Hosts</h3>
+                        <p style="font-size:0.875rem;color:#6b7280;line-height:1.65;">Turnover prep, guest-ready inspections, and reliable repairs between bookings — so every check-in starts with a 5-star first impression.</p>
+                    </div>
+                </div>
+                <div style="background:#fff;border-radius:14px;padding:28px 24px;border:1px solid #e5e7eb;display:flex;gap:16px;align-items:flex-start;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:rgba(184,134,11,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#b8860b;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                    </div>
+                    <div>
+                        <h3 style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:6px;">Absentee &amp; Out-of-State Owners</h3>
+                        <p style="font-size:0.875rem;color:#6b7280;line-height:1.65;">Live far from your Hudson Valley property? We're your eyes and hands on the ground — with photo-documented visits so you always know exactly what's happening.</p>
+                    </div>
+                </div>
+                <div style="background:#fff;border-radius:14px;padding:28px 24px;border:1px solid #e5e7eb;display:flex;gap:16px;align-items:flex-start;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:rgba(184,134,11,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#b8860b;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                    </div>
+                    <div>
+                        <h3 style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:6px;">Real Estate Investors &amp; Landlords</h3>
+                        <p style="font-size:0.875rem;color:#6b7280;line-height:1.65;">Protect your investment with preventive maintenance plans and rapid-response repairs that keep tenants happy and costly damage from escalating.</p>
+                    </div>
+                </div>
+                <div style="background:#fff;border-radius:14px;padding:28px 24px;border:1px solid #e5e7eb;display:flex;gap:16px;align-items:flex-start;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:rgba(184,134,11,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#b8860b;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
+                    </div>
+                    <div>
+                        <h3 style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:6px;">Second-Home Owners</h3>
+                        <p style="font-size:0.875rem;color:#6b7280;line-height:1.65;">Your Hudson Valley getaway should be ready when you are. We keep it maintained year-round — lawn, seasonal prep, repairs — so you arrive to a property that's already perfect.</p>
+                    </div>
+                </div>
+                <div style="background:#fff;border-radius:14px;padding:28px 24px;border:1px solid #e5e7eb;display:flex;gap:16px;align-items:flex-start;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:rgba(184,134,11,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#b8860b;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <div>
+                        <h3 style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:6px;">Busy Local Homeowners</h3>
+                        <p style="font-size:0.875rem;color:#6b7280;line-height:1.65;">Based in Orange County but just don't have the time? We handle the handyman work, seasonal cleanup, and recurring maintenance so your to-do list stays short.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Areas We Serve -->
+    <section class="section" style="background:#fff;padding:72px 0;">
+        <div class="container">
+            <div class="section-header" style="margin-bottom:48px;">
+                <span class="section-label">Service Area</span>
+                <h2 class="section-title">Areas we serve in Orange County &amp; the Hudson Valley</h2>
+                <p class="section-subtitle">Based in Walden, NY — we serve property owners across Orange County, Ulster County, Dutchess County, and surrounding Hudson Valley communities.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center;" class="pm-testimonials-grid">
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Walden</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Orange County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Middletown</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Orange County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Newburgh</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Orange County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Montgomery</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Orange County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Goshen</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Orange County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">New Paltz</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Ulster County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Kingston</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Ulster County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Woodstock</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Ulster County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Wallkill</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Orange County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Marlboro</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Ulster County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;">
+                    <div style="font-weight:700;color:#111827;font-size:0.95rem;margin-bottom:4px;">Catskill</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Greene County, NY</div>
+                </div>
+                <div style="background:#f9fafb;border-radius:12px;padding:20px 16px;border:1px solid #e5e7eb;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                    <div style="font-weight:700;color:#b8860b;font-size:0.95rem;margin-bottom:4px;">+ Surrounding Areas</div>
+                    <div style="font-size:0.8rem;color:#9ca3af;">Don't see your town? <a href="/property-maintenance/contact" style="color:#b8860b;text-decoration:underline;">Ask us</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Trust Strip -->
+    <div class="pm-trust-strip">
+        <div class="container">
+            <div class="pm-trust-inner">
+                <div class="pm-trust-text">
+                    <h2>Ready to stop worrying about your property?</h2>
+                    <p>Let's talk about what your property needs. No commitment required.</p>
+                </div>
+                <div class="pm-trust-actions">
+                    <a href="/property-maintenance/contact" class="btn btn-primary btn-large">Get a Free Quote</a>
+                    <a href="/property-maintenance/services" class="btn btn-secondary btn-large" style="background:transparent;color:#f9fafb;border-color:rgba(255,255,255,0.25);">View Services</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/property-maintenance"
+                        style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-decoration:none;">
+                        <span class="logo-text">R&B</span>
+                        <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#a0aec0;">PROPERTY MAINTENANCE</span>
+                    </a>
+                    <p class="footer-tagline">Your property. Always ready.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-heading">Services</h4>
+                    <ul>
+                        <li><a href="/property-maintenance/services#repairs">General Repairs</a></li>
+                        <li><a href="/property-maintenance/services#lawn">Lawn Care</a></li>
+                        <li><a href="/property-maintenance/services#seasonal">Seasonal Cleanup</a></li>
+                        <li><a href="/property-maintenance/services#plans">Maintenance Plans</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul>
+                        <li><a href="/property-maintenance">Home</a></li>
+                        <li><a href="/property-maintenance/services">All Services</a></li>
+                        <li><a href="/property-maintenance/contact">Contact</a></li>
+                        <li><a href="/">R&B Consulting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4 class="footer-heading">Contact</h4>
+                    <ul>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.5" class="footer-icon">
+                                <path
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <a href="mailto:info@rnbconsulting.org">info@rnbconsulting.org</a>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.5" class="footer-icon">
+                                <path
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            <a href="tel:+18456160149">(845) 616-0149</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 R&B Group. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script>
+        // Interactive mag grid
+        (function () {
+            const hero = document.getElementById('hero');
+            const container = document.getElementById('heroMagGrid');
+            if (!hero || !container) return;
+
+            const CELL = 58;
+            const MAX_DIST = 200;
+            const MAX_SCALE = 1.9;
+            let cols = 0, rows = 0, cells = [];
+
+            function build() {
+                const w = hero.offsetWidth;
+                const h = hero.offsetHeight;
+                const nc = Math.ceil(w / CELL) + 1;
+                const nr = Math.ceil(h / CELL) + 1;
+                if (nc === cols && nr === rows) return;
+                cols = nc; rows = nr;
+                container.style.gridTemplateColumns = `repeat(${cols}, ${CELL}px)`;
+                container.style.gridTemplateRows = `repeat(${rows}, ${CELL}px)`;
+                container.innerHTML = '';
+                cells = Array.from({ length: cols * rows }, () => {
+                    const el = document.createElement('div');
+                    el.className = 'mag-cell';
+                    container.appendChild(el);
+                    return el;
+                });
+            }
+
+            build();
+
+            hero.addEventListener('mousemove', function (e) {
+                const r = hero.getBoundingClientRect();
+                const mx = e.clientX - r.left;
+                const my = e.clientY - r.top;
+                for (let i = 0; i < cells.length; i++) {
+                    const cx = (i % cols + 0.5) * CELL;
+                    const cy = (Math.floor(i / cols) + 0.5) * CELL;
+                    const d = Math.hypot(mx - cx, my - cy);
+                    if (d < MAX_DIST) {
+                        const t = 1 - d / MAX_DIST;
+                        const s = 1 + t * t * (MAX_SCALE - 1);
+                        cells[i].style.transform = 'scale(' + s.toFixed(3) + ')';
+                    } else if (cells[i].style.transform) {
+                        cells[i].style.transform = '';
+                    }
+                }
+            });
+
+            hero.addEventListener('mouseleave', function () {
+                for (let i = 0; i < cells.length; i++) cells[i].style.transform = '';
+            });
+
+            window.addEventListener('resize', build);
+        })();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap === 'undefined') return;
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero
+            gsap.from('.hero-content > *', {
+                opacity: 0,
+                y: 30,
+                duration: 0.7,
+                stagger: 0.12,
+                ease: 'power3.out'
+            });
+
+            // Service cards — all at once to avoid stagger-y misalignment
+            gsap.from('.pm-services-grid .pm-service-card', {
+                scrollTrigger: { trigger: '.pm-services-grid', start: 'top 78%' },
+                opacity: 0,
+                y: 20,
+                duration: 0.6,
+                ease: 'power2.out'
+            });
+
+            // Value items
+            gsap.from('.pm-value-item', {
+                scrollTrigger: { trigger: '.pm-values-grid', start: 'top 80%' },
+                opacity: 0,
+                y: 30,
+                duration: 0.5,
+                stagger: 0.12,
+                ease: 'power3.out'
+            });
+
+            // Steps
+            gsap.from('.pm-step', {
+                scrollTrigger: { trigger: '.pm-steps-grid', start: 'top 75%' },
+                opacity: 0,
+                y: 30,
+                duration: 0.5,
+                stagger: 0.15,
+                ease: 'power3.out'
+            });
+        });
+    </script>
+</body>
+
+</html>
